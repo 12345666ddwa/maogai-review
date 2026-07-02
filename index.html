@@ -3,534 +3,942 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>毛概 · 期末复习手册</title>
+<title>毛概期末复习 · 川农2024</title>
 <style>
 /* ===== 全局重置 ===== */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f8f7f4;color:#2c2c2c;line-height:1.8}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif;
+  background:#f5f0e8;color:#2c2c2c;line-height:1.8;
+  counter-reset:mcq-counter tf-counter;
+}
 
 /* ===== 顶部导航 ===== */
-.top-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);padding:0 16px;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}
-.top-nav::-webkit-scrollbar{display:none}
-.top-nav a{flex-shrink:0;padding:12px 14px;font-size:13px;font-weight:500;color:#666;text-decoration:none;border-bottom:2px solid transparent;transition:all .2s}
-.top-nav a:hover{color:#b22222;background:rgba(178,34,34,0.04)}
-.top-nav a.active{color:#b22222;border-bottom-color:#b22222}
+.top-nav{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  padding:0 16px;display:flex;align-items:center;gap:4px;
+  overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;
+  box-shadow:0 1px 8px rgba(0,0,0,0.04);
+}
+.top-nav a{
+  display:inline-block;padding:10px 14px;font-size:13px;font-weight:600;
+  color:#666;text-decoration:none;border-radius:8px;transition:all 0.2s;
+}
+.top-nav a:hover,.top-nav a.active{color:#960002;background:rgba(150,0,2,0.06)}
+.top-nav a.active{border-bottom:2px solid #960002}
 
-/* ===== 头部 ===== */
-.hero{background:linear-gradient(135deg,#fdf6ec 0%,#fce8d5 100%);padding:48px 20px 36px;text-align:center}
-.hero h1{font-size:28px;color:#8b1a1a;margin-bottom:6px;letter-spacing:2px}
-.hero .sub{font-size:14px;color:#888;line-height:1.6}
-.hero .badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
-.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
-.badge-red{background:#fce4e4;color:#b22222}
-.badge-blue{background:#e3f0fc;color:#1a6bb0}
-.badge-green{background:#e6f7e6;color:#2a8a2a}
-.badge-purple{background:#f0e6ff;color:#6b3fa0}
-.badge-orange{background:#fff3e0;color:#c7700f}
-
-/* ===== 主容器 ===== */
-.container{max-width:960px;margin:0 auto;padding:0 20px 60px}
+/* ===== Hero区 ===== */
+.hero{
+  background:linear-gradient(135deg,#960002 0%,#c0392b 30%,#8b0000 100%);
+  color:#fff;text-align:center;padding:48px 20px 36px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 60%);
+  animation:heroPulse 8s ease-in-out infinite;
+}
+@keyframes heroPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.hero h1{font-size:2em;font-weight:800;position:relative;z-index:1;margin-bottom:6px}
+.hero .sub{font-size:1em;opacity:0.85;position:relative;z-index:1}
+.hero .badges{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:16px;position:relative;z-index:1
+}
+.hero .badges span{
+  background:rgba(255,255,255,0.18);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:500
+}
 
 /* ===== 考试概览 ===== */
-.exam-overview{background:#fff;border-radius:12px;padding:24px 28px;margin:24px 0;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid #b22222}
-.exam-overview h2{font-size:18px;color:#b22222;margin-bottom:12px}
-.exam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-.exam-grid .item{text-align:center;padding:12px 8px;background:#fafafa;border-radius:8px}
-.exam-grid .item .num{font-size:24px;font-weight:700;color:#b22222}
-.exam-grid .item .label{font-size:12px;color:#888;margin-top:2px}
+.exam-overview{
+  max-width:960px;margin:24px auto;padding:0 16px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px
+}
+.exam-overview .stat{
+  background:#fff;border-radius:12px;padding:16px;text-align:center;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);border-left:4px solid #960002
+}
+.stat .num{font-size:2em;font-weight:800;color:#960002}
+.stat .label{font-size:13px;color:#888;margin-top:2px}
 
-/* ===== 章节通用 ===== */
-.chapter{margin-top:40px;scroll-margin-top:60px}
-.chapter-banner{padding:20px 24px;border-radius:12px 12px 0 0;color:#fff}
-.chapter-banner h2{font-size:20px;letter-spacing:1px}
-.chapter-banner .ch-sub{font-size:13px;opacity:0.85;margin-top:4px}
-.chapter-body{background:#fff;border-radius:0 0 12px 12px;padding:24px 28px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.ch-bg1{background:linear-gradient(135deg,#b22222,#d44545)}
-.ch-bg2{background:linear-gradient(135deg,#8b4513,#c0763a)}
-.ch-bg3{background:linear-gradient(135deg,#1a6bb0,#3b8fd4)}
-.ch-bg4{background:linear-gradient(135deg,#2a7a2a,#4ca84c)}
-.ch-bg5{background:linear-gradient(135deg,#6b3fa0,#9570c9)}
-.ch-bg6{background:linear-gradient(135deg,#c7700f,#e8983a)}
+/* ===== 主容器 ===== */
+.main-container{max-width:960px;margin:0 auto;padding:0 16px 80px}
 
-/* ===== 知识点卡片 ===== */
-.kp-card{background:#fafaf8;border-radius:10px;padding:16px 20px;margin:16px 0;border-left:4px solid #ddd;transition:all .25s}
-.kp-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.07)}
-.kp-card h3{font-size:15px;color:#333;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.kp-card ul{padding-left:20px;font-size:14px;color:#444}
-.kp-card ul li{margin-bottom:4px}
+/* ===== 章节头部 ===== */
+.chapter{margin-top:32px}
+.chapter-banner{
+  background:linear-gradient(135deg,#faf7f0,#f5efe0);
+  border-radius:14px;padding:24px 28px;margin-bottom:20px;
+  border-left:5px solid #960002;
+  box-shadow:0 3px 16px rgba(0,0,0,0.05);
+}
+.chapter-banner .ch-num{
+  display:inline-block;background:#960002;color:#fff;
+  padding:3px 16px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:8px
+}
+.chapter-banner h2{font-size:1.5em;font-weight:700;color:#2c2c2c}
+.chapter-banner .ch-sub{font-size:14px;color:#777;margin-top:4px}
 
-/* ===== 关键词高亮 ===== */
-.kw{color:#1a6bb0;font-weight:600;text-decoration:underline;text-decoration-color:rgba(26,107,176,0.3);text-underline-offset:2px}
-.kw-red{color:#c0392b;font-weight:600}
-.key-point{background:#fff8dc;padding:1px 4px;border-radius:2px;color:#8b6914;font-weight:500}
+/* 原章节标题样式兼容 */
+.ch-header{
+  background:linear-gradient(135deg,#faf7f0,#f5efe0);
+  border-radius:14px;padding:24px 28px;margin-bottom:20px;
+  border-left:5px solid #960002;
+}
+.ch-header .ch-num{
+  display:inline-block;background:#960002;color:#fff;
+  padding:3px 16px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:8px
+}
+.ch-header h2{font-size:1.5em;font-weight:700}
 
-/* ===== 陷阱框 ===== */
-.trap-box{background:#fff5f5;border:1px solid #fcc;border-radius:8px;padding:12px 16px;margin:12px 0;font-size:13px}
-.trap-box .trap-title{color:#c0392b;font-weight:600;margin-bottom:4px}
+/* ===== 知识卡片 ===== */
+.knowledge-card,.kp-card{
+  background:#fff;border-radius:14px;padding:22px 24px;margin-bottom:18px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);transition:all 0.3s;
+  border:1px solid rgba(0,0,0,0.06);
+  animation:fadeUp 0.5s ease both;
+}
+.knowledge-card:hover,.kp-card:hover{
+  transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.08)
+}
 
-/* ===== 表格 ===== */
-.comp-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
-.comp-table th{background:#f0ede8;padding:8px 12px;text-align:left;font-weight:600;color:#444;border:1px solid #ddd}
-.comp-table td{padding:8px 12px;border:1px solid #ddd;color:#444}
+.card-head{margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-head h3{font-size:1.1em;font-weight:700;color:#2c2c2c}
+.card-body{font-size:14.5px;line-height:1.85}
 
-/* ===== 自测系统 ===== */
-.self-test{background:#f8f4ff;border:2px dashed #c5a8e8;border-radius:10px;padding:16px 20px;margin:20px 0;cursor:pointer}
-.self-test summary{font-size:15px;font-weight:600;color:#6b3fa0;cursor:pointer;padding:4px 0;list-style:none}
-.self-test summary::-webkit-details-marker{display:none}
-.self-test[open]{padding-bottom:20px}
-.test-content{padding-top:12px}
-.test-q{background:#fff;border-radius:8px;padding:14px;margin:10px 0;border:1px solid #e8e0f0}
-.q-stem{font-size:14px;color:#333;margin-bottom:8px}
-.q-options{padding-left:20px;font-size:13px;color:#555;margin-bottom:8px}
-.q-options li{margin-bottom:2px}
-.test-reveal summary{font-size:13px;color:#6b3fa0;font-weight:500;cursor:pointer;padding:4px 0}
-.reveal-ans{background:#f0faf0;border-radius:6px;padding:10px 14px;margin-top:6px;font-size:13px;color:#2a5a2a;border-left:3px solid #4caf50}
+/* ===== 徽章 ===== */
+.badge-exam,.badge,.badge-red,.badge-orange{
+  display:inline-block;padding:2px 12px;border-radius:12px;font-size:11px;font-weight:700;
+  white-space:nowrap
+}
+.badge-exam,.badge-red{background:#fef2f2;color:#dc2626}
+.badge-orange{background:#fff7ed;color:#ea580c}
+.badge{background:#f0f9ff;color:#0369a1}
 
-/* ===== 论述题标答 ===== */
-.essay-card{background:#fefcf3;border:1px solid #f0e4c8;border-radius:10px;padding:20px 24px;margin:16px 0}
-.essay-card h3{color:#8b6914;font-size:16px;margin-bottom:10px}
-.essay-step{background:#fff;border-radius:6px;padding:10px 14px;margin:6px 0;font-size:13px;border-left:3px solid #d4a84b}
-.essay-step .step-label{font-weight:600;color:#8b6914}
+/* ===== 关键字 ===== */
+.kw{color:#1d4ed8;font-weight:700}
+.kw-red{color:#dc2626;font-weight:700}
+.key-point{background:linear-gradient(180deg,transparent 60%,#fef08a 60%);padding:0 2px}
 
-/* ===== 速记清单 ===== */
-.quick-ref{background:#fff;border-radius:12px;padding:24px 28px;margin:32px 0;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.quick-ref h2{font-size:18px;color:#b22222;margin-bottom:16px;border-bottom:2px solid #f0e8e0;padding-bottom:8px}
+/* ===== 三层呈现 ===== */
+.layer-speak,.layer-def,.layer-one{
+  padding:10px 14px;border-radius:10px;margin:8px 0;font-size:14px
+}
+.layer-speak{background:#f0f9ff;border-left:3px solid #3b82f6}
+.layer-speak::before{content:'🗣️ 老师原话 ';font-weight:700;color:#3b82f6;font-size:12px}
+.layer-def{background:#fefce8;border-left:3px solid #eab308}
+.layer-def::before{content:'📚 专业定义 ';font-weight:700;color:#ca8a04;font-size:12px}
+.layer-one{background:#f0fdf4;border-left:3px solid #22c55e}
+.layer-one::before{content:'💡 一句话 ';font-weight:700;color:#16a34a;font-size:12px}
+
+/* ===== 原题嵌入 ===== */
+.exam-question,.orig-q{
+  background:#fafafa;border:1px dashed #d4d4d4;border-radius:10px;
+  padding:14px 16px;margin:14px 0;font-size:13.5px
+}
+.orig-label{display:inline-block;background:#fef2f2;color:#dc2626;padding:1px 10px;
+  border-radius:10px;font-size:11px;font-weight:700;margin-bottom:6px}
+.q-stem{font-weight:600;margin-bottom:6px}
+.q-options{margin-left:8px;line-height:2}
+.q-options span{display:block}
+.eq-item{margin-bottom:8px}
+.eq-label{display:inline-block;background:#fef2f2;color:#dc2626;padding:1px 8px;
+  border-radius:8px;font-size:10px;font-weight:700}
+
+/* ===== 易错陷阱 ===== */
+.trap-box{
+  background:#fff5f5;border:1px solid #fecaca;border-radius:10px;
+  padding:12px 16px;margin:14px 0;font-size:13.5px
+}
+.trap-box::before{content:'⚠️ 易错陷阱：';display:block;font-weight:700;color:#dc2626;margin-bottom:4px;font-size:13px}
+.trap-title{font-weight:700;color:#dc2626;margin-bottom:4px}
+
+/* ===== 对比表格 ===== */
+.comp-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.comp-table th{background:#960002;color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.comp-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.comp-table tr:nth-child(even){background:#fafafa}
+.comp-table tr:hover{background:#fef2f2}
+
+/* ===== 自测题 ===== */
+.self-test,.self-test-section{
+  background:#fff;border:2px dashed #d4d4d4;border-radius:12px;
+  padding:16px 18px;margin:14px 0
+}
+.self-test::before,.self-test-section::before{
+  content:'✏️ 自测练习';display:block;font-weight:700;font-size:15px;color:#7c3aed;margin-bottom:10px
+}
+.test-q{
+  background:#fafafa;border-radius:10px;padding:14px;margin:10px 0;
+  cursor:pointer;border:1px solid #e5e5e5;transition:all 0.2s
+}
+.test-q:hover{background:#f5f3ff;border-color:#c4b5fd}
+.test-content{display:none;margin-top:10px;padding:10px 14px;background:#f0fdf4;
+  border-radius:8px;font-size:13.5px;line-height:1.7}
+.test-content.show{display:block}
+.test-reveal,.reveal-ans{
+  display:inline-block;margin-top:8px;padding:4px 14px;background:#7c3aed;color:#fff;
+  border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s
+}
+.test-reveal:hover,.reveal-ans:hover{background:#6d28d9;transform:scale(1.03)}
+
+/* ===== 论述题卡片 ===== */
+.essay-card{
+  background:linear-gradient(135deg,#fefce8,#fffbeb);
+  border:2px solid #fcd34d;border-radius:14px;padding:20px 24px;margin:18px 0
+}
+.essay-step{margin:8px 0;font-size:14px}
+.step-label{display:inline-block;background:#f59e0b;color:#fff;padding:2px 10px;
+  border-radius:10px;font-size:11px;font-weight:700;margin-right:6px}
+
+/* ===== 进度/汇总 ===== */
+.summary-section{
+  background:#fff;border-radius:16px;padding:28px;margin-top:32px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06)
+}
+.summary-section h2{font-size:1.3em;font-weight:700;margin-bottom:16px;color:#960002}
+.quick-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.quick-list .item{padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002}
+
+/* ===== 动画 ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* ===== 页脚 ===== */
-.footer{text-align:center;padding:32px 20px;font-size:13px;color:#999}
+.footer{
+  max-width:960px;margin:32px auto 0;padding:24px 16px;
+  text-align:center;font-size:12px;color:#999;
+  border-top:1px solid #eee
+}
+.footer .brand{font-weight:700;color:#960002;font-size:14px}
+
+/* ===== AI助教 ===== */
+.ai-float{
+  position:fixed;right:20px;bottom:20px;z-index:999;
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#a855f7);
+  color:#fff;font-size:22px;border:none;cursor:pointer;
+  box-shadow:0 4px 20px rgba(124,58,237,0.35);
+  transition:all 0.3s;display:flex;align-items:center;justify-content:center
+}
+.ai-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(124,58,237,0.45)}
+.ai-panel{
+  position:fixed;right:20px;bottom:84px;z-index:998;
+  width:360px;max-height:min(480px,calc(100vh - 140px));
+  background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.15);
+  display:none;flex-direction:column;overflow:hidden
+}
+.ai-panel.open{display:flex}
+.ai-panel-header{
+  background:linear-gradient(135deg,#7c3aed,#a855f7);
+  color:#fff;padding:12px 16px;font-weight:700;font-size:14px;
+  display:flex;justify-content:space-between;align-items:center
+}
+.ai-messages{flex:1;overflow-y:auto;padding:12px;font-size:13.5px}
+.ai-messages .msg{margin-bottom:10px;padding:8px 12px;border-radius:12px;max-width:85%;line-height:1.6}
+.ai-messages .msg.user{background:#7c3aed;color:#fff;margin-left:auto}
+.ai-messages .msg.assistant{background:#f3f4f6;color:#333}
+.ai-input-area{display:flex;padding:10px;border-top:1px solid #eee;gap:8px}
+.ai-input-area input{flex:1;padding:8px 12px;border:1px solid #ddd;border-radius:20px;font-size:13px;outline:none}
+.ai-input-area input:focus{border-color:#7c3aed}
+.ai-input-area button{
+  background:#7c3aed;color:#fff;border:none;border-radius:20px;
+  padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer
+}
+.ai-quick{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid #f3f4f6}
+.ai-quick button{
+  background:#f3f4f6;border:none;border-radius:14px;padding:4px 10px;
+  font-size:11px;cursor:pointer;color:#555;transition:all 0.2s
+}
+.ai-quick button:hover{background:#e5e7eb;color:#333}
 
 /* ===== 响应式 ===== */
 @media(max-width:600px){
-  .container{padding:0 12px 40px}
-  .hero h1{font-size:22px}
-  .chapter-body{padding:16px 14px}
-  .top-nav a{padding:10px 10px;font-size:12px}
-  .exam-grid{grid-template-columns:repeat(3,1fr)}
+  .hero h1{font-size:1.4em}
+  .knowledge-card,.kp-card{padding:16px}
+  .ai-panel{width:calc(100vw - 32px);right:16px}
+  .chapter-banner,.ch-header{padding:16px 18px}
 }
 
-/* ===== AI助教 ===== */
-.ai-fab{position:fixed;right:20px;bottom:20px;z-index:999;width:52px;height:52px;border-radius:50%;border:none;background:linear-gradient(135deg,#8b1a1a,#c0392b);color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(139,26,26,0.35);transition:transform .2s,box-shadow .2s}
-.ai-fab:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(139,26,26,0.45)}
-.ai-sel-tip{position:fixed;z-index:998;background:#8b1a1a;color:#fff;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);display:none;white-space:nowrap;transition:opacity .2s}
-.ai-sel-tip:hover{background:#a02020}
-.ai-panel{position:fixed;right:20px;bottom:84px;z-index:997;width:360px;max-height:480px;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.18);display:none;flex-direction:column;overflow:hidden;animation:slideUp .3s ease}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.ai-panel.open{display:flex}
-.ai-phd{background:linear-gradient(135deg,#8b1a1a,#c0392b);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600;flex-shrink:0}
-.ai-phd button{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px}
-.ai-phd button:hover{opacity:1}
-.ai-pmsgs{flex:1;overflow-y:auto;padding:14px 16px;min-height:200px;max-height:340px;font-size:14px;line-height:1.6}
-.ai-pmsgs .msg{padding:10px 14px;border-radius:10px;margin-bottom:8px;max-width:85%}
-.ai-pmsgs .msg.user{margin-left:auto;background:#8b1a1a;color:#fff;border-bottom-right-radius:4px}
-.ai-pmsgs .msg.ai{margin-right:auto;background:#f0ece6;color:#333;border-bottom-left-radius:4px}
-.ai-pmsgs .msg.ai .kw{color:#1a6bb0;font-weight:600}
-.ai-pmsgs .msg.ai .kw-red{color:#c0392b;font-weight:600}
-.ai-pmsgs .empty{text-align:center;color:#bbb;font-size:13px;padding:40px 0}
-.ai-pmsgs .typing{display:flex;gap:4px;padding:8px 0}
-.ai-pmsgs .typing span{width:6px;height:6px;border-radius:50%;background:#bbb;animation:bounce 1.4s infinite}
-.ai-pmsgs .typing span:nth-child(2){animation-delay:.2s}
-.ai-pmsgs .typing span:nth-child(3){animation-delay:.4s}
-@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
-.ai-pinp{display:flex;padding:10px 14px;border-top:1px solid #eee;flex-shrink:0;gap:8px}
-.ai-pinp textarea{flex:1;border:1px solid #ddd;border-radius:8px;padding:8px 10px;font-size:13px;resize:none;height:38px;outline:none;font-family:inherit}
-.ai-pinp textarea:focus{border-color:#8b1a1a}
-.ai-pinp button{background:#8b1a1a;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;white-space:nowrap}
-.ai-pinp button:hover{background:#a02020}
-.ai-key-dialog{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.4);display:none;justify-content:center;align-items:center}
-.ai-key-dialog.open{display:flex}
-.ai-key-box{background:#fff;border-radius:14px;padding:28px 32px;max-width:420px;width:90%;text-align:center}
-.ai-key-box h3{font-size:16px;color:#333;margin-bottom:8px}
-.ai-key-box p{font-size:13px;color:#888;margin-bottom:16px;line-height:1.5}
-.ai-key-box input{width:100%;padding:10px 14px;border:2px solid #ddd;border-radius:8px;font-size:14px;outline:none;margin-bottom:12px}
-.ai-key-box input:focus{border-color:#8b1a1a}
-.ai-key-box .btn-row{display:flex;gap:10px;justify-content:center}
-.ai-key-box .btn-row button{padding:8px 24px;border-radius:8px;border:none;font-size:14px;cursor:pointer}
-.ai-key-box .btn-primary{background:#8b1a1a;color:#fff}
-.ai-key-box .btn-primary:hover{background:#a02020}
-.ai-key-box .btn-cancel{background:#eee;color:#666}
-@media(max-width:500px){
-  .ai-panel{right:8px;left:8px;width:auto;bottom:80px}
-  .ai-key-box{padding:20px 16px}
-}
-
-/* ===== 滚动入场 ===== */
-.fade-in{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
-.fade-in.visible{opacity:1;transform:translateY(0)}
+/* ===== 打印 ===== */
+@media print{.top-nav,.ai-float,.ai-panel{display:none!important}}
 </style>
 </head>
 <body>
 
-<!-- ========== 导航 ========== -->
-<nav class="top-nav">
-  <a href="#overview" class="active">📋 概览</a>
+<!-- 顶部导航 -->
+<nav class="top-nav" id="topNav">
+  <a href="#overview">📋 考试概览</a>
+  <a href="#ch0">导论</a>
   <a href="#ch1">第一章</a>
   <a href="#ch2">第二章</a>
   <a href="#ch3">第三章</a>
   <a href="#ch4">第四章</a>
   <a href="#ch5">第五章</a>
-  <a href="#ch6">第六章</a>
-  <a href="#essays">📝 论述</a>
-  <a href="#quickref">⚡ 速记</a>
+  <a href="#summary">📝 汇总</a>
 </nav>
 
-<!-- ========== 头部 ========== -->
-<header class="hero">
+<!-- Hero -->
+<div class="hero">
   <h1>📖 毛泽东思想和中国特色社会主义理论体系概论</h1>
-  <p class="sub">期末复习手册 · 2025-2026学年第2学期</p>
-  <div class="badge-row">
-    <span class="badge badge-red">6 章考点</span>
-    <span class="badge badge-blue">35 单选题</span>
-    <span class="badge badge-green">15 判断题</span>
-    <span class="badge badge-orange">5 简答题</span>
-    <span class="badge badge-purple">2 论述题</span>
-    <span class="badge badge-red">57 自测题</span>
-  </div>
-  <p style="margin-top:12px;font-size:12px;color:#aaa;">Built by <strong>Hermes × 高兴</strong> · 四川农业大学 · 经济学院</p>
-</header>
-
-<div class="container">
-
-<!-- ========== 老师重点提示 ========== -->
-<div class="exam-overview fade-in" style="border-left-color:#c7700f; background:#fefcf3;">
-  <h2>📌 老师期末重点提示</h2>
-  <div style="font-size:14px;line-height:1.8;">
-    <p style="margin-bottom:8px;"><span class="badge badge-red" style="font-size:13px;">⭐ 重点章</span> <strong>毛泽东思想及其历史地位</strong>（第二章）和 <strong>邓小平理论</strong>（第六章）——这两章是重中之重，出题最多。</p>
-    <p style="margin-bottom:8px;"><span class="badge badge-orange" style="font-size:13px;">📌 次重点</span> <strong>"三个代表"重要思想</strong>和<strong>科学发展观</strong>——这两章考的比其他章节少，但仍需基本掌握。</p>
-    <p style="margin-bottom:8px;"><span class="badge badge-purple" style="font-size:13px;">📝 论述题预警</span> <strong>马克思主义中国化时代化的历史进程</strong>（第一章）可能考一道论述题，务必准备好论述标答。</p>
-    <p style="margin-bottom:8px;"><span class="badge badge-blue" style="font-size:13px;">📄 简答题</span> 考的都是书上的理论，记准定义和要点即可。</p>
-    <p><span class="badge badge-green" style="font-size:13px;">✍️ 论述题策略</span> 第一小题考书上的理论（背熟即可）；第二小题是<strong>开放性题</strong>，必须结合第一小题的理论来作答——先写理论，再结合实际展开分析。</p>
+  <p class="sub">2024年期末复习 · 全覆盖交互式网页</p>
+  <div class="badges">
+    <span>🏫 四川农业大学</span>
+    <span>📚 6章全覆盖</span>
+    <span>❓ 35单选+15判断+5简答+2论述</span>
+    <span>🤖 AI助教</span>
   </div>
 </div>
 
-<!-- ========== 考试概览 ========== -->
-<div id="overview" class="exam-overview fade-in">
-  <h2>📋 考试结构</h2>
-  <div class="exam-grid">
-    <div class="item"><div class="num">35</div><div class="label">单选题（35分）</div></div>
-    <div class="item"><div class="num">15</div><div class="label">判断题（15分）</div></div>
-    <div class="item"><div class="num">5</div><div class="label">简答题（20分）</div></div>
-    <div class="item"><div class="num">2</div><div class="label">论述题（30分）</div></div>
-    <div class="item"><div class="num">100</div><div class="label">总分</div></div>
-  </div>
-  <div style="margin-top:14px;font-size:13px;color:#888;background:#f9f6f0;padding:10px 14px;border-radius:6px;">
-    <strong>📌 使用说明：</strong>逐章复习 → 点击"🎯 自测练习"做题（两层折叠：先展开题目→再揭晓答案）→ 关键术语已用 <span class="kw">蓝色</span> / <span class="kw-red">红色</span> 高亮
-  </div>
+<!-- 考试概览 -->
+<div class="exam-overview" id="overview">
+  <div class="stat"><div class="num">35</div><div class="label">单选题（每题1分）</div></div>
+  <div class="stat"><div class="num">15</div><div class="label">判断题（每题1分）</div></div>
+  <div class="stat"><div class="num">5</div><div class="label">简答题（每题4分）</div></div>
+  <div class="stat"><div class="num">2</div><div class="label">论述题（每题15分）</div></div>
 </div>
 
-<!-- ============================================================ -->
-<!-- 第一章 -->
-<!-- ============================================================ -->
-<section id="ch1" class="chapter fade-in">
-  <div class="chapter-banner ch-bg1">
-    <h2>第一章 · 马克思主义中国化 <span class="badge badge-purple" style="font-size:11px;vertical-align:middle;">论述预警</span></h2>
-    <div class="ch-sub">传入 · 主题 · 飞跃 · 两大理论成果</div>
+<div class="main-container">
+<!-- CHAPTERS_INSERT -->
+<section id="ch0" class="chapter">
+  <div class="ch-header">
+    <span class="ch-num">导论</span>
+    <h2>马克思主义中国化时代化的历史进程与理论成果</h2>
   </div>
-  <div class="chapter-body">
 
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 马克思主义传入中国</h3>
-      <ul>
-        <li><span class="kw">1917年</span>俄国十月革命 → 马克思主义传入中国</li>
-        <li>十月革命一声炮响，给中国送来了马克思列宁主义</li>
-        <li><span class="kw">李大钊</span>是马克思主义在中国传播的先驱</li>
-      </ul>
+  <!-- ===== 考点1：马克思主义传入中国 ===== -->
+  <div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>马克思主义在中国的传播</h3>
     </div>
-
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 一个主题</h3>
-      <ul>
-        <li>马克思主义中国化的主题：<span class="kw">实现中华民族伟大复兴</span></li>
-        <li>贯穿党的全部理论和实践的主题</li>
-      </ul>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"十月革命一声炮响，给我们送来了马克思列宁主义——这句话考试直接考，1917年这个时间点必须记住。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong>1917年俄国<span class="kw">十月革命</span>胜利后，马克思主义开始传入中国。<span class="kw">李大钊</span>是中国最早的马克思主义传播者。1919年<span class="kw">五四运动</span>促进了马克思主义在中国的广泛传播，1921年<span class="kw">中国共产党成立</span>标志着马克思主义与中国工人运动的结合。</div>
+      <div class="layer-one">💡 <strong>一句话：</strong>马克思主义经<span class="kw-red">1917年十月革命</span>传入中国，五四运动促传播，建党标志结合。</div>
     </div>
-
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 马克思主义中国化提出</h3>
-      <ul>
-        <li><span class="kw">1938年</span> · <span class="kw">六届六中全会</span> · 毛泽东作《<span class="kw">论新阶段</span>》政治报告</li>
-        <li>首次提出"<span class="kw">马克思主义中国化</span>"命题</li>
-        <li>核心内涵：把马克思主义基本原理同中国具体实际相结合</li>
-      </ul>
+    <div class="trap-box">⚠️ <strong>易错：</strong>"马克思主义传入中国"是<span class="kw-red">1917年十月革命后</span>，不是1919年五四运动（五四运动是"促进广泛传播"），也不是1921年建党（建党是"结合"的结果）。时间先后不能混淆。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q1</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】马克思主义开始传入中国是在（  ）</p>
+          <ol class="q-options" type="A">
+            <li>1915年新文化运动</li>
+            <li>1917年俄国十月革命后</li>
+            <li>1919年五四运动</li>
+            <li>1921年中国共产党成立</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。1917年十月革命后马克思主义开始传入中国。陷阱：五四运动（1919）是促进了广泛传播，非传入起点。</div>
+          </details>
+        </div>
+      </details>
     </div>
+  </div>
 
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 三层科学内涵</h3>
-      <ul>
-        <li><span class="kw">① 结合</span>：马克思主义基本原理同中国具体实际相结合</li>
-        <li><span class="kw">② 民族化</span>：马克思主义同中国历史文化相结合，具有中国作风、中国气派</li>
-        <li><span class="kw">③ 时代化</span>：马克思主义随着实践发展而发展，不断回答时代课题</li>
-      </ul>
+  <!-- ===== 考点2：命题正式提出 ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>马克思主义中国化第一次历史性飞跃形成的重大理论成果是（  ）<br>A.邓小平理论 　B."三个代表"重要思想 　<strong>C.毛泽东思想</strong> 　D.科学发展观</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>"马克思主义中国化"命题的正式提出</h3>
     </div>
-
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 两次历史性飞跃</h3>
-      <ul>
-        <li><span class="kw">第一次飞跃</span>：<span class="kw">毛泽东思想</span>（新民主主义革命、社会主义革命和建设时期）</li>
-        <li><span class="kw">第二次飞跃</span>：<span class="kw">中国特色社会主义理论体系</span>（改革开放以来）</li>
-      </ul>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"1938年毛泽东在六届六中全会作《论新阶段》报告，第一次提出'马克思主义中国化'这个命题，这是p2的原文，单选题必考。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><span class="kw">1938年</span>，毛泽东在党的<span class="kw">六届六中全会</span>上作《<span class="kw">论新阶段</span>》的政治报告，明确指出："马克思主义必须通过民族形式才能实现。没有抽象的马克思主义，只有具体的马克思主义。"这标志着<span class="kw-red">"马克思主义中国化"命题的正式提出</span>。（讲义p2）</div>
+      <div class="layer-one">💡 <strong>一句话：</strong><span class="kw">1938年六届六中全会</span> + 毛泽东《<span class="kw">论新阶段</span>》 = "马克思主义中国化"命题正式提出。</div>
     </div>
-
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 四个庄严宣告</h3>
-      <ul>
-        <li>① <span class="kw">中国人民站起来了</span>（新中国成立）</li>
-        <li>② <span class="kw">中国人民富起来了</span>（改革开放）</li>
-        <li>③ <span class="kw">中国大踏步赶上了时代</span>（新时代）</li>
-        <li>④ <span class="kw">中华民族伟大复兴进入了不可逆转的历史进程</span></li>
-      </ul>
+    >
+    <div class="trap-box">⚠️ <strong>易错：</strong>① 命题提出是<span class="kw-red">1938年六届六中全会</span>，不是1935年遵义会议（遵义会议确立毛泽东领导地位，但未提"中国化"命题）。② 报告名称是《<span class="kw-red">论新阶段</span>》，不是《新民主主义论》。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q2</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】毛泽东在（  ）上首次提出"马克思主义中国化"的科学命题。</p>
+          <ol class="q-options" type="A">
+            <li>遵义会议</li>
+            <li>六届六中全会</li>
+            <li>中共七大</li>
+            <li>中共八大</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。1938年六届六中全会，毛泽东《论新阶段》。</div>
+          </details>
+        </div>
+      </details>
     </div>
+  </div>
 
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 实践基础与时代背景</h3>
-      <ul>
-        <li><span class="kw">实践基础</span>：中国革命、建设和改革的伟大实践</li>
-        <li><span class="kw">时代背景</span>：帝国主义战争与无产阶级革命的时代 → 和平与发展的时代</li>
-      </ul>
+  <!-- ===== 考点3：刘少奇在七大对毛泽东思想的定位 ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>1945年，党的（  ）把毛泽东思想确立为党必须长期坚持的指导思想。<br>A.六届六中全会 　B.六届七中全会 　<strong>C.党的七大</strong> 　D.党的八大</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想——"中国化的马克思主义"</h3>
     </div>
-
-    <div class="kp-card" style="border-left-color:#b22222;">
-      <h3>📌 两大理论成果关系</h3>
-      <ul>
-        <li><span class="kw">毛泽东思想</span>和<span class="kw">中国特色社会主义理论体系</span></li>
-        <li><span class="key-point">一脉相承又与时俱进</span></li>
-        <li><span class="kw">共同点</span>：都是马克思主义中国化的理论成果，都坚持马克思主义基本原理</li>
-        <li><span class="kw">不同点</span>：回答了不同时代课题，面对不同历史任务</li>
-        <li>毛泽东思想是后者的<span class="kw-red">思想基础和理论准备</span></li>
-      </ul>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"1945年党的七大，刘少奇在《关于修改党章的报告》中明确指出，毛泽东思想是'中国化的马克思主义'——这是p3原文。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><span class="kw">1945年党的七大</span>正式将毛泽东思想确立为党的指导思想并写入党章。刘少奇在《关于修改党章的报告》中指出：毛泽东思想"乃是发展着与完善着的<span class="kw-red">中国化的马克思主义</span>"。（讲义p3）</div>
+      <div class="layer-one">💡 <strong>一句话：</strong>1945年七大 + 刘少奇报告 → 毛泽东思想 = <span class="kw-red">"中国化的马克思主义"</span>，正式写入党章。</div>
     </div>
-
-    <div class="trap-box">
-    <div class="trap-title">⚠️ 易错陷阱</div>
-    ① "马克思主义传入中国"不是1919年五四运动，而是<span class="kw-red">1917年十月革命</span>。<br>
-    ② "马克思主义中国化提出"是1938年六届六中全会（论新阶段），不是1935年遵义会议。<br>
-    ③ "两次飞跃"：毛泽东思想是第一次飞跃，中国特色社会主义理论体系是第二次飞跃（不是邓小平理论单独算一次）。
+    >
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q3</summary>
+        <div class="test-content">
+          <p class="q-stem">【判断】将毛泽东思想确立为党的指导思想是在1938年六届六中全会上。（  ）</p>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">❌ <strong>错误</strong>。确立为指导思想并写入党章是1945年七大。1938年六届六中全会只是提出"马克思主义中国化"命题。</div>
+          </details>
+        </div>
+      </details>
     </div>
+  </div>
 
-    <!-- 自测 -->
+  <!-- ===== 考点4：马克思主义中国化时代化的科学内涵（三层） ===== -->
+  <div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>马克思主义中国化时代化的科学内涵（三层）</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"科学内涵三层必须全部背下来，简答题直接考，少了任何一层都要扣分。p4原文。"</div>
+      <div class="layer-def">📚 <strong>专业定义（p4）：</strong><br>
+        ① <span class="kw">运用</span>马克思主义立场、观点、方法，观察时代、把握时代、引领时代，解决中国革命、建设、改革中的实际问题；<br>
+        ② <span class="kw">总结和提炼</span>中国革命、建设、改革的实践经验并上升为理论，不断丰富和发展马克思主义理论宝库，赋予马克思主义新的时代内涵；<br>
+        ③ <span class="kw">运用</span>中国人民喜闻乐见的民族语言阐述马克思主义，使其植根于中国优秀传统文化土壤，具有<span class="kw-red">中国特色、中国风格、中国气派</span>。
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>三层 = ①<span class="kw">运用理论解决实际问题</span> + ②<span class="kw">总结实践经验上升为理论</span> + ③<span class="kw">民族化表达扎根传统文化</span>。</div>
+    </div>
+    <div class="trap-box">⚠️ <strong>易错：</strong>三层内涵缺一不可。不是"只结合中国实际"就够了——还必须总结提炼实践经验和民族化表达。"中国特色、中国风格、中国气派"是第三层关键词，常在多选中做干扰项。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q4</summary>
+        <div class="test-content">
+          <p class="q-stem">【判断】马克思主义中国化就是把马克思主义基本原理同中国具体实际相结合，不需要考虑民族化表达。（  ）</p>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">❌ <strong>错误</strong>。科学内涵包括三层：解决实际问题、总结实践经验上升为理论、民族化表达扎根传统文化，三者缺一不可。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点5：历史阶段与两大理论成果 ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>马克思主义中国化第一次历史性飞跃形成的重大理论成果是（ <strong>C.毛泽东思想</strong> ）</div>
+      <div class="eq-item"><strong>【单选】</strong>下列选项关于毛泽东思想历史地位的表述不正确的是（ <strong>C.中国特色社会主义理论体系的开篇之作</strong> ）——这是邓小平理论的定位。</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>马克思主义中国化时代化的历史阶段与两大理论成果</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"四个历史阶段对应四个时期、四个理论成果，选择题经常出交叉干扰——问你哪个时期对应什么理论，必须搞对。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><br>
+        <table class="comp-table">
+          <tr><th>历史阶段</th><th>时期</th><th>主要理论成果</th></tr>
+          <tr><td>第一阶段</td><td>新民主主义革命时期</td><td><span class="kw">毛泽东思想</span></td></tr>
+          <tr><td>第二阶段</td><td>社会主义革命和建设时期</td><td>毛泽东思想（第二次结合）</td></tr>
+          <tr><td>第三阶段</td><td>改革开放和社会主义现代化建设新时期</td><td><span class="kw">邓小平理论、"三个代表"重要思想、科学发展观</span></td></tr>
+          <tr><td>第四阶段</td><td>中国特色社会主义新时代</td><td><span class="kw-red">习近平新时代中国特色社会主义思想</span></td></tr>
+        </table>
+        <p style="margin-top:8px;"><strong>两大理论成果的关系：</strong>①<span class="kw">毛泽东思想</span>为中国特色社会主义理论体系提供了基本遵循——实事求是、群众路线、独立自主是<span class="kw-red">活的灵魂</span>；②<span class="kw">中国特色社会主义理论体系</span>在新的历史条件下丰富和发展了毛泽东思想。二者<span class="kw">一脉相承又与时俱进</span>。</p>
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>两大成果——毛泽东思想（第一次飞跃）+ 中国特色社会主义理论体系（第二次飞跃），一脉相承、与时俱进。</div>
+    </div>
+    >
+    <div class="trap-box">⚠️ <strong>易错：</strong>① 第二次飞跃是<span class="kw-red">中国特色社会主义理论体系</span>（整个体系），不是单独的邓小平理论。② "中国特色社会主义理论体系的开篇之作"是<span class="kw-red">邓小平理论</span>，不能安在毛泽东思想头上。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q5</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】马克思主义中国化的第一次历史性飞跃的理论成果是（  ）</p>
+          <ol class="q-options" type="A">
+            <li>邓小平理论</li>
+            <li>"三个代表"重要思想</li>
+            <li>中国特色社会主义理论体系</li>
+            <li>毛泽东思想</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>D</strong>。毛泽东思想是第一次历史性飞跃。中国特色社会主义理论体系是第二次飞跃。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点6：实践基础与时代背景 ===== -->
+  <div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 重点</span>
+      <h3>实践基础与时代背景</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"实践基础和时代背景是理解马克思主义中国化'为什么'的关键——没有革命和建设的实践，就没有理论创新。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><br>
+        <span class="kw">实践基础</span>：中国共产党领导人民进行<span class="kw-red">革命和建设的成功实践</span>——这是马克思主义中国化时代化最深厚的实践根基。<br>
+        <span class="kw">时代背景</span>：<span class="kw">19世纪末20世纪初</span>，世界进入<span class="kw-red">帝国主义和无产阶级革命时代</span>。十月革命的胜利开辟了世界历史的新纪元。
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>实践基础 = 革命和建设实践；时代背景 = 帝国主义与无产阶级革命时代 + 十月革命。</div>
+    </div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q6</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】马克思主义中国化时代化的实践基础是（  ）</p>
+          <ol class="q-options" type="A">
+            <li>马克思主义理论的传播</li>
+            <li>中国共产党领导人民进行革命和建设的成功实践</li>
+            <li>苏联社会主义建设的经验</li>
+            <li>中国优秀传统文化</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。实践基础是中国共产党领导人民进行革命和建设的成功实践。A是理论基础，D是文化土壤。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 导论 自测汇总 ===== -->
+  <div class="self-test-section">
     <details class="self-test">
-    <summary>🎯 自测练习 · 第一章（6单选 + 2判断）</summary>
-    <div class="test-content">
-
-    <div class="test-q">
-      <div class="q-stem">【单选题】马克思主义开始传入中国是在（  ）</div>
-      <div class="q-options">
-        <li>A. 1915年 新文化运动</li>
-        <li>B. 1917年 俄国十月革命后</li>
-        <li>C. 1919年 五四运动</li>
-        <li>D. 1921年 中国共产党成立</li>
-      </div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">✅ <strong>B</strong>。1917年俄国十月革命后，马克思主义开始传入中国。陷阱：五四运动（1919）促进了传播但非传入时间起点。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【单选题】毛泽东在（  ）上首次提出"马克思主义中国化"命题。</div>
-      <div class="q-options">
-        <li>A. 遵义会议</li>
-        <li>B. 六届六中全会</li>
-        <li>C. 中共七大</li>
-        <li>D. 中共八大</li>
-      </div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">✅ <strong>B</strong>。1938年六届六中全会，毛泽东作《论新阶段》政治报告。陷阱：遵义会议确立领导地位，但未提"中国化"命题。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【单选题】马克思主义中国化的主题是（  ）</div>
-      <div class="q-options">
-        <li>A. 社会主义现代化</li>
-        <li>B. 实现中华民族伟大复兴</li>
-        <li>C. 全面建成小康社会</li>
-        <li>D. 改革开放</li>
-      </div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">✅ <strong>B</strong>。实现中华民族伟大复兴是马克思主义中国化的主题，贯穿党的全部理论和实践。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【单选题】马克思主义中国化的第一次历史性飞跃的理论成果是（  ）</div>
-      <div class="q-options">
-        <li>A. 邓小平理论</li>
-        <li>B. "三个代表"重要思想</li>
-        <li>C. 习近平新时代中国特色社会主义思想</li>
-        <li>D. 毛泽东思想</li>
-      </div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">✅ <strong>D</strong>。毛泽东思想是马克思主义中国化的第一次历史性飞跃。第二次飞跃是中国特色社会主义理论体系。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【单选题】两大理论成果之间的关系是（  ）</div>
-      <div class="q-options">
-        <li>A. 相互对立的</li>
-        <li>B. 一脉相承又与时俱进</li>
-        <li>C. 后者否定前者</li>
-        <li>D. 毫无关系</li>
-      </div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">✅ <strong>B</strong>。毛泽东思想和中国特色社会主义理论体系一脉相承又与时俱进，都坚持马克思主义基本原理，回答了不同时代课题。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【单选题】"四个庄严宣告"中，宣告"中国人民站起来了"对应的是（  ）</div>
-      <div class="q-options">
-        <li>A. 新中国成立</li>
-        <li>B. 改革开放</li>
-        <li>C. 新时代</li>
-        <li>D. 抗日战争胜利</li>
-      </div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">✅ <strong>A</strong>。"中国人民站起来了"对应新中国成立；"富起来了"对应改革开放；"大踏步赶上时代"对应新时代。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【判断题】马克思主义中国化只需要把马克思主义基本原理同中国具体实际相结合即可。（  ）</div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">❌ <strong>错误</strong>。马克思主义中国化包含三层科学内涵：①同中国具体实际相结合；②同中国历史文化相结合（民族化）；③随着实践发展而发展（时代化），缺一不可。</div>
-      </details>
-    </div>
-
-    <div class="test-q">
-      <div class="q-stem">【判断题】邓小平理论是马克思主义中国化的第一次历史性飞跃。（  ）</div>
-      <details class="test-reveal"><summary>💡 查看答案</summary>
-        <div class="reveal-ans">❌ <strong>错误</strong>。毛泽东思想才是第一次飞跃。邓小平理论属于第二次飞跃（中国特色社会主义理论体系的开篇之作）。</div>
-      </details>
-    </div>
-
-    </div>
-
-    </details>
-
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- 第二章 -->
-<!-- ============================================================ -->
-<section id="ch2" class="chapter fade-in">
-  <div class="chapter-banner ch-bg2">
-    <h2>第二章 · 毛泽东思想 <span class="badge badge-red" style="font-size:11px;vertical-align:middle;">⭐重点章</span></h2>
-    <div class="ch-sub">形成发展 · 主要内容 · 活的灵魂 · 历史地位</div>
-  </div>
-  <div class="chapter-body">
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 毛泽东思想形成发展条件</h3>
-      <ul>
-        <li><span class="kw">时代条件</span>：帝国主义战争与无产阶级革命的时代</li>
-        <li><span class="kw">实践基础</span>：中国共产党领导的革命和建设实践</li>
-        <li><span class="kw">思想条件</span>：马克思主义在中国的广泛传播</li>
-        <li><span class="kw">阶级条件</span>：中国工人阶级的成长壮大和工人运动的发展</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 写入党章时间</h3>
-      <ul>
-        <li><span class="kw">1945年 · 中共七大</span> — 毛泽东思想被确立为党的指导思想并写入党章</li>
-        <li class="key-point">这是毛泽东思想发展史上的里程碑</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 初步形成标志</h3>
-      <ul>
-        <li><span class="kw">农村包围城市、武装夺取政权</span>革命道路理论的形成</li>
-        <li>标志着毛泽东思想的<span class="kw-red">初步形成</span></li>
-        <li>代表作：<span class="kw">《星星之火，可以燎原》</span>等</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 毛泽东思想主要内容</h3>
-      <ul>
-        <li>① <span class="kw">新民主主义革命理论</span> — 核心和基础</li>
-        <li>② <span class="kw">社会主义革命和社会主义建设理论</span></li>
-        <li>③ <span class="kw">革命军队建设和军事战略理论</span></li>
-        <li>④ <span class="kw">政策和策略理论</span></li>
-        <li>⑤ <span class="kw">思想政治工作和文化工作理论</span></li>
-        <li>⑥ <span class="kw">党的建设理论</span></li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 活的灵魂（三个基本方面）</h3>
-      <ul>
-        <li><span class="kw">实事求是</span> — <span class="key-point">精髓和核心</span>，一切从实际出发</li>
-        <li><span class="kw">群众路线</span> — 一切为了群众，一切依靠群众，从群众中来，到群众中去</li>
-        <li><span class="kw">独立自主</span> — 坚持独立思考，走自己的路</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 历史地位与科学评价</h3>
-      <ul>
-        <li><span class="kw">是马克思主义中国化的第一次历史性飞跃</span></li>
-        <li>是中国革命和建设的科学指南</li>
-        <li>是中国共产党和中国人民宝贵的精神财富</li>
-        <li>科学评价：<span class="kw-red">功大于过</span>，晚年错误是一个伟大革命家犯的错误</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 俄国十月革命与毛泽东著作</h3>
-      <ul>
-        <li><span class="kw">十月革命</span>：1917年，给中国送来了马克思列宁主义</li>
-        <li>毛泽东主要著作：
-          <ul>
-            <li>《中国的红色政权为什么能够存在》</li>
-            <li>《<span class="kw">星星之火，可以燎原</span>》</li>
-            <li>《<span class="kw">实践论</span>》《<span class="kw">矛盾论</span>》</li>
-            <li>《<span class="kw">新民主主义论</span>》</li>
-            <li>《<span class="kw">论持久战</span>》</li>
-            <li>《<span class="kw">论联合政府</span>》</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#8b4513;">
-      <h3>📌 革命的四个动力</h3>
-      <ul>
-        <li>新民主主义革命的动力：<span class="kw">工人阶级</span>（领导力量）、<span class="kw">农民阶级</span>（主力军）、<span class="kw">城市小资产阶级</span>、<span class="kw">民族资产阶级</span></li>
-      </ul>
-    </div>
-
-    <div class="trap-box">
-      <div class="trap-title">⚠️ 易错陷阱</div>
-      ① "写入党章"是1945年七大，不是遵义会议(1935)。<br>
-      ② "初步形成标志"是农村包围城市道路理论的形成，不是"新民主主义革命理论"的完整提出。<br>
-      ③ 活的灵魂三个基本方面：实事求是、群众路线、独立自主——缺一不可。注意不是"武装斗争、统一战线、党的建设"（那是三大法宝）。<br>
-      ④ 革命的四个动力中，<span class="kw-red">农民是主力军</span>（不是工人阶级），<span class="kw-red">工人阶级是领导力量</span>。
-    </div>
-
-    <!-- 自测 -->
-    <details class="self-test">
-      <summary>🎯 自测练习 · 第二章（5单选 + 3判断）</summary>
+      <summary>🎯 导论 · 自测练习汇总（6单选 + 3判断）</summary>
       <div class="test-content">
 
         <div class="test-q">
-          <div class="q-stem">【单选题】毛泽东思想被确立为党的指导思想并写入党章是在（  ）</div>
+          <div class="q-stem">【单选1】马克思主义开始传入中国是在（  ）</div>
           <div class="q-options">
-            <li>A. 遵义会议</li>
-            <li>B. 中共六大</li>
-            <li>C. 中共七大</li>
-            <li>D. 中共八大</li>
+            <li>A. 1915年新文化运动</li>
+            <li>B. 1917年俄国十月革命后</li>
+            <li>C. 1919年五四运动</li>
+            <li>D. 1921年中国共产党成立</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。1945年中共七大，毛泽东思想被确立为党的指导思想并写入党章。</div>
+            <div class="reveal-ans">✅ <strong>B</strong>。1917年十月革命后马克思主义传入中国。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【单选题】毛泽东思想初步形成的标志是（  ）</div>
+          <div class="q-stem">【单选2】毛泽东首次提出"马克思主义中国化"命题是在（  ）</div>
+          <div class="q-options">
+            <li>A. 遵义会议</li>
+            <li>B. 六届六中全会</li>
+            <li>C. 中共七大</li>
+            <li>D. 中共八大</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。1938年六届六中全会，《论新阶段》报告。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【单选3】马克思主义中国化的第一次历史性飞跃的理论成果是（  ）</div>
+          <div class="q-options">
+            <li>A. 邓小平理论</li>
+            <li>B. "三个代表"重要思想</li>
+            <li>C. 中国特色社会主义理论体系</li>
+            <li>D. 毛泽东思想</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>D</strong>。毛泽东思想是第一次历史性飞跃。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【单选4】下列不属于马克思主义中国化时代化科学内涵的是（  ）</div>
+          <div class="q-options">
+            <li>A. 运用马克思主义解决中国实际问题</li>
+            <li>B. 总结实践经验并上升为理论</li>
+            <li>C. 照搬苏联社会主义建设模式</li>
+            <li>D. 用民族语言阐述马克思主义</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>C</strong>。"照搬苏联模式"恰恰是马克思主义中国化要反对的教条主义做法。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【单选5】两大理论成果之间的关系是（  ）</div>
+          <div class="q-options">
+            <li>A. 相互对立</li>
+            <li>B. 一脉相承又与时俱进</li>
+            <li>C. 后者否定前者</li>
+            <li>D. 毫无关系</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。二者坚持马克思主义基本原理，一脉相承又与时俱进。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【单选6】马克思主义中国化时代化的实践基础是（  ）</div>
+          <div class="q-options">
+            <li>A. 马克思主义理论的传播</li>
+            <li>B. 中国共产党领导人民进行革命和建设的成功实践</li>
+            <li>C. 中国优秀传统文化</li>
+            <li>D. 国际共产主义运动</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。革命和建设的成功实践是最深厚的实践根基。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【判断1】马克思主义中国化只需要把马克思主义基本原理同中国具体实际相结合。（  ）</div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">❌ <strong>错误</strong>。三层内涵缺一不可：解决实际问题 + 总结实践经验上升为理论 + 民族化表达。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【判断2】将毛泽东思想确立为党的指导思想是在1938年六届六中全会上。（  ）</div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">❌ <strong>错误</strong>。确立为指导思想并写入党章是1945年七大。1938年是提出"马克思主义中国化"命题。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【判断3】中国特色社会主义理论体系的开篇之作是毛泽东思想。（  ）</div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">❌ <strong>错误</strong>。中国特色社会主义理论体系的开篇之作是邓小平理论。毛泽东思想是马克思主义中国化的第一次历史性飞跃。</div>
+          </details>
+        </div>
+
+      </div>
+    </details>
+  </div>
+</section>
+<section id="ch1" class="chapter">
+  <div class="ch-header">
+    <span class="ch-num">第一章</span>
+    <h2>毛泽东思想及其历史地位</h2>
+  </div>
+
+  <!-- ===== 考点1：形成发展条件 ===== -->
+  <div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想形成发展的条件</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"形成条件四个维度——时代背景、实践基础、理论基础、阶级基础——四个全要记住，多选题直接四选四。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><br>
+        ① <span class="kw">时代背景</span>：<span class="kw">19世纪末20世纪初</span>，世界进入<span class="kw-red">帝国主义和无产阶级革命时代</span>。俄国十月革命开辟了人类历史新纪元。<br>
+        ② <span class="kw">实践基础</span>：中国共产党领导人民进行<span class="kw">革命和建设的实践</span>。没有革命和建设的实践，就没有毛泽东思想。<br>
+        ③ <span class="kw">理论基础</span>：十月革命给中国送来了<span class="kw-red">马克思列宁主义</span>，为毛泽东思想提供了科学世界观和方法论。<br>
+        ④ <span class="kw">阶级基础</span>：中国<span class="kw">无产阶级</span>的成长壮大和工人运动的发展，为毛泽东思想的形成准备了阶级条件。
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>时代背景（帝国主义与无产阶级革命时代）+ 实践（革命和建设）+ 理论（马列主义）+ 阶级（无产阶级）= 四个形成条件。</div>
+    </div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q1</summary>
+        <div class="test-content">
+          <p class="q-stem">【多选/判断】毛泽东思想形成的条件不包括（  ）</p>
+          <ol class="q-options" type="A">
+            <li>帝国主义与无产阶级革命时代</li>
+            <li>苏联解体的教训</li>
+            <li>马克思列宁主义的传入</li>
+            <li>中国无产阶级的成长壮大</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。苏联解体是1991年，远在毛泽东思想形成之后。形成条件包括时代背景、实践基础、理论基础、阶级基础四个维度。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点2：写入党章 ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>1945年，党的（  ）把毛泽东思想确立为党必须长期坚持的指导思想。<br>A.六届六中全会 　B.六届七中全会 　<strong>C.党的七大</strong> 　D.党的八大</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想写入党章——1945年党的七大</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"1945年七大是毛泽东思想确立的标志性事件——单选题年年考，刘少奇作了《关于修改党章的报告》。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><span class="kw">1945年</span>，中国共产党第<span class="kw">七次全国代表大会</span>在延安召开。刘少奇作《关于修改党章的报告》，系统阐述了毛泽东思想的科学体系，大会将<span class="kw-red">毛泽东思想确立为党的指导思想并写入党章</span>。</div>
+      <div class="layer-one">💡 <strong>一句话：</strong>1945年七大——毛泽东思想写入党章成为指导思想，刘少奇作报告。</div>
+    </div>
+    >
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q2</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】毛泽东思想被确立为党的指导思想是在（  ）</p>
+          <ol class="q-options" type="A">
+            <li>遵义会议（1935年）</li>
+            <li>六届六中全会（1938年）</li>
+            <li>党的七大（1945年）</li>
+            <li>党的八大（1956年）</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>C</strong>。1945年七大确立为指导思想并写入党章。遵义会议确立领导地位，六届六中全会提出"中国化"命题，八大是建国后首次党代会。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点3：形成发展过程（四阶段） ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>（  ）时期，以毛泽东为主要代表的中国共产党人坚持马克思列宁主义必须与中国革命具体实际相结合…逐步开辟了农村包围城市、武装夺取政权的革命道路。<br>A.大革命 　<strong>B.土地革命战争</strong> 　C.抗日战争 　D.解放战争</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想的形成发展过程</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"四个发展阶段——萌芽、初步形成、成熟、继续发展——每个阶段的代表性著作必须对号入座，这是选择题高频考点。p17-p18。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><br>
+        <table class="comp-table">
+          <tr><th>阶段</th><th>时期</th><th>代表性著作</th><th>标志</th></tr>
+          <tr>
+            <td><span class="kw">萌芽</span></td>
+            <td>大革命时期</td>
+            <td>《中国社会各阶级的分析》<br>《湖南农民运动考察报告》</td>
+            <td>初步提出新民主主义革命基本思想</td>
+          </tr>
+          <tr>
+            <td><span class="kw-red">初步形成</span></td>
+            <td>土地革命时期</td>
+            <td>《中国的红色政权为什么能够存在》<br>《井冈山的斗争》<br>《星星之火，可以燎原》<br>《反对本本主义》</td>
+            <td>农村包围城市、武装夺取政权道路理论的形成（p17）</td>
+          </tr>
+          <tr>
+            <td><span class="kw">成熟</span></td>
+            <td>遵义会议后</td>
+            <td>《实践论》《矛盾论》<br>《〈共产党人〉发刊词》<br>《中国革命和中国共产党》<br>《新民主主义论》<br>《改造我们的学习》《论联合政府》</td>
+            <td>系统阐述新民主主义革命理论（p18）</td>
+          </tr>
+          <tr>
+            <td><span class="kw">继续发展</span></td>
+            <td>解放战争和<br>新中国成立后</td>
+            <td>《在七届二中全会上的报告》<br>《论人民民主专政》<br>《论十大关系》<br>《关于正确处理人民内部矛盾的问题》</td>
+            <td>丰富和发展了毛泽东思想</td>
+          </tr>
+        </table>
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>萌芽（大革命）→ 初步形成（土地革命，农村包围城市）→ 成熟（遵义会议后，系统化）→ 继续发展（解放战争+建国后）。</div>
+    </div>
+    >
+    <div class="trap-box">⚠️ <strong>易错：</strong>① 初步形成标志是<span class="kw-red">农村包围城市道路理论的形成</span>（土地革命时期），不是"新民主主义革命理论完整提出"（那是成熟阶段）。② 《<span class="kw-red">反对本本主义</span>》是初步形成时期的重要著作——提出了"没有调查就没有发言权"。</div>
+  </div>
+
+  <!-- ===== 考点4：主要内容（六个方面） ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>下列不属于毛泽东思想的主要内容的理论是（  ）<br>A.新民主主义革命理论 　B.社会主义建设理论 　C.党的建设理论 　<strong>D.社会主义根本任务理论</strong></div>
+      <div class="eq-item"><strong>【单选】</strong>党在领导新民主主义革命的过程中，把党的建设作为一项（  ）<br>A."伟大的斗争" 　<strong>B."伟大的工程"</strong> 　C."伟大的事业" 　D."伟大的梦想"</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想的主要内容（六大理论）</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"六大内容必须全部记住——选择题经常给一个不属于的选项让你挑出来。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong>毛泽东思想的主要内容包括六个方面：<br>
+        ① <span class="kw">新民主主义革命理论</span>——核心和基础<br>
+        ② <span class="kw">社会主义革命和社会主义建设理论</span><br>
+        ③ <span class="kw">革命军队建设和军事战略理论</span><br>
+        ④ <span class="kw">政策和策略理论</span><br>
+        ⑤ <span class="kw">思想政治工作和文化工作理论</span><br>
+        ⑥ <span class="kw">党的建设理论</span>
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>六大理论 = 新民主主义革命 + 社会主义革命建设 + 军事战略 + 政策策略 + 思想文化 + 党的建设。</div>
+    </div>
+    >
+    <div class="trap-box">⚠️ <strong>易错：</strong>"社会主义根本任务理论"不属于毛泽东思想的六大内容——那是邓小平理论的核心内容（社会主义根本任务是发展生产力）。六大内容中不包含这一项。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q3</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】下列不属于毛泽东思想主要内容的是（  ）</p>
+          <ol class="q-options" type="A">
+            <li>新民主主义革命理论</li>
+            <li>革命军队建设和军事战略理论</li>
+            <li>社会主义根本任务理论</li>
+            <li>政策和策略理论</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>C</strong>。社会主义根本任务理论属于邓小平理论，不是毛泽东思想六大内容。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点5：活的灵魂 ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>毛泽东思想活的灵魂的三个基本方面是（  ）<br>A.统一战线、武装斗争、党的建设 　B.实事求是、艰苦奋斗、独立自主 　C.理论联系实际、密切联系群众、批评与自我批评 　<strong>D.实事求是、群众路线、独立自主</strong></div>
+      <div class="eq-item"><strong>【单选】</strong>毛泽东思想的活的灵魂有三个基本方面，即（ <strong>A.实事求是、群众路线、独立自主</strong> ）</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想活的灵魂（三个基本方面）</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"实事求是、群众路线、独立自主——这是1981年十一届六中全会决议提出来的，三个缺一不可，选择题直接考哪三个，判断考是不是这三个。"</div>
+      <div class="layer-def">📚 <strong>专业定义（1981年十一届六中全会决议）：</strong><br>
+        ① <span class="kw-red">实事求是</span>：一切从实际出发，理论联系实际，坚持在实践中检验真理和发展真理。这是毛泽东思想的<span class="kw">精髓和核心</span>。<br>
+        ② <span class="kw-red">群众路线</span>：一切为了群众，一切依靠群众，从群众中来，到群众中去。这是党的<span class="kw">根本工作路线</span>。<br>
+        ③ <span class="kw-red">独立自主</span>：坚持独立思考，走自己的路，坚定不移维护民族独立、捍卫国家主权。
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>活的灵魂 = <span class="kw">实事求是</span>（精髓核心）+ <span class="kw">群众路线</span>（根本工作路线）+ <span class="kw">独立自主</span>（走自己的路）。</div>
+    </div>
+    >
+    <div class="trap-box">⚠️ <strong>易错：</strong>① 活的灵魂是<span class="kw-red">实事求是、群众路线、独立自主</span>。不是"三大法宝"（统一战线、武装斗争、党的建设），不是"三大作风"（理论联系实际、密切联系群众、批评与自我批评）——这三个概念极易混淆！② 实事求是是"精髓和核心"，考试经常单独考这个判断。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q4</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】毛泽东思想的精髓和核心是（  ）</p>
+          <ol class="q-options" type="A">
+            <li>实事求是</li>
+            <li>群众路线</li>
+            <li>独立自主</li>
+            <li>武装斗争</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>A</strong>。实事求是是毛泽东思想的精髓和核心。活的灵魂是实事求是、群众路线、独立自主，其中实事求是居于核心地位。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点6：历史地位 ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>下列选项关于毛泽东思想历史地位的表述不正确的是（  ）<br>A.马克思主义中国化的第一个重大理论成果 　B.中国革命和建设的科学指南 　<strong>C.中国特色社会主义理论体系的开篇之作</strong> 　D.党和人民宝贵的精神财富</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 必考</span>
+      <h3>毛泽东思想的历史地位</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"历史地位三个方面，简答题如果考毛泽东思想的意义，就从这三个方面展开。科学评价中'功绩第一错误第二'是基本原则。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong><br>
+        <strong>历史地位三方面：</strong><br>
+        ① 是<span class="kw-red">马克思主义中国化时代化的第一个重大理论成果</span><br>
+        ② 是<span class="kw-red">中国革命和建设的科学指南</span><br>
+        ③ 是<span class="kw-red">中国共产党和中国人民宝贵的精神财富</span><br><br>
+        <strong>科学评价：</strong>毛泽东是伟大的马克思主义者、伟大的无产阶级革命家、战略家和理论家。<span class="kw">功绩是第一位的，错误是第二位的</span>。他的错误是一个伟大的革命家犯的错误。
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>历史地位 = 第一个理论成果 + 科学指南 + 精神财富；科学评价 = 功大于过。</div>
+    </div>
+    >
+    <div class="trap-box">⚠️ <strong>易错：</strong>"中国特色社会主义理论体系的开篇之作"是<span class="kw-red">邓小平理论</span>，不能安在毛泽东思想头上。毛泽东思想是"第一个重大理论成果"，但不是中国特色社会主义理论体系的组成部分。</div>
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q5</summary>
+        <div class="test-content">
+          <p class="q-stem">【判断】中国特色社会主义理论体系的开篇之作是毛泽东思想。（  ）</p>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">❌ <strong>错误</strong>。开篇之作是邓小平理论。毛泽东思想是马克思主义中国化的第一个重大理论成果，但不属于中国特色社会主义理论体系。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 考点7：革命四个动力 ===== -->
+  <div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 重点</span>
+      <h3>新民主主义革命的四个动力</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"四个动力中谁是领导力量、谁是主力军——这两个最容易搞反，考试专门设陷阱。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong>新民主主义革命的四个动力：<br>
+        ① <span class="kw-red">无产阶级（工人阶级）</span>——<strong>领导力量</strong><br>
+        ② <span class="kw-red">农民阶级</span>——<strong>主力军</strong>（最可靠的同盟军）<br>
+        ③ <span class="kw">城市小资产阶级</span>——可靠的同盟者<br>
+        ④ <span class="kw">民族资产阶级</span>——具有两面性（革命性+妥协性），是同盟者但不能充当领导力量
+      </div>
+      <div class="layer-one">💡 <strong>一句话：</strong>无产阶级 = <span class="kw">领导</span>；农民 = <span class="kw">主力军</span>；城市小资产阶级 = 可靠同盟；民族资产阶级 = 两面性同盟。</div>
+    </div>
+    <div class="trap-box">⚠️ <strong>易错：</strong>① <span class="kw-red">农民是主力军，不是领导力量</span>（这是最高频陷阱之一）。② 工人阶级（无产阶级）是领导力量。两个定位不能互换。</div>
+  </div>
+
+  <!-- ===== 考点8：党的建设——"伟大的工程" ===== -->
+  <div class="exam-question">
+      <div class="eq-label">📋 原题精选</div>
+      <div class="eq-item"><strong>【单选】</strong>党在领导新民主主义革命的过程中，把党的建设作为一项（  ）<br>A."伟大的斗争" 　<strong>B."伟大的工程"</strong> 　C."伟大的事业" 　D."伟大的梦想"</div>
+    </div
+<div class="knowledge-card">
+    <div class="card-head">
+      <span class="badge-exam">📌 重点</span>
+      <h3>党的建设——"伟大的工程"</h3>
+    </div>
+    <div class="card-body">
+      <div class="layer-speak">🗣️ <strong>老师原话：</strong>"毛泽东把党的建设称为'伟大的工程'——单选题直接考这个表述来自哪里。"</div>
+      <div class="layer-def">📚 <strong>专业定义：</strong>在《〈共产党人〉发刊词》中，毛泽东把<span class="kw">党的建设</span>称为一项<span class="kw-red">"伟大的工程"</span>。党的建设是三大法宝的核心——统一战线和武装斗争是战胜敌人的两个基本武器，而党的组织是掌握这两个武器的英勇战士。</div>
+      <div class="layer-one">💡 <strong>一句话：</strong>毛泽东称党的建设为<span class="kw">"伟大的工程"</span>，出自《〈共产党人〉发刊词》。</div>
+    </div>
+    >
+    <div class="self-test">
+      <details>
+        <summary>🎯 自测 Q6</summary>
+        <div class="test-content">
+          <p class="q-stem">【单选】毛泽东将党的建设称为（  ）</p>
+          <ol class="q-options" type="A">
+            <li>"伟大的斗争"</li>
+            <li>"伟大的工程"</li>
+            <li>"伟大的事业"</li>
+            <li>"伟大的梦想"</li>
+          </ol>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>B</strong>。"伟大的工程"出自《〈共产党人〉发刊词》。"伟大斗争、伟大工程、伟大事业、伟大梦想"是新时代"四个伟大"的表述。</div>
+          </details>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===== 第一章 自测汇总 ===== -->
+  <div class="self-test-section">
+    <details class="self-test">
+      <summary>🎯 第一章 · 自测练习汇总（6单选 + 3判断）</summary>
+      <div class="test-content">
+
+        <div class="test-q">
+          <div class="q-stem">【单选1】毛泽东思想被确立为党的指导思想并写入党章是在（  ）</div>
+          <div class="q-options">
+            <li>A. 遵义会议</li>
+            <li>B. 六届六中全会</li>
+            <li>C. 党的七大</li>
+            <li>D. 党的八大</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>C</strong>。1945年党的七大正式写入党章。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【单选2】毛泽东思想初步形成的标志是（  ）</div>
           <div class="q-options">
             <li>A. 新民主主义革命理论的完整提出</li>
             <li>B. 农村包围城市、武装夺取政权革命道路理论的形成</li>
@@ -538,38 +946,51 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
             <li>D. 延安整风运动</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。农村包围城市革命道路理论的形成标志着毛泽东思想初步形成。陷阱：新民主主义革命理论的完整提出是成熟阶段的标志。</div>
+            <div class="reveal-ans">✅ <strong>B</strong>。农村包围城市道路理论形成于土地革命时期，是初步形成的标志。新民主主义革命理论的完整提出是成熟阶段。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【单选题】毛泽东思想的精髓和核心是（  ）</div>
+          <div class="q-stem">【单选3】毛泽东思想活的灵魂的三个基本方面是（  ）</div>
           <div class="q-options">
-            <li>A. 实事求是</li>
-            <li>B. 群众路线</li>
-            <li>C. 独立自主</li>
-            <li>D. 艰苦奋斗</li>
+            <li>A. 统一战线、武装斗争、党的建设</li>
+            <li>B. 实事求是、艰苦奋斗、独立自主</li>
+            <li>C. 理论联系实际、密切联系群众、批评与自我批评</li>
+            <li>D. 实事求是、群众路线、独立自主</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>A</strong>。实事求是是毛泽东思想的精髓和核心。群众路线和独立自主是活的灵魂的另外两个方面。</div>
+            <div class="reveal-ans">✅ <strong>D</strong>。A是三大法宝，C是三大作风。活的灵魂是实事求是、群众路线、独立自主。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【单选题】新民主主义革命的领导力量是（  ）</div>
+          <div class="q-stem">【单选4】下列不属于毛泽东思想主要内容的（  ）</div>
+          <div class="q-options">
+            <li>A. 新民主主义革命理论</li>
+            <li>B. 革命军队建设和军事战略理论</li>
+            <li>C. 社会主义根本任务理论</li>
+            <li>D. 政策和策略理论</li>
+          </div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans">✅ <strong>C</strong>。社会主义根本任务理论属于邓小平理论，非毛泽东思想六大内容。</div>
+          </details>
+        </div>
+
+        <div class="test-q">
+          <div class="q-stem">【单选5】新民主主义革命的领导力量是（  ）</div>
           <div class="q-options">
             <li>A. 农民阶级</li>
-            <li>B. 工人阶级</li>
+            <li>B. 无产阶级（工人阶级）</li>
             <li>C. 民族资产阶级</li>
             <li>D. 城市小资产阶级</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。工人阶级是新民主主义革命的领导力量。陷阱：农民阶级是主力军，不是领导力量。</div>
+            <div class="reveal-ans">✅ <strong>B</strong>。无产阶级是领导力量。陷阱：农民阶级是主力军，不是领导力量。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【单选题】毛泽东活的灵魂不包括以下哪项？（  ）</div>
+          <div class="q-stem">【单选6】毛泽东思想的精髓和核心是（  ）</div>
           <div class="q-options">
             <li>A. 实事求是</li>
             <li>B. 群众路线</li>
@@ -577,628 +998,1043 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
             <li>D. 武装斗争</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>D</strong>。武装斗争是三大法宝之一，不是活的灵魂。活的灵魂是实事求是、群众路线、独立自主。</div>
+            <div class="reveal-ans">✅ <strong>A</strong>。实事求是是精髓和核心。活的灵魂三个中实事求是居于核心地位。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【判断题】毛泽东思想形成于新民主主义革命时期，是马克思主义中国化的第一次历史性飞跃。（  ）</div>
+          <div class="q-stem">【判断1】毛泽东思想活的灵魂包括武装斗争、统一战线和党的建设。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>正确</strong>。毛泽东思想是马克思主义中国化的第一次历史性飞跃，形成发展于新民主主义革命时期。</div>
+            <div class="reveal-ans">❌ <strong>错误</strong>。武装斗争、统一战线、党的建设是三大法宝。活的灵魂是实事求是、群众路线、独立自主。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【判断题】农民阶级是新民主主义革命的领导力量。（  ）</div>
+          <div class="q-stem">【判断2】农民阶级是新民主主义革命的领导力量。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。农民阶级是主力军，工人阶级才是领导力量。这是基本知识点，不能混淆。</div>
+            <div class="reveal-ans">❌ <strong>错误</strong>。农民阶级是主力军，工人阶级（无产阶级）才是领导力量。</div>
           </details>
         </div>
 
         <div class="test-q">
-          <div class="q-stem">【判断题】毛泽东思想活的灵魂包括武装斗争、统一战线和党的建设。（  ）</div>
+          <div class="q-stem">【判断3】毛泽东的功绩和错误各占一半，应全面否定其晚年。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。武装斗争、统一战线、党的建设是三大法宝。活的灵魂是实事求是、群众路线、独立自主——概念不能混淆。</div>
+            <div class="reveal-ans">❌ <strong>错误</strong>。科学评价：功绩是第一位的，错误是第二位的。他的错误是一个伟大革命家犯的错误，不能全盘否定。</div>
           </details>
         </div>
 
       </div>
     </details>
+  </div>
+</section>
+<section id="ch2" class="chapter fade-in">
+  <div class="chapter-banner ch-bg2">
+    <h2>第二章 · 新民主主义革命理论 <span class="badge badge-red" style="font-size:11px;vertical-align:middle;">⭐重点章</span></h2>
+    <div class="ch-sub">国情 · 总路线 · 基本纲领 · 革命道路 · 三大法宝</div>
+  </div>
+  <div class="chapter-body">
+
+<!-- ===== 考点一：近代中国国情与革命时代特征 ===== -->
+<div class="kp-card" style="border-left-color:#8b4513;">
+  <h3>📌 考点一 · 近代中国国情与革命时代特征</h3>
+
+  <!-- 第1层：核心概念 -->
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li>近代中国国情：<span class="kw-red">半殖民地半封建社会</span>（最基本国情，认识一切革命问题的基本依据）</li>
+    <li>社会主要矛盾：<span class="kw">帝国主义和中华民族的矛盾</span>（最主要）、<span class="kw">封建主义和人民大众的矛盾</span></li>
+    <li>革命根本任务：推翻帝国主义、封建主义和官僚资本主义的统治</li>
+  </ul>
+
+  <!-- 第2层：逻辑展开 -->
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li>时代特征：旧民主主义革命 → <span class="kw">新民主主义革命</span> → 社会主义革命</li>
+    <li>为什么叫"新"民主主义？因为它是<span class="kw-red">无产阶级领导的</span>，属于世界无产阶级社会主义革命的一部分</li>
+    <li>实践基础有两个：<span class="kw">① 旧民主主义革命的失败</span>呼唤新的革命理论；<span class="kw">② 新民主主义革命的艰辛探索</span>奠定了实践基础</li>
+  </ul>
+
+  <!-- 第3层：命题角度 -->
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>常考辨析：近代中国社会性质是"半殖民地半封建"，不是"半封建半殖民地"（<span class="kw-red">顺序不可颠倒</span>）</li>
+    <li>革命性质是<span class="kw-red">资产阶级民主革命</span>（新式的、特殊的），不是社会主义革命</li>
+    <li>时代背景题：五四运动（1919）是旧→新民主主义革命的分水岭</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">① （单选题）在半殖民地半封建的中国社会，（　）客观上为无产阶级及其政党建立和发展统一战线提供了可能性。<br>
+  <span class="kw">答案：D. 诸多矛盾交织</span> — 近代中国社会各种矛盾错综复杂，为建立广泛的统一战线提供了客观条件。<br><br>
+  ② （单选题）（　）是中国革命的首要对象，近代中国所遭受的最大的压迫是来自（　）的民族压迫。<br>
+  <span class="kw">答案：C. 帝国主义 帝国主义</span> — 帝国主义是中国人民第一个和最凶恶的敌人。</div>
+    </div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① "半殖民地半封建"顺序绝对不能写反，考试时判断题原样考过。<br>
+  ② 近代中国最主要矛盾是<span class="kw-red">帝国主义与中华民族的矛盾</span>（民族矛盾），不是封建主义与人民大众的矛盾（阶级矛盾）。<br>
+  ③ 新民主主义革命性质是"资产阶级民主革命"，但属于<span class="kw-red">世界无产阶级社会主义革命的一部分</span>——这两点都要记住。
+</div>
+
+<!-- ===== 考点二：新民主主义革命总路线 ===== -->
+<div class="kp-card" style="border-left-color:#8b4513;">
+  <h3>📌 考点二 · 新民主主义革命总路线（高频简答）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li class="key-point"><strong>完整表述（1948年）：无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命</strong></li>
+    <li>1939年毛泽东《中国革命和中国共产党》首次提出"<span class="kw">新民主主义革命</span>"概念</li>
+    <li>1948年《在晋绥干部会议上的讲话》完整总结和概括总路线</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><span class="kw">革命对象</span>：帝国主义（<span class="kw-red">首要对象</span>）、封建主义、官僚资本主义</li>
+    <li><span class="kw">革命动力</span>：无产阶级（领导力量）、农民阶级（<span class="kw-red">主力军</span>）、城市小资产阶级、民族资产阶级</li>
+    <li><span class="kw">领导力量</span>：无产阶级 — <span class="kw-red">领导权是中国革命的中心问题</span>，也是新民主主义革命理论的核心问题</li>
+    <li><span class="kw">性质</span>：资产阶级民主主义革命</li>
+    <li><span class="kw">前途</span>：社会主义</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li><span class="kw-red">区分领导力量与主力军</span>：无产阶级是领导力量，农民阶级是主力军 —— 绝对高频考点</li>
+    <li>中国革命的基本问题是<span class="kw">农民问题</span></li>
+    <li>民族资产阶级两面性：<span class="kw">革命性</span>和<span class="kw-red">动摇性/妥协性</span>（因此不能充当领导力量）</li>
+    <li>辨析：新民主主义革命≠社会主义革命；它是<span class="kw-red">资产阶级民主主义革命</span>，但由无产阶级领导</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">③ （单选题）（　）年毛泽东在（　）中完整总结和概括了新民主主义革命总路线。<br>
+  <span class="kw">答案：B. 1948《在晋绥干部会议上的讲话》</span> — 1939年首次提出概念，1948年完整表述总路线。<br><br>
+  ④ （单选题）新民主主义革命的动力不包括（　）。<br>
+  <span class="kw">答案：C. 地主阶级</span> — 革命动力是人民大众：工人、农民、城市小资产阶级、民族资产阶级。地主阶级是革命对象。<br><br>
+  ⑤ （单选题）新民主主义革命与社会主义革命性质不同。新民主主义革命仍然属于（　）的范畴。<br>
+  <span class="kw">答案：A. 资产阶级民主主义革命</span> — 虽然由无产阶级领导，但革命性质仍是资产阶级民主革命。</div>
+    </div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① "总路线完整表述"是<span class="kw-red">1948年《在晋绥干部会议上的讲话》</span>，不是1939年——1939年只是首次提出"新民主主义革命"概念。<br>
+  ② 革命对象是"三座大山"：<span class="kw-red">帝国主义（首要）、封建主义、官僚资本主义</span>——注意帝国主义是首要对象。<br>
+  ③ 领导权问题是<span class="kw-red">中心问题</span>，农民问题是<span class="kw-red">基本问题</span>——两个"问题"不是一回事。
+</div>
+
+<!-- ===== 考点三：新民主主义基本纲领 ===== -->
+<div class="kp-card" style="border-left-color:#8b4513;">
+  <h3>📌 考点三 · 新民主主义基本纲领（三大纲领）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li><span class="kw">政治纲领</span>：建立无产阶级领导的、以工农联盟为基础的、各革命阶级联合专政的新民主主义共和国</li>
+    <li><span class="kw">经济纲领</span>：<span class="kw-red">两没收一保护</span>（②③④可考顺序题）</li>
+    <li><span class="kw">文化纲领</span>：无产阶级领导的人民大众的反帝反封建的文化 — <span class="kw">民族的、科学的、大众的</span></li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li>经济纲领三句话：<br>
+      ① 没收封建地主阶级的土地归农民所有（<span class="kw-red">主要内容</span>）<br>
+      ② 没收官僚资产阶级的垄断资本归新民主主义国家所有（<span class="kw">题中应有之义</span>）<br>
+      ③ 保护民族工商业（<span class="kw">极具特色</span>）
+    </li>
+    <li>文化纲领三性：民族性（反对帝国主义奴化思想）、科学性（反对封建迷信）、大众性（为工农兵服务）</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>经济纲领中"保护民族工商业"极具中国特色——区别于苏俄没收一切资本的做法</li>
+    <li>"两没收"中没收对象的区分：地主阶级的土地 vs 官僚资产阶级的垄断资本（不同阶级、不同财产类型）</li>
+    <li>文化纲领三性经常与"三大法宝"混淆考查</li>
+  </ul>
+</div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 没收地主土地归农民所有是<span class="kw-red">主要内容</span>（因为农民是主力军，土地问题是革命的中心问题）。<br>
+  ② 保护的是<span class="kw-red">民族工商业</span>，不是所有工商业——官僚资本是要没收的。<br>
+  ③ 文化纲领三性：民族的、科学的、大众的 —— 注意顺序和表述。
+</div>
+
+<!-- ===== 考点四：新民主主义革命道路 ===== -->
+<div class="kp-card" style="border-left-color:#8b4513;">
+  <h3>📌 考点四 · 新民主主义革命道路（论述题必背）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li class="key-point"><strong>农村包围城市、武装夺取政权</strong></li>
+    <li>关键著作：《中国的红色政权为什么能够存在》《井冈山的斗争》《<span class="kw">星星之火，可以燎原</span>》</li>
+    <li>核心思想：<span class="kw-red">"工农武装割据"</span></li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><strong>必然性（三大原因）：</strong><br>
+      ① 中国无民主制度、受帝国主义压迫，<span class="kw-red">只能以武装斗争为主要形式</span><br>
+      ② 农民占人口绝大多数，<span class="kw-red">是革命的主力军</span><br>
+      ③ 城市敌人力量强大，<span class="kw-red">农村是薄弱环节</span>
+    </li>
+    <li><strong>工农武装割据三要素：</strong><br>
+      ① 土地革命（<span class="kw">基本内容</span>）<br>
+      ② 武装斗争（<span class="kw">主要形式</span>）<br>
+      ③ 农村革命根据地建设（<span class="kw">战略阵地</span>）
+    </li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>意义：反映了中国半殖民地半封建社会民主革命发展的客观规律，<span class="kw-red">独创性地发展了马克思列宁主义</span></li>
+    <li>选择题常考三者关系：土地革命、武装斗争、农村革命根据地建设——注意各自对应"基本内容/主要形式/战略阵地"</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">⑥ （单选题）中国革命走农村包围城市、武装夺取政权的道路，根本在于处理好（　）三者之间的关系。<br>
+  <span class="kw">答案：C. 土地革命、武装斗争、农村革命根据地建设</span> — 三者是"工农武装割据"的核心内容。</div>
+    </div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 三者关系：土地革命（基本内容）、武装斗争（主要形式）、根据地建设（战略阵地）——对应关系绝对不能错。<br>
+  ② 必然性三条中，"<span class="kw-red">只能以武装斗争为主要形式</span>"是因为中国没有民主制度可走议会斗争道路，这是根本原因。
+</div>
+
+<!-- ===== 考点五：三大法宝 ===== -->
+<div class="kp-card" style="border-left-color:#8b4513;">
+  <h3>📌 考点五 · 三大法宝（1939年《共产党人发刊词》）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li><span class="kw">统一战线、武装斗争、党的建设</span></li>
+    <li>出自毛泽东1939年《<span class="kw-red">共产党人发刊词</span>》</li>
+    <li>相互关系：统一战线和武装斗争是战胜敌人的两个基本武器，<span class="kw-red">党的建设是掌握这两个武器的英勇战士</span></li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><strong>统一战线：</strong><br>
+      · 必要性：两头小中间大的阶级状况；革命长期性残酷性不平衡性<br>
+      · 可能性：诸多矛盾交织<br>
+      · 两个联盟：工农联盟 + 工人阶级与非劳动人民的联盟<br>
+      · 实践经验：①建立巩固工农联盟 ②正确对待资产阶级（<span class="kw-red">既联合又斗争</span>）③区别对待三大势力 ④坚持独立自主<br>
+      · 四个时期：国民革命联合战线→工农民主统一战线→抗日民族统一战线→人民民主统一战线
+    </li>
+    <li><strong>武装斗争：</strong><br>
+      · 中国的武装斗争是无产阶级领导的以农民为主体的革命战争<br>
+      · 经验：①党对军队绝对领导 ②全心全意为人民服务 ③政治工作三原则 ④战略战术
+    </li>
+    <li><strong>党的建设：</strong><br>
+      · <span class="kw-red">思想建设放在首位</span>；民主集中制<br>
+      · 三大优良作风：理论联系实际、密切联系群众、批评与自我批评
+    </li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>三大法宝 vs 三大优良作风 vs 活的灵魂——三组概念经常交叉考查，务必区分</li>
+    <li>统一战线"四个时期"的顺序可能考排序题</li>
+    <li>党的建设中"思想建设放在首位"是核心考点</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">⑦ （单选题）毛泽东在《〈共产党人〉发刊词》中提出三大法宝（　）。<br>
+  <span class="kw">答案：D. 统一战线</span>（完整为：统一战线、武装斗争、党的建设）</div>
+    </div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 三大法宝出自<span class="kw-red">《共产党人发刊词》</span>（1939），不是《新民主主义论》也不是《论持久战》。<br>
+  ② 三大法宝 ≠ 三大优良作风（理论联系实际、密切联系群众、批评与自我批评）。<br>
+  ③ 三大法宝 ≠ 活的灵魂（实事求是、群众路线、独立自主）。<br>
+  ④ 统一战线对资产阶级的方针是<span class="kw-red">"既联合又斗争"</span>——不是只联合不斗争，也不是只斗争不联合。
+</div>
+
+<!-- ===== 考点六：理论意义 ===== -->
+<div class="kp-card" style="border-left-color:#8b4513;">
+  <h3>📌 考点六 · 新民主主义革命理论的意义</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li><span class="kw">理论意义</span>：揭示了近代中国革命发展客观规律，丰富马克思主义理论宝库</li>
+    <li><span class="kw">实践意义</span>：完成新民主主义革命建立新中国</li>
+    <li><span class="kw">世界意义</span>：改变世界政治格局</li>
+  </ul>
+</div>
+
+<!-- 易错陷阱总汇 -->
+<div class="trap-box">
+  <div class="trap-title">⚠️ 第二章 易错陷阱总汇</div>
+  ① 半殖民地半封建（顺序） · ② 新民主主义革命性质是资产阶级民主革命 · ③ 领导力量（无产阶级）≠ 主力军（农民）· ④ 总路线完整表述时间（1948不是1939）· ⑤ 三大法宝出处（《共产党人发刊词》）· ⑥ 三大法宝≠三大优良作风≠活的灵魂 · ⑦ "两没收一保护"各自定位
+</div>
+
+<!-- 简答题标答 -->
+<div class="essay-card">
+  <h3>📝 简答题标答 · 新民主主义革命总路线的主要内容</h3>
+  <div class="essay-step"><span class="step-label">【参考答案】</span> 新民主主义革命总路线：无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命。</div>
+  <div class="essay-step"><span class="step-label">① 领导力量：</span>无产阶级（通过中国共产党）—— 领导权是中国革命的中心问题，也是新民主主义革命理论的核心问题。</div>
+  <div class="essay-step"><span class="step-label">② 革命动力：</span>人民大众，包括工人阶级（领导力量）、农民阶级（主力军）、城市小资产阶级和民族资产阶级。</div>
+  <div class="essay-step"><span class="step-label">③ 革命对象：</span>帝国主义（首要对象）、封建主义和官僚资本主义，即"三座大山"。</div>
+  <div class="essay-step"><span class="step-label">④ 革命性质与前途：</span>性质是资产阶级民主主义革命（新式的、特殊的）；前途是社会主义。</div>
+</div>
+
+<!-- 论述题标答 -->
+<div class="essay-card">
+  <h3>📝 论述题标答 · 中国革命走农村包围城市、武装夺取政权道路的必然性</h3>
+  <div class="essay-step"><span class="step-label">【提出】</span> 毛泽东在《中国的红色政权为什么能够存在》《井冈山的斗争》《星星之火，可以燎原》等著作中提出"工农武装割据"思想，开辟了农村包围城市、武装夺取政权的革命道路。</div>
+  <div class="essay-step"><span class="step-label">【必然性一】</span> 中国不是一个独立的民主国家，而是一个半殖民地半封建国家，在内部没有民主制度，受封建制度压迫；在外部没有民族独立，受帝国主义压迫。因此，<strong>无议会可以利用，无组织工人举行罢工的合法权利</strong>，中国革命只能以武装斗争为主要形式。</div>
+  <div class="essay-step"><span class="step-label">【必然性二】</span> 农民占中国人口的绝大多数，是中国革命的主力军。<strong>无产阶级要领导革命取得胜利，必须深入农村，发动农民，组织农民，武装农民</strong>，开展土地革命，建立农村革命根据地。</div>
+  <div class="essay-step"><span class="step-label">【必然性三】</span> 中国革命的敌人异常强大，并且长期占据中心城市，而<strong>农村是敌人统治的薄弱环节</strong>。因此，党必须把工作重心转向农村，在那里积蓄力量，把落后的农村改造成先进的巩固的革命根据地，以农村包围城市，最后夺取全国胜利。</div>
+  <div class="essay-step"><span class="step-label">【意义】</span> 这条道路反映了中国半殖民地半封建社会民主革命发展的客观规律，独创性地发展了马克思列宁主义关于革命道路的理论。</div>
+</div>
+
+<!-- 自测 -->
+<details class="self-test">
+  <summary>🎯 自测练习 · 第二章（6单选 + 3判断 + 1简答）</summary>
+  <div class="test-content">
+
+    <!-- 单选1 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】近代中国最基本的国情是（　）</div>
+      <div class="q-options">
+        <li>A. 封建社会</li>
+        <li>B. 资本主义社会</li>
+        <li>C. 半殖民地半封建社会</li>
+        <li>D. 殖民地社会</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>C</strong>。近代中国是半殖民地半封建社会，这是最基本的国情，是认识和解决一切革命问题的基本依据。</div>
+      </details>
+    </div>
+
+    <!-- 单选2 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】新民主主义革命的领导力量是（　）</div>
+      <div class="q-options">
+        <li>A. 农民阶级</li>
+        <li>B. 民族资产阶级</li>
+        <li>C. 城市小资产阶级</li>
+        <li>D. 无产阶级</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>D</strong>。无产阶级（通过中国共产党）是新民主主义革命的领导力量。陷阱：农民阶级是主力军，不是领导力量。</div>
+      </details>
+    </div>
+
+    <!-- 单选3 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】新民主主义革命的首要对象是（　）</div>
+      <div class="q-options">
+        <li>A. 封建主义</li>
+        <li>B. 官僚资本主义</li>
+        <li>C. 帝国主义</li>
+        <li>D. 地主阶级</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>C</strong>。帝国主义是中国革命的首要对象，近代中国所遭受的最大的压迫是来自帝国主义的民族压迫。</div>
+      </details>
+    </div>
+
+    <!-- 单选4 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】毛泽东首次提出"新民主主义革命"概念的著作是（　）</div>
+      <div class="q-options">
+        <li>A. 《新民主主义论》</li>
+        <li>B. 《中国革命和中国共产党》</li>
+        <li>C. 《在晋绥干部会议上的讲话》</li>
+        <li>D. 《共产党人发刊词》</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>B</strong>。1939年《中国革命和中国共产党》首次提出"新民主主义革命"概念。陷阱：1948年《在晋绥干部会议上的讲话》是完整表述总路线。</div>
+      </details>
+    </div>
+
+    <!-- 单选5 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】新民主主义革命的经济纲领中，属于"极具特色"的内容是（　）</div>
+      <div class="q-options">
+        <li>A. 没收封建地主阶级的土地归农民所有</li>
+        <li>B. 没收官僚资产阶级的垄断资本归国家所有</li>
+        <li>C. 保护民族工商业</li>
+        <li>D. 消灭私有制</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>C</strong>。保护民族工商业是新民主主义经济纲领中极具特色的内容，区别于苏俄没收一切资本的做法。</div>
+      </details>
+    </div>
+
+    <!-- 单选6 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】中国武装斗争的基本内容是（　）</div>
+      <div class="q-options">
+        <li>A. 武装斗争</li>
+        <li>B. 土地革命</li>
+        <li>C. 根据地建设</li>
+        <li>D. 党的建设</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>B</strong>。土地革命是基本内容，武装斗争是主要形式，根据地建设是战略阵地。三者关系经常混淆考查。</div>
+      </details>
+    </div>
+
+    <!-- 判断1 -->
+    <div class="test-q">
+      <div class="q-stem">【判断题】新民主主义革命的性质是无产阶级社会主义革命。（　）</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">❌ <strong>错误</strong>。新民主主义革命的性质是资产阶级民主主义革命（新式的、特殊的），虽然由无产阶级领导，但革命对象是帝国主义和封建主义，不是消灭资本主义。</div>
+      </details>
+    </div>
+
+    <!-- 判断2 -->
+    <div class="test-q">
+      <div class="q-stem">【判断题】农民阶级是新民主主义革命的领导力量。（　）</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">❌ <strong>错误</strong>。农民阶级是主力军，无产阶级才是领导力量。领导权问题是新民主主义革命理论的核心问题。</div>
+      </details>
+    </div>
+
+    <!-- 判断3 -->
+    <div class="test-q">
+      <div class="q-stem">【判断题】三大法宝（统一战线、武装斗争、党的建设）出自毛泽东的《新民主主义论》。（　）</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">❌ <strong>错误</strong>。三大法宝出自1939年毛泽东《〈共产党人〉发刊词》，不是《新民主主义论》。</div>
+      </details>
+    </div>
+
+    <!-- 简答1 -->
+    <div class="test-q">
+      <div class="q-stem">【简答题】简述新民主主义革命总路线的主要内容。</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">
+          ✅ <strong>参考答案：</strong><br>
+          新民主主义革命总路线：<strong>无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命。</strong><br>
+          ① 领导力量：无产阶级（通过中国共产党），领导权是中国革命的中心问题。<br>
+          ② 革命动力：人民大众——工人阶级（领导）、农民阶级（主力军）、城市小资产阶级、民族资产阶级。<br>
+          ③ 革命对象：帝国主义（首要对象）、封建主义、官僚资本主义（三座大山）。<br>
+          ④ 革命性质：资产阶级民主主义革命（新式的、特殊的）。<br>
+          ⑤ 革命前途：社会主义。
+        </div>
+      </details>
+    </div>
+
+  </div>
+</details>
 
   </div>
 </section>
-
-<!-- ============================================================ -->
-<!-- 第三章 -->
-<!-- ============================================================ -->
 <section id="ch3" class="chapter fade-in">
   <div class="chapter-banner ch-bg3">
-    <h2>第三章 · 新民主主义革命理论</h2>
-    <div class="ch-sub">国情 · 总路线 · 三大法宝 · 革命道路</div>
+    <h2>第三章 · 社会主义改造理论 <span class="badge badge-orange" style="font-size:11px;vertical-align:middle;">📌 次重点</span></h2>
+    <div class="ch-sub">过渡时期 · 一化三改 · 三大改造 · 和平赎买 · 制度确立</div>
   </div>
   <div class="chapter-body">
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 近代中国国情</h3>
-      <ul>
-        <li>近代中国是<span class="kw">半殖民地半封建社会</span></li>
-        <li>这是最基本的国情，是认识和解决一切革命问题的基本依据</li>
-      </ul>
+<!-- ===== 考点一：新民主主义社会性质与五种经济成分 ===== -->
+<div class="kp-card" style="border-left-color:#1a6bb0;">
+  <h3>📌 考点一 · 新民主主义社会性质与经济成分</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li>过渡时期：从<span class="kw">中华人民共和国成立</span>到<span class="kw-red">社会主义改造基本完成</span></li>
+    <li>社会性质：<span class="kw-red">新民主主义社会</span>（过渡性社会，不是独立的社会形态）</li>
+    <li>主要矛盾（土改完成后）：<span class="kw">工人阶级和资产阶级的矛盾</span>逐步成为我国社会主要矛盾</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><strong>五种经济成分（p67）：</strong></li>
+    <li>① <span class="kw">社会主义性质的国营经济</span>（领导地位）</li>
+    <li>② <span class="kw">半社会主义性质的合作社经济</span></li>
+    <li>③ 农民和手工业者的<span class="kw">个体经济</span>（数量最大）</li>
+    <li>④ <span class="kw">私人资本主义经济</span></li>
+    <li>⑤ <span class="kw">国家资本主义经济</span></li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>五种经济成分中，具有<span class="kw-red">社会主义性质</span>的是国营经济；<span class="kw-red">半社会主义性质</span>的是合作社经济——常混在一起考查</li>
+    <li>新民主主义社会是"过渡性"的，不是"独立"社会形态——判断题高频考点</li>
+    <li>从中华人民共和国成立到社会主义改造基本完成，是我国从<span class="kw-red">新民主主义</span>到社会主义的过渡时期</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">① （单选题）从中华人民共和国成立到社会主义改造基本完成，是我国从（　）到社会主义的过渡时期。<br>
+  <span class="kw">答案：C. 新民主主义</span> — 注意：起点是新民主主义社会，不是半殖民地半封建社会。<br><br>
+  ② （单选题）新民主主义社会存在五种经济成分，其中具有社会主义性质的经济成分是（　）。<br>
+  <span class="kw">答案：B. 国营经济</span> — 合作社经济是半社会主义性质，国营经济才是完全社会主义性质。</div>
     </div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 社会主要矛盾</h3>
-      <ul>
-        <li><span class="kw">帝国主义和中华民族的矛盾</span>（最主要矛盾）</li>
-        <li><span class="kw">封建主义和人民大众的矛盾</span></li>
-      </ul>
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 新民主主义社会是<span class="kw-red">"过渡性"社会</span>，不是"独立"社会形态——判断题必考。<br>
+  ② 五种经济成分中，<span class="kw-red">国营经济是社会主义性质</span>，合作社经济只是半社会主义性质。<br>
+  ③ 主要矛盾变化：土改前是人民大众与三大敌人；土改后逐步变为<span class="kw-red">工人阶级与资产阶级的矛盾</span>。
+</div>
+
+<!-- ===== 考点二：过渡时期总路线 ===== -->
+<div class="kp-card" style="border-left-color:#1a6bb0;">
+  <h3>📌 考点二 · 过渡时期总路线（一化三改）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li><span class="kw">提出时间</span>：1953年中央政治局会议</li>
+    <li class="key-point"><strong>"一化三改"</strong>：社会主义工业化（主体）+ 对个体农业、手工业和资本主义工商业的社会主义改造（两翼）</li>
+    <li>关系：<span class="kw-red">一体两翼</span>，工业化是主体，三改是两翼</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li>完整表述：从中华人民共和国成立，到社会主义改造基本完成，这是一个过渡时期。党在这个过渡时期的总路线和总任务，是要在一个相当长的时期内，<span class="kw">逐步实现国家的社会主义工业化</span>，并<span class="kw">逐步实现国家对农业、对手工业和对资本主义工商业的社会主义改造</span>。</li>
+    <li>两个转变（1949年七届二中全会提出）：由农业国转变为工业国、由新民主主义国家转变为社会主义国家</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>"一化"和"三改"的关系：<span class="kw-red">同时并举、相互促进</span>，不是先后关系</li>
+    <li>过渡时期总路线提出要把我国由农业国转变为工业国</li>
+    <li>注意时间点：1949年建国→1953年提出总路线→1956年改造完成</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">③ 党在过渡时期总路线提出要把我国由农业国转变为工业国。<br>
+  <span class="kw">答案：正确。</span> 七届二中全会提出"两个转变"：由农业国转变为工业国、由新民主主义国家转变为社会主义国家。</div>
     </div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 革命根本任务与性质</h3>
-      <ul>
-        <li><span class="kw">根本任务</span>：推翻帝国主义、封建主义和官僚资本主义的统治</li>
-        <li><span class="kw">革命性质</span>：<span class="kw-red">资产阶级民主革命</span>（新式的、特殊的资产阶级民主革命）</li>
-        <li>属于世界无产阶级社会主义革命的一部分</li>
-      </ul>
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① "一化"是<span class="kw-red">主体</span>，"三改"是<span class="kw-red">两翼</span>——主体≠两翼，不是平行关系。<br>
+  ② 过渡时期总路线1953年正式提出，不是1949年新中国成立时就有的。<br>
+  ③ "两个转变"是由七届二中全会（1949年3月）提出的，要区分"两个转变"与"一化三改"。
+</div>
+
+<!-- ===== 考点三：农业社会主义改造 ===== -->
+<div class="kp-card" style="border-left-color:#1a6bb0;">
+  <h3>📌 考点三 · 农业社会主义改造（高频简答）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li>道路：积极引导农民走<span class="kw">互助合作</span>道路</li>
+    <li>原则：<span class="kw-red">自愿互利、典型示范和国家帮助</span></li>
+    <li>方针：<span class="kw">积极领导、稳步前进</span></li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><strong>四个方面：</strong><br>
+      ① 积极引导农民走互助合作道路<br>
+      ② 遵循自愿互利、典型示范和国家帮助原则<br>
+      ③ 正确分析农村阶级阶层状况，制定正确阶级政策<br>
+      ④ 坚持积极领导稳步前进方针，采取循序渐进步骤
+    </li>
+    <li><strong>三个阶段（逐级过渡）：</strong></li>
+  </ul>
+  <table class="comp-table">
+    <tr><th>阶段</th><th>形式</th><th>性质</th></tr>
+    <tr><td>第一阶段</td><td><span class="kw">互助组</span></td><td>社会主义萌芽</td></tr>
+    <tr><td>第二阶段</td><td><span class="kw">初级农业生产合作社</span></td><td><span class="kw-red">半社会主义</span></td></tr>
+    <tr><td>第三阶段</td><td><span class="kw">高级农业生产合作社</span></td><td><span class="kw-red">完全社会主义</span></td></tr>
+  </table>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>三阶段对照表是高频选择题考点——尤其"半社会主义"对应初级社、"完全社会主义"对应高级社</li>
+    <li>注意"萌芽"对应的不是"半社会主义"，而是互助组</li>
+  </ul>
+</div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 三个阶段性质：互助组（萌芽）→ 初级社（<span class="kw-red">半社会主义</span>）→ 高级社（<span class="kw-red">完全社会主义</span>）——"半"和"完全"的层级不能混淆。<br>
+  ② 农业改造的原则是"自愿互利、典型示范和国家帮助"，不是强制命令。
+</div>
+
+<!-- ===== 考点四：手工业社会主义改造 ===== -->
+<div class="kp-card" style="border-left-color:#1a6bb0;">
+  <h3>📌 考点四 · 手工业社会主义改造</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li>道路：走合作化道路（与农业类似，三阶段过渡）</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <table class="comp-table">
+    <tr><th>阶段</th><th>形式</th><th>性质</th></tr>
+    <tr><td>第一阶段</td><td>供销小组</td><td>社会主义萌芽</td></tr>
+    <tr><td>第二阶段</td><td><span class="kw">供销合作社</span></td><td><span class="kw-red">半社会主义</span></td></tr>
+    <tr><td>第三阶段</td><td><span class="kw">生产合作社</span></td><td><span class="kw-red">完全社会主义</span></td></tr>
+  </table>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>农业 vs 手工业三阶段名称的对照是易混淆考点</li>
+    <li>农业：互助组→初级社→高级社 / 手工业：供销小组→供销合作社→生产合作社</li>
+  </ul>
+</div>
+
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  农业改造和手工业改造的阶段名称容易混淆：<br>
+  · 农业：<span class="kw-red">互助组</span>（萌芽）→ 初级社（半社）→ 高级社（完全社）<br>
+  · 手工业：<span class="kw-red">供销小组</span>（萌芽）→ 供销合作社（半社）→ 生产合作社（完全社）
+</div>
+
+<!-- ===== 考点五：资本主义工商业改造 ===== -->
+<div class="kp-card" style="border-left-color:#1a6bb0;">
+  <h3>📌 考点五 · 资本主义工商业改造（和平赎买）</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li>方法：<span class="kw-red">和平赎买</span>（不是暴力剥夺，不是没收）</li>
+    <li>形式：从低级到高级的国家资本主义过渡</li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><strong>三个方面：</strong><br>
+      ① 用<span class="kw-red">和平赎买</span>的方法改造资本主义工商业<br>
+      ② 采取从低级到高级的国家资本主义过渡形式<br>
+      ③ 把资本主义工商业者改造成为自食其力的社会主义劳动者
+    </li>
+    <li><strong>国家资本主义过渡形式：</strong></li>
+  </ul>
+  <table class="comp-table">
+    <tr><th>阶段</th><th>形式</th><th>利润分配</th></tr>
+    <tr><td>初级</td><td>加工订货、统购包销、经销代销</td><td>—</td></tr>
+    <tr><td>中级</td><td><span class="kw">个别企业公私合营</span></td><td><span class="kw-red">四马分肥</span></td></tr>
+    <tr><td>高级</td><td><span class="kw">全行业公私合营</span></td><td>定息制度</td></tr>
+  </table>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>"和平赎买"是我国对资本主义工商业改造的独创性方法</li>
+    <li>"四马分肥"是重要概念——个别企业公私合营阶段的利润分配方式</li>
+    <li>注意区分：改造方法（和平赎买）≠ 改造形式（国家资本主义）</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">④ （单选题）我国社会主义改造时期，对资本主义工商业采取的改造方式是（　）。<br>
+  <span class="kw">答案：D. 和平赎买</span> — 改造方式是和平赎买，改造形式是国家资本主义。注意二者区别。</div>
     </div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 新民主主义革命总路线</h3>
-      <ul>
-        <li class="key-point"><strong>无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命</strong></li>
-        <li><span class="kw">领导力量</span>：无产阶级</li>
-        <li><span class="kw">革命动力</span>：人民大众（工人阶级、农民阶级、城市小资产阶级、民族资产阶级）</li>
-        <li><span class="kw">革命对象</span>：帝国主义、封建主义、官僚资本主义</li>
-      </ul>
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 对资本主义工商业是<span class="kw-red">"和平赎买"</span>，不是"没收"（没收的是官僚资本，在第二章经济纲领中出现）。<br>
+  ② "四马分肥"是在<span class="kw-red">个别企业公私合营</span>阶段，不是全行业公私合营阶段。<br>
+  ③ 对资本家的政策：<span class="kw-red">团结、教育、改造</span>，最终改造为自食其力的劳动者。
+</div>
+
+<!-- ===== 考点六：改造经验与制度确立 ===== -->
+<div class="kp-card" style="border-left-color:#1a6bb0;">
+  <h3>📌 考点六 · 社会主义改造历史经验与制度确立</h3>
+
+  <p style="font-size:13px;color:#888;margin-bottom:8px;">🔹 第一层 · 核心概念速记</p>
+  <ul>
+    <li><span class="kw">改造完成时间</span>：<span class="kw-red">1956年底</span>三大改造基本完成</li>
+    <li>标志：社会主义公有制成为经济基础，<span class="kw-red">社会主义基本制度确立</span></li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第二层 · 逻辑脉络</p>
+  <ul>
+    <li><strong>历史经验（三条）：</strong><br>
+      ① 坚持社会主义工业化和社会主义改造<span class="kw">同时并举</span><br>
+      ② 采取积极引导、<span class="kw">逐步过渡</span>的方式<br>
+      ③ 用<span class="kw">和平方法</span>进行改造
+    </li>
+    <li><strong>制度确立意义：</strong><br>
+      · 20世纪中国<span class="kw-red">划时代历史巨变</span><br>
+      · 为当代中国一切发展进步奠定了<span class="kw-red">根本政治前提和制度基础</span><br>
+      · 全民所有制和劳动群众集体所有制经济占绝对优势
+    </li>
+  </ul>
+
+  <p style="font-size:13px;color:#888;margin:14px 0 8px;">🔹 第三层 · 命题角度与易错点</p>
+  <ul>
+    <li>改造完成 ≠ 新中国成立：1949年建国→1956年制度确立→1978年改革开放</li>
+    <li>"同时并举"强调的是工业化和改造同步进行，不是先工业化后改造</li>
+  </ul>
+</div>
+
+<div class="orig-q">
+      <div class="orig-label">📋 原题精选</div>
+      <div class="q-stem">⑤ （单选题）（　）底我国对农业、手工业和资本主义工商业的社会主义改造基本完成。<br>
+  <span class="kw">答案：C. 1956年</span> — 1956年底三大改造基本完成，标志着社会主义制度在中国基本确立。</div>
     </div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 民族资产阶级两面性</h3>
-      <ul>
-        <li><span class="kw">革命性</span>：受帝国主义和封建主义的压迫，有反帝反封建的革命要求</li>
-        <li><span class="kw-red">妥协性/软弱性</span>：同帝国主义和封建主义有千丝万缕的联系，缺乏彻底反帝反封建的勇气</li>
-        <li class="key-point">因此，民族资产阶级不能充当革命的领导力量</li>
-      </ul>
-    </div>
+<div class="trap-box">
+  <div class="trap-title">⚠️ 易错陷阱</div>
+  ① 社会主义制度确立的标志是<span class="kw-red">1956年三大改造基本完成</span>，不是1949年新中国成立。<br>
+  ② 改造经验中"同时并举"强调<span class="kw-red">工业化和改造同步</span>，不是顺序推进。<br>
+  ③ 制度确立的意义：是"<span class="kw-red">划时代历史巨变</span>"，奠定了"<span class="kw-red">根本政治前提和制度基础</span>"——这两个关键词是得分点。
+</div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 基本纲领</h3>
-      <ul>
-        <li><span class="kw">政治纲领</span>：建立无产阶级领导的、工农联盟为基础的、各革命阶级联合专政的民主共和国</li>
-        <li><span class="kw">经济纲领</span>：没收封建地主阶级的土地归农民所有，没收官僚资本归新民主主义国家所有，保护民族工商业</li>
-        <li>（<span class="kw-red">两没收一保护</span>）</li>
-        <li><span class="kw">文化纲领</span>：无产阶级领导的、人民大众的、反帝反封建的文化，即<span class="kw">民族的、科学的、大众的</span>文化</li>
-      </ul>
-    </div>
+<!-- 简答题标答 -->
+<div class="essay-card">
+  <h3>📝 简答题标答 · 农业社会主义改造道路的主要内容</h3>
+  <div class="essay-step"><span class="step-label">【参考答案】</span></div>
+  <div class="essay-step"><span class="step-label">① 方针：</span>积极引导农民走互助合作道路，坚持<strong>积极领导、稳步前进</strong>的方针。</div>
+  <div class="essay-step"><span class="step-label">② 原则：</span>遵循<strong>自愿互利、典型示范和国家帮助</strong>的原则，充分尊重农民意愿。</div>
+  <div class="essay-step"><span class="step-label">③ 阶级政策：</span>正确分析农村阶级阶层状况，制定正确的阶级政策。</div>
+  <div class="essay-step"><span class="step-label">④ 过渡步骤：</span>采取循序渐进的步骤：<strong>互助组</strong>（社会主义萌芽）→ <strong>初级农业生产合作社</strong>（半社会主义性质）→ <strong>高级农业生产合作社</strong>（完全社会主义性质）。</div>
+</div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 革命道路</h3>
-      <ul>
-        <li><span class="kw">农村包围城市、武装夺取政权</span></li>
-        <li>前提：中国是半殖民地半封建社会，反动统治力量集中在城市</li>
-        <li>核心：建立农村革命根据地，以农村包围城市，最后夺取全国胜利</li>
-      </ul>
-    </div>
+<!-- 易错陷阱总汇 -->
+<div class="trap-box">
+  <div class="trap-title">⚠️ 第三章 易错陷阱总汇</div>
+  ① 新民主主义社会是过渡性社会 · ② 五种经济成分中仅国营经济是完全社会主义性质 · ③ "一化三改"中工业化是主体、三改是两翼 · ④ 农业三阶段性质：萌芽→半社会→完全社会 · ⑤ 对资本主义工商业是"和平赎买"不是"没收" · ⑥ 社会主义制度确立是1956年不是1949年
+</div>
 
-    <div class="kp-card" style="border-left-color:#1a6bb0;">
-      <h3>📌 三大法宝（意义与内容）</h3>
-      <ul>
-        <li>毛泽东在《<span class="kw">共产党人发刊词</span>》中提出</li>
-        <li>① <span class="kw">统一战线</span>：团结一切可以团结的力量，孤立和打击主要敌人</li>
-        <li>② <span class="kw">武装斗争</span>：中国革命的主要形式和主要道路</li>
-        <li>③ <span class="kw">党的建设</span>：关键在于保持党的先进性和纯洁性</li>
-        <li><span class="key-point">相互关系：统一战线和武装斗争是战胜敌人的两个基本武器，党的建设是掌握这两个武器的英勇战士</span></li>
-        <li><span class="kw">理论意义</span>：丰富和发展了马克思主义革命理论，为中国革命胜利提供了理论指导</li>
-      </ul>
-    </div>
+<!-- 自测 -->
+<details class="self-test">
+  <summary>🎯 自测练习 · 第三章（6单选 + 2判断 + 1简答）</summary>
+  <div class="test-content">
 
-    <div class="trap-box">
-      <div class="trap-title">⚠️ 易错陷阱</div>
-      ① 近代中国的社会性质是"<span class="kw-red">半殖民地半封建社会</span>"，不是"半封建半殖民地"（顺序不能错）。<br>
-      ② 革命性质是"资产阶级民主革命"（新民主主义革命），不是"社会主义革命"。<br>
-      ③ "两没收一保护"：没收地主土地、没收官僚资本、保护民族工商业。注意没收对象不同。<br>
-      ④ 三大法宝出自《<span class="kw-red">共产党人发刊词</span>》，不是《新民主主义论》或其他著作。
-    </div>
-
-    <!-- 自测 -->
-    <details class="self-test">
-      <summary>🎯 自测练习 · 第三章（6单选 + 3判断）</summary>
-      <div class="test-content">
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】近代中国最基本的国情是（  ）</div>
-          <div class="q-options">
-            <li>A. 封建社会</li>
-            <li>B. 资本主义社会</li>
-            <li>C. 半殖民地半封建社会</li>
-            <li>D. 殖民地社会</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。近代中国是半殖民地半封建社会，这是最基本的国情。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】近代中国社会最主要的矛盾是（  ）</div>
-          <div class="q-options">
-            <li>A. 封建主义和人民大众的矛盾</li>
-            <li>B. 帝国主义和中华民族的矛盾</li>
-            <li>C. 无产阶级和资产阶级的矛盾</li>
-            <li>D. 农民阶级和地主阶级的矛盾</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。帝国主义和中华民族的矛盾是最主要的矛盾。封建主义和人民大众的矛盾是另一对主要矛盾。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】新民主主义革命的领导力量是（  ）</div>
-          <div class="q-options">
-            <li>A. 资产阶级</li>
-            <li>B. 无产阶级</li>
-            <li>C. 农民阶级</li>
-            <li>D. 城市小资产阶级</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。无产阶级（工人阶级）是新民主主义革命的领导力量，这是新旧民主主义革命的根本区别。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】新民主主义革命的性质是（  ）</div>
-          <div class="q-options">
-            <li>A. 社会主义革命</li>
-            <li>B. 无产阶级革命</li>
-            <li>C. 资产阶级民主革命</li>
-            <li>D. 农民革命</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。新民主主义革命的性质是资产阶级民主革命，但它是无产阶级领导的新式的、特殊的资产阶级民主革命。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】三大法宝出自毛泽东的哪篇著作？（  ）</div>
-          <div class="q-options">
-            <li>A. 《新民主主义论》</li>
-            <li>B. 《论持久战》</li>
-            <li>C. 《共产党人发刊词》</li>
-            <li>D. 《实践论》</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。毛泽东在《共产党人发刊词》中提出统一战线、武装斗争、党的建设是三大法宝。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】新民主主义革命的经济纲领中，"两没收一保护"的"一保护"指的是保护（  ）</div>
-          <div class="q-options">
-            <li>A. 国营经济</li>
-            <li>B. 民族工商业</li>
-            <li>C. 个体经济</li>
-            <li>D. 外资企业</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。保护民族工商业是新民主主义经济纲领的重要内容，区别于没收地主土地和没收官僚资本。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】民族资产阶级具有革命性和妥协性的两面性，因此可以充当新民主主义革命的领导力量。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。正是因为其妥协性/软弱性，民族资产阶级不能充当革命的领导力量。领导力量只能是无产阶级。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】新民主主义革命的道路是农村包围城市、武装夺取政权。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>正确</strong>。这是中国革命胜利的正确道路，由毛泽东开创。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】新民主主义文化纲领是民族的、科学的、大众的文化。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>正确</strong>。民族的（反对帝国主义奴化思想）、科学的（反对封建迷信）、大众的（为工农兵服务）。</div>
-          </details>
-        </div>
-
+    <!-- 单选1 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】新民主主义社会五种经济成分中，处于领导地位的是（　）</div>
+      <div class="q-options">
+        <li>A. 合作社经济</li>
+        <li>B. 国家资本主义经济</li>
+        <li>C. 社会主义国营经济</li>
+        <li>D. 私人资本主义经济</li>
       </div>
-    </details>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>C</strong>。社会主义国营经济掌握国家经济命脉，处于领导地位。同时，国营经济是唯一完全社会主义性质的经济成分。</div>
+      </details>
+    </div>
+
+    <!-- 单选2 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】过渡时期总路线的主体是（　）</div>
+      <div class="q-options">
+        <li>A. 社会主义工业化</li>
+        <li>B. 农业社会主义改造</li>
+        <li>C. 手工业社会主义改造</li>
+        <li>D. 资本主义工商业社会主义改造</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>A</strong>。社会主义工业化是主体（一体），三大改造是两翼（两翼）。一体两翼，工业化是主体。</div>
+      </details>
+    </div>
+
+    <!-- 单选3 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】我国农业社会主义改造中，具有半社会主义性质的阶段是（　）</div>
+      <div class="q-options">
+        <li>A. 互助组</li>
+        <li>B. 初级农业生产合作社</li>
+        <li>C. 高级农业生产合作社</li>
+        <li>D. 人民公社</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>B</strong>。互助组是社会主义萌芽，初级社是半社会主义性质，高级社是完全社会主义性质。陷阱：A是萌芽，C是完全社会主义。</div>
+      </details>
+    </div>
+
+    <!-- 单选4 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】我国对资本主义工商业改造采取的方法是（　）</div>
+      <div class="q-options">
+        <li>A. 暴力剥夺</li>
+        <li>B. 没收</li>
+        <li>C. 购买</li>
+        <li>D. 和平赎买</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>D</strong>。和平赎买是我国对资本主义工商业改造的独创性方法。注意：改造方法是和平赎买，改造形式是国家资本主义。</div>
+      </details>
+    </div>
+
+    <!-- 单选5 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】社会主义制度在我国基本确立的标志是（　）</div>
+      <div class="q-options">
+        <li>A. 1949年新中国成立</li>
+        <li>B. 1952年土地改革完成</li>
+        <li>C. 1956年三大改造基本完成</li>
+        <li>D. 1978年改革开放</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>C</strong>。1956年底三大改造基本完成，社会主义公有制成为经济基础，标志着社会主义制度在中国基本确立。1949年新中国成立是新民主主义社会的开始。</div>
+      </details>
+    </div>
+
+    <!-- 单选6 -->
+    <div class="test-q">
+      <div class="q-stem">【单选题】过渡时期总路线正式提出的时间是（　）</div>
+      <div class="q-options">
+        <li>A. 1949年</li>
+        <li>B. 1952年</li>
+        <li>C. 1953年</li>
+        <li>D. 1956年</li>
+      </div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>C</strong>。1953年中央政治局会议正式提出过渡时期总路线。时间链：1949建国→1953总路线→1956改造完成。</div>
+      </details>
+    </div>
+
+    <!-- 判断1 -->
+    <div class="test-q">
+      <div class="q-stem">【判断题】新民主主义社会是一个独立的社会形态。（　）</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">❌ <strong>错误</strong>。新民主主义社会是过渡性社会，是向社会主义过渡的时期，不是独立的社会形态。这是常考判断题。</div>
+      </details>
+    </div>
+
+    <!-- 判断2 -->
+    <div class="test-q">
+      <div class="q-stem">【判断题】我国对资本主义工商业的社会主义改造是从低级国家资本主义到高级国家资本主义逐步过渡的。（　）</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">✅ <strong>正确</strong>。从加工订货等初级形式，到个别企业公私合营（四马分肥），再到全行业公私合营（定息制度），逐步过渡到社会主义公有制。</div>
+      </details>
+    </div>
+
+    <!-- 简答1 -->
+    <div class="test-q">
+      <div class="q-stem">【简答题】简述农业社会主义改造道路的主要内容。</div>
+      <details class="test-reveal"><summary>💡 查看答案</summary>
+        <div class="reveal-ans">
+          ✅ <strong>参考答案：</strong><br>
+          ① <strong>方针：</strong>积极领导、稳步前进，积极引导农民走互助合作道路。<br>
+          ② <strong>原则：</strong>遵循自愿互利、典型示范和国家帮助的原则。<br>
+          ③ <strong>阶级政策：</strong>正确分析农村阶级阶层状况，制定正确的阶级政策。<br>
+          ④ <strong>过渡步骤：</strong>互助组（社会主义萌芽）→ 初级农业生产合作社（半社会主义性质）→ 高级农业生产合作社（完全社会主义性质）。<br>
+          ⑤ <strong>核心：</strong>通过循序渐进的方式，把个体农民经济改造为社会主义集体经济。
+        </div>
+      </details>
+    </div>
+
+  </div>
+</details>
 
   </div>
 </section>
-
-<!-- ============================================================ -->
-<!-- 第四章 -->
-<!-- ============================================================ -->
-<section id="ch4" class="chapter fade-in">
+<section id="ch4" class="chapter">
   <div class="chapter-banner ch-bg4">
-    <h2>第四章 · 社会主义改造理论</h2>
-    <div class="ch-sub">过渡时期 · 一化三改 · 三大改造 · 制度确立</div>
+    <h2>第四章 · 社会主义建设道路初步探索的理论成果</h2>
+    <div class="ch-sub">论十大关系 · 两类矛盾 · 工业化道路 · 三个主体三个补充 · 经验教训</div>
   </div>
   <div class="chapter-body">
 
+    <!-- ===== 知识卡片：论十大关系 ===== -->
     <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 新民主主义社会性质</h3>
+      <h3>📌 《论十大关系》（1956年 · p94）</h3>
       <ul>
-        <li>新中国成立到社会主义改造完成：<span class="kw">新民主主义社会</span></li>
-        <li>性质：<span class="kw-red">过渡性社会</span>（不是独立的社会形态，而是向社会主义过渡的时期）</li>
+        <li><span class="kw">历史地位</span>：<span class="kw-red">标志着党探索中国社会主义建设道路的良好开端</span></li>
+        <li><span class="kw">基本方针</span>：努力把党内党外、国内国外的一切积极因素，直接的、间接的积极因素，<span class="key-point">全部调动起来，为社会主义建设服务</span></li>
+        <li><span class="kw">第一大关系</span>：<span class="kw-red">重工业和轻工业、农业的关系</span>（最重要！常考）</li>
+        <li><span class="kw">十大关系全览</span>：</li>
+      </ul>
+      <table class="comp-table" style="margin-top:6px;">
+        <tr><th>序号</th><th>关系</th><th>类别</th></tr>
+        <tr><td>1</td><td><strong>重工业和轻工业、农业</strong></td><td>经济</td></tr>
+        <tr><td>2</td><td>沿海工业和内地工业</td><td>经济</td></tr>
+        <tr><td>3</td><td>经济建设和国防建设</td><td>经济</td></tr>
+        <tr><td>4</td><td>国家、生产单位和生产者个人</td><td>经济</td></tr>
+        <tr><td>5</td><td>中央和地方</td><td>经济</td></tr>
+        <tr><td>6</td><td>汉族和少数民族</td><td>政治</td></tr>
+        <tr><td>7</td><td>党和非党</td><td>政治</td></tr>
+        <tr><td>8</td><td>革命和反革命</td><td>政治</td></tr>
+        <tr><td>9</td><td>是非关系</td><td>政治</td></tr>
+        <tr><td>10</td><td>中国和外国</td><td>对外</td></tr>
+      </table>
+      <ul>
+        <li><span class="kw">调动一切积极因素的"六有"原则</span>：有利于团结全国各族人民、有利于社会主义改造和社会主义建设、有利于巩固人民民主专政、有利于巩固民主集中制、有利于巩固共产党的领导、有利于社会主义的国际团结</li>
+        <li><span class="kw-red">最重要的是：社会主义道路和党的领导两条</span></li>
       </ul>
     </div>
 
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">毛泽东在《论十大关系》中论述的第一大关系是（<strong>C</strong>）<br>A. 沿海工业和内地工业的关系　B. 中央和地方的关系　<strong>C. 重工业和轻工业、农业的关系</strong>　D. 经济建设和国防建设的关系</div>
+    </div>
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">（<strong>A</strong>）标志着党探索中国社会主义建设道路的良好开端<br>A. 《论十大关系》　B. 《关于正确处理人民内部矛盾的问题》　C. 党的八大　D. 十一届三中全会</div>
+    </div>
+
+    <!-- ===== 知识卡片：社会主义社会矛盾理论 ===== -->
     <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 五种经济成分</h3>
+      <h3>📌 社会主义社会矛盾理论（《关于正确处理人民内部矛盾的问题》1957年2月）</h3>
       <ul>
-        <li>① <span class="kw">社会主义国营经济</span>（领导地位）</li>
-        <li>② <span class="kw">合作社经济</span>（半社会主义性质）</li>
-        <li>③ <span class="kw">个体经济</span>（数量最大）</li>
-        <li>④ <span class="kw">私人资本主义经济</span></li>
-        <li>⑤ <span class="kw">国家资本主义经济</span></li>
+        <li><span class="kw">1. 社会主义社会基本矛盾</span>：<span class="kw-red">生产关系和生产力之间、上层建筑和经济基础之间的矛盾</span></li>
+        <li><span class="kw">2. 主要矛盾和根本任务</span>：人民对经济文化迅速发展的需要同当前经济文化不能满足人民需要的状况之间的矛盾 → <span class="key-point">集中力量发展社会生产力</span></li>
+        <li><span class="kw">3. 两类不同性质矛盾</span>：
+          <ul>
+            <li><span class="kw-red">敌我矛盾</span>——对抗性矛盾</li>
+            <li><span class="kw-red">人民内部矛盾</span>——非对抗性矛盾</li>
+          </ul>
+        </li>
+        <li><span class="kw">4. 解决两类矛盾的基本方法</span>：
+          <ul>
+            <li>对敌我矛盾 → <span class="kw-red">专政</span></li>
+            <li>对人民内部矛盾 → <span class="kw-red">民主</span>（团结—批评—团结）</li>
+          </ul>
+        </li>
+        <li><span class="kw">5. 正确处理人民内部矛盾的方针（p100）</span>：</li>
       </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 主要矛盾</h3>
+      <table class="comp-table">
+        <tr><th>领域</th><th>方针</th></tr>
+        <tr><td>政治思想领域</td><td><strong>团结—批评—团结</strong>，说服教育、讨论的方法</td></tr>
+        <tr><td>物质利益分配</td><td><strong>统筹兼顾、适当安排</strong></td></tr>
+        <tr><td>科学文化领域</td><td><strong>百花齐放、百家争鸣</strong></td></tr>
+        <tr><td>共产党和民主党派</td><td><strong>长期共存、互相监督</strong></td></tr>
+      </table>
       <ul>
-        <li>土地改革完成后：<span class="kw">工人阶级与资产阶级的矛盾</span>、<span class="kw">社会主义道路与资本主义道路的矛盾</span></li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 过渡时期总路线（一化三改）</h3>
-      <ul>
-        <li class="key-point"><strong>要在一个相当长的时期内，逐步实现国家的社会主义工业化（一化），并逐步实现国家对农业、手工业和资本主义工商业的社会主义改造（三改）</strong></li>
-        <li><span class="kw">时间</span>：1953年正式提出</li>
-        <li><span class="kw">背景</span>：国民经济恢复任务完成，向社会主义过渡的条件基本具备</li>
-        <li><span class="kw">内涵</span>：工业化是主体，三改是两翼（<span class="kw-red">一体两翼</span>）</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 三大改造</h3>
-      <ul>
-        <li><span class="kw">农业改造</span>：走互助合作道路</li>
-        <li><span class="kw">手工业改造</span>：走合作化道路</li>
-        <li><span class="kw">资本主义工商业改造</span>：<span class="kw-red">和平赎买</span>政策</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 农业改造（四个方面）</h3>
-      <ul>
-        <li>① <span class="kw">方针</span>：积极领导、稳步前进</li>
-        <li>② <span class="kw">原则</span>：自愿互利、典型示范、国家帮助</li>
-        <li>③ <span class="kw">道路</span>：<span class="kw">互助合作</span></li>
-        <li>④ <span class="kw">方法</span>：从低级到高级逐步过渡</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 农业改造三个阶段</h3>
-      <ul>
-        <li><span class="kw">第一阶段</span>：<span class="kw">互助组</span>（社会主义萌芽性质）</li>
-        <li><span class="kw">第二阶段</span>：<span class="kw">初级农业生产合作社</span>（半社会主义性质）</li>
-        <li><span class="kw">第三阶段</span>：<span class="kw">高级农业生产合作社</span>（完全社会主义性质）</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 资本主义工商业改造（三个方面）</h3>
-      <ul>
-        <li>① <span class="kw">方法</span>：<span class="kw-red">和平赎买</span>（不是暴力剥夺）</li>
-        <li>② <span class="kw">形式</span>：从<span class="kw">低级国家资本主义</span>（加工订货、统购包销）到<span class="kw">高级国家资本主义</span>（<span class="kw">公私合营</span>）</li>
-        <li>③ <span class="kw">步骤</span>：初级形式 → 个别企业公私合营 → 全行业公私合营</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 国家资本主义（初级与高级）</h3>
-      <ul>
-        <li><span class="kw">初级形式</span>：加工、订货、统购包销、经销代销（企业仍归资本家经营）</li>
-        <li><span class="kw">高级形式</span>：<span class="kw-red">公私合营</span>（企业由国家和资本家共同经营）</li>
-        <li>个别企业公私合营 → 全行业公私合营</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 社会主义制度确立</h3>
-      <ul>
-        <li><span class="kw">时间</span>：<span class="kw-red">1956年</span></li>
-        <li>标志：社会主义改造基本完成</li>
-        <li>中国进入<span class="kw">社会主义初级阶段</span></li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 制度意义</h3>
-      <ul>
-        <li>① 最深刻最伟大的社会变革</li>
-        <li>② 为当代中国一切发展进步奠定了制度基础</li>
-        <li>③ 实现了从新民主主义向社会主义的过渡</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 改造经验</h3>
-      <ul>
-        <li>① 坚持社会主义工业化与社会主义改造同时并举</li>
-        <li>② 采取积极引导、逐步过渡的方式</li>
-        <li>③ 用<span class="kw-red">和平赎买</span>方法改造资本主义工商业</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#2a7a2a;">
-      <h3>📌 社会主义基本制度</h3>
-      <ul>
-        <li><span class="kw">政治制度</span>：人民民主专政、人民代表大会制度</li>
-        <li><span class="kw">经济制度</span>：生产资料公有制、按劳分配</li>
-        <li>中国共产党领导的多党合作和政治协商制度、民族区域自治制度</li>
-      </ul>
-    </div>
-
-    <div class="trap-box">
-      <div class="trap-title">⚠️ 易错陷阱</div>
-      ① 新民主主义社会是"<span class="kw-red">过渡性</span>"社会形态，不是"独立"的社会形态。<br>
-      ② "一化"是主体，"三改"是两翼，<span class="kw-red">不是平行关系</span>。<br>
-      ③ 农业改造三个阶段：互助组(萌芽)→初级社(半社)→高级社(完全社)——注意"半社会主义"和"完全社会主义"的区分。<br>
-      ④ 资本主义工商业改造方法叫"<span class="kw-red">和平赎买</span>"，不是"没收"或"购买"。<br>
-      ⑤ 社会主义制度确立的标志是1956年三大改造基本完成，不是新中国成立(1949)。
-    </div>
-
-    <!-- 自测 -->
-    <details class="self-test">
-      <summary>🎯 自测练习 · 第四章（6单选 + 2判断）</summary>
-      <div class="test-content">
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】过渡时期总路线的主体是（  ）</div>
-          <div class="q-options">
-            <li>A. 社会主义工业化</li>
-            <li>B. 农业社会主义改造</li>
-            <li>C. 资本主义工商业改造</li>
-            <li>D. 手工业改造</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>A</strong>。社会主义工业化是主体（一体），三大改造是两翼（两翼）。一体两翼的关系。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】我国对资本主义工商业改造采取的方法是（  ）</div>
-          <div class="q-options">
-            <li>A. 没收</li>
-            <li>B. 和平赎买</li>
-            <li>C. 强制征收</li>
-            <li>D. 公私合营</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。和平赎买是我国对资本主义工商业改造的独特方法。公私合营是改造的形式，方法是和平赎买。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】农业社会主义改造中，具有半社会主义性质的是（  ）</div>
-          <div class="q-options">
-            <li>A. 互助组</li>
-            <li>B. 初级农业生产合作社</li>
-            <li>C. 高级农业生产合作社</li>
-            <li>D. 人民公社</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。初级农业生产合作社是半社会主义性质。互助组是社会主义萌芽，高级社是完全社会主义性质。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】社会主义制度在我国基本确立的标志是（  ）</div>
-          <div class="q-options">
-            <li>A. 新中国成立</li>
-            <li>B. 土地改革完成</li>
-            <li>C. 三大改造基本完成</li>
-            <li>D. 第一部宪法颁布</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。1956年三大改造基本完成，标志着社会主义制度在中国基本确立。1949年新中国成立是新民主主义社会。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】新民主主义社会五种经济成分中，处于领导地位的是（  ）</div>
-          <div class="q-options">
-            <li>A. 合作社经济</li>
-            <li>B. 国家资本主义经济</li>
-            <li>C. 社会主义国营经济</li>
-            <li>D. 私人资本主义经济</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。社会主义国营经济掌握国家经济命脉，处于领导地位。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【单选题】过渡时期总路线提出的时间是（  ）</div>
-          <div class="q-options">
-            <li>A. 1949年</li>
-            <li>B. 1952年</li>
-            <li>C. 1953年</li>
-            <li>D. 1956年</li>
-          </div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。1953年正式提出过渡时期总路线。1949年新中国成立，1956年三大改造完成。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】新民主主义社会是一个独立的社会形态。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。新民主主义社会是过渡性社会，是向社会主义过渡的时期，不是独立的社会形态。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】我国对资本主义工商业的改造是从低级国家资本主义到高级国家资本主义逐步过渡的。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>正确</strong>。从加工订货等初级形式，到个别企业公私合营，再到全行业公私合营的高级形式。</div>
-          </details>
-        </div>
-
-      </div>
-    </details>
-
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- 第五章 -->
-<!-- ============================================================ -->
-<section id="ch5" class="chapter fade-in">
-  <div class="chapter-banner ch-bg5">
-    <h2>第五章 · 社会主义建设道路初步探索</h2>
-    <div class="ch-sub">论十大关系 · 两类矛盾 · 工业化道路 · 经验教训</div>
-  </div>
-  <div class="chapter-body">
-
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 《论十大关系》（p94）</h3>
-      <ul>
-        <li><span class="kw">背景</span>：1956年，苏共二十大暴露了苏联模式的弊端，中国需要走自己的社会主义建设道路</li>
-        <li><span class="kw">核心内容</span>：以苏联经验为鉴戒，<span class="kw-red">调动一切积极因素为社会主义事业服务</span></li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 社会主义社会矛盾</h3>
-      <ul>
-        <li><span class="kw">性质</span>：非对抗性的（区别于资本主义社会的对抗性矛盾）</li>
-        <li><span class="kw">特点</span>：<span class="kw-red">可以经过社会主义制度本身不断得到解决</span></li>
-        <li><span class="kw">途径</span>：通过改革和完善社会主义制度来解决</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 两类矛盾的基本方法（p100）</h3>
-      <ul>
-        <li>① <span class="kw">敌我矛盾</span>：用<span class="kw-red">专政</span>方法解决</li>
-        <li>② <span class="kw">人民内部矛盾</span>：用<span class="kw-red">民主</span>方法解决（团结—批评—团结）</li>
         <li class="key-point">正确处理人民内部矛盾是国家政治生活的主题</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 社会主义社会矛盾的意义</h3>
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">党在八大前后，特别是毛泽东在1957年所作的（<strong>D</strong>）报告系统论述了社会主义社会矛盾的理论<br>A.《论十大关系》　B.《实践论》　C.《矛盾论》　<strong>D.《关于正确处理人民内部矛盾的问题》</strong></div>
+    </div>
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">毛泽东指出社会主义社会的基本矛盾是（<strong>B</strong>）<br>A. 人民内部矛盾　<strong>B. 生产关系和生产力之间，上层建筑和经济基础之间的矛盾</strong>　C. 敌我矛盾　D. 工人阶级和资产阶级的矛盾</div>
+    </div>
+
+    <!-- ===== 知识卡片：中国工业化道路 ===== -->
+    <div class="kp-card" style="border-left-color:#2a7a2a;">
+      <h3>📌 中国工业化道路（p101）</h3>
       <ul>
-        <li>① 创造性地提出了社会主义社会矛盾学说</li>
-        <li>② 为社会主义改革提供了理论依据</li>
-        <li>③ 丰富和发展了马克思主义理论</li>
+        <li><span class="kw">历史必然</span>：实现工业化是近代以来历史发展的必然要求，也是民族独立和国家富强的必要条件</li>
+        <li><span class="kw">核心方针</span>：<span class="kw-red">以工业为主导，以农业为基础，以农轻重为序发展国民经济</span></li>
+        <li><span class="kw">区别于苏联</span>：苏联是优先发展重工业 → 中国走农轻重按比例协调发展的道路（以苏联为鉴戒）</li>
+        <li><span class="kw">关键要点</span>：
+          <ul>
+            <li>必须采取正确的经济建设方针</li>
+            <li>必须调整和完善所有制结构</li>
+            <li>毛泽东强调：<span class="kw">农业是国民经济的基础</span></li>
+          </ul>
+        </li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 中国工业化道路</h3>
+    <!-- ===== 知识卡片：三个主体三个补充 ===== -->
+    <div class="kp-card" style="border-left-color:#2a7a2a;">
+      <h3>📌 "三个主体、三个补充"（陈云提出）</h3>
+      <table class="comp-table">
+        <tr><th>领域</th><th>主体</th><th>补充</th></tr>
+        <tr><td>工商业经营</td><td><strong>国家经营和集体经营</strong></td><td>一定数量的个体经营</td></tr>
+        <tr><td>生产计划</td><td><strong>计划生产</strong></td><td>一定范围的自由生产</td></tr>
+        <tr><td>市场</td><td><strong>国家市场</strong></td><td>一定范围的自由市场</td></tr>
+      </table>
       <ul>
-        <li><span class="kw">核心思想</span>：<span class="kw-red">以农业为基础，以工业为主导</span></li>
-        <li><span class="kw">基本方针</span>：<span class="kw">农轻重</span>按比例协调发展（农业→轻工业→重工业）</li>
-        <li>区别于苏联优先发展重工业的道路</li>
-        <li>毛泽东提出：<span class="kw">农业是国民经济的基础</span></li>
+        <li class="key-point">体现了计划与市场的有机结合，是经济体制改革的思想先导</li>
+        <li><span class="kw-red">注意：是陈云提出的，不是毛泽东！</span>（高频易错）</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 初步探索的理论成果（3个主要）</h3>
+    <!-- ===== 知识卡片：其他理论成果 ===== -->
+    <div class="kp-card" style="border-left-color:#2a7a2a;">
+      <h3>📌 其他重要理论成果</h3>
       <ul>
-        <li>① <span class="kw">《论十大关系》</span> — 调动一切积极因素</li>
-        <li>② <span class="kw">《关于正确处理人民内部矛盾的问题》</span> — 社会主义社会矛盾学说</li>
-        <li>③ <span class="kw">中国工业化道路</span> — 以农业为基础、工业为主导</li>
+        <li><span class="kw">社会主义发展阶段</span>：<span class="kw-red">不发达的社会主义 → 比较发达的社会主义</span>（两阶段论）</li>
+        <li><span class="kw">四个现代化</span>（1964年底周恩来在三届全国人大一次会议提出）：<span class="kw">现代农业、现代工业、现代国防、现代科学技术</span></li>
+        <li><span class="kw">两步走战略</span>：第一步建成独立完整的工业体系和国民经济体系；第二步全面实现四个现代化</li>
+        <li><span class="kw">"三个世界划分"</span>：苏美两个超级大国是第一世界；苏美以外的西方发达国家和东欧国家是第二世界；亚非拉广大发展中国家是第三世界</li>
+        <li><span class="kw">两个"中间地带"</span>：亚洲、非洲、拉丁美洲是第一个中间地带；欧洲、北美、大洋洲是第二个中间地带</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 三主体三设想</h3>
-      <ul>
-        <li>陈云提出：<span class="kw">三个主体、三个补充</span></li>
-        <li>① 在工商业经营方面：国家经营和集体经营是<span class="kw">主体</span>，个体经营为<span class="kw">补充</span></li>
-        <li>② 在生产计划方面：计划生产是<span class="kw">主体</span>，自由生产为<span class="kw">补充</span></li>
-        <li>③ 在市场方面：国家市场是<span class="kw">主体</span>，自由市场为<span class="kw">补充</span></li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
+    <!-- ===== 知识卡片：初步探索的意义和经验教训 ===== -->
+    <div class="kp-card" style="border-left-color:#2a7a2a;">
       <h3>📌 初步探索的意义</h3>
       <ul>
-        <li>① 巩固和发展了社会主义制度</li>
-        <li>② 为中国特色社会主义提供了宝贵经验、理论准备、物质基础</li>
-        <li>③ 丰富了马克思主义理论宝库</li>
+        <li>① <span class="kw">巩固和发展了社会主义制度</span></li>
+        <li>② <span class="kw">为开创中国特色社会主义提供了宝贵经验、理论准备、物质基础</span></li>
+        <li>③ <span class="kw">丰富了科学社会主义理论和实践</span></li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#6b3fa0;">
-      <h3>📌 经验教训</h3>
-      <ul>
-        <li>① 必须把马克思主义与中国具体实际相结合</li>
-        <li>② 必须正确认识社会主义社会的主要矛盾和中心任务</li>
-        <li>③ 必须从中国国情出发，走自己的路</li>
-        <li>④ 必须坚持民主集中制和党的集体领导</li>
-        <li>⑤ <span class="kw-red">不能急于求成，要尊重客观规律</span></li>
-      </ul>
+    <div class="kp-card" style="border-left-color:#2a7a2a;">
+      <h3>📌 经验教训（6条 · 简答常考）</h3>
+      <ol>
+        <li>必须把<span class="kw-red">马克思主义与中国实际相结合</span>，探索符合中国特点的社会主义建设道路</li>
+        <li>必须正确认识社会主义社会的<span class="kw-red">主要矛盾和根本任务</span>，集中力量发展生产力</li>
+        <li>必须从实际出发，<span class="kw-red">建设规模与速度要和国力相适应</span>，不能急于求成</li>
+        <li>必须发展<span class="kw-red">社会主义民主、健全社会主义法制</span></li>
+        <li>必须坚持<span class="kw-red">民主集中制和集体领导制度</span>，加强执政党建设</li>
+        <li>必须坚持<span class="kw-red">对外开放</span>，不能关起门来搞建设，要借鉴吸收人类文明成果</li>
+      </ol>
     </div>
 
+    <!-- ===== 易错陷阱 ===== -->
     <div class="trap-box">
-      <div class="trap-title">⚠️ 易错陷阱</div>
-      ① 《论十大关系》的核心是"<span class="kw-red">调动一切积极因素</span>"，不是"农业为基础"（那是工业化道路思想）。<br>
-      ② 两类矛盾：敌我矛盾用专政，人民内部矛盾用民主（团结—批评—团结）。<br>
-      ③ "三主体三补充"是<span class="kw-red">陈云</span>提出的，不是毛泽东。<br>
-      ④ 中国工业化道路核心是"农轻重"协调发展，区别于苏联优先重工业。
+      <div class="trap-title">⚠️ 易错陷阱 · 第四章</div>
+      ① 《论十大关系》的<strong>第一大关系</strong>是"重工业和轻工业、农业的关系"——这是<span class="kw-red">单选高频考点</span>，必须记牢！<br>
+      ② 社会主义社会基本矛盾 = <span class="kw-red">生产关系vs生产力 + 上层建筑vs经济基础</span>——两对矛盾，缺一不可。<br>
+      ③ 两类矛盾：敌我矛盾→<span class="kw-red">专政</span>（对抗性），人民内部矛盾→<span class="kw-red">民主</span>（非对抗性）。<strong>正确处理人民内部矛盾是国家政治生活的主题</strong>——判断常考！<br>
+      ④ "三个主体、三个补充"是<span class="kw-red">陈云</span>提出的，不是毛泽东——这是经典混淆项。<br>
+      ⑤ 四个现代化：农→工→国防→科技，顺序要记准。提出时间是<span class="kw-red">1964年</span>。<br>
+      ⑥ 中国工业化道路：<span class="kw-red">农轻重</span>协调发展（不是苏联的优先重工业）。
     </div>
 
-    <!-- 自测 -->
+    <!-- ===== 自测练习 ===== -->
     <details class="self-test">
-      <summary>🎯 自测练习 · 第五章（6单选 + 2判断）</summary>
+      <summary>🎯 自测练习 · 第四章（6单选 + 2判断 + 1简答）</summary>
       <div class="test-content">
 
+        <!-- 单选1 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】《论十大关系》的核心思想是（  ）</div>
+          <div class="q-stem">【单选题】《论十大关系》中论述的第一大关系是（  ）</div>
           <div class="q-options">
-            <li>A. 以农业为基础，以工业为主导</li>
-            <li>B. 调动一切积极因素为社会主义事业服务</li>
-            <li>C. 正确处理人民内部矛盾</li>
-            <li>D. 优先发展重工业</li>
+            <li>A. 沿海工业和内地工业的关系</li>
+            <li>B. 中央和地方的关系</li>
+            <li>C. 重工业和轻工业、农业的关系</li>
+            <li>D. 经济建设和国防建设的关系</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。以苏联为鉴戒，调动一切积极因素为社会主义事业服务是《论十大关系》的核心思想。</div>
+            <div class="reveal-ans">✅ <strong>C</strong>。《论十大关系》论述的第一大关系是重工业和轻工业、农业的关系。这是毛泽东借鉴苏联片面发展重工业的教训而提出的核心关系。A是第二大关系。</div>
           </details>
         </div>
 
+        <!-- 单选2 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】解决人民内部矛盾的方法是（  ）</div>
+          <div class="q-stem">【单选题】毛泽东系统论述社会主义社会矛盾理论的著作是（  ）</div>
           <div class="q-options">
-            <li>A. 专政</li>
-            <li>B. 民主（团结—批评—团结）</li>
-            <li>C. 暴力革命</li>
-            <li>D. 自由放任</li>
+            <li>A. 《论十大关系》</li>
+            <li>B. 《实践论》</li>
+            <li>C. 《矛盾论》</li>
+            <li>D. 《关于正确处理人民内部矛盾的问题》</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。人民内部矛盾用民主方法解决，即团结—批评—团结。敌我矛盾才用专政方法。</div>
+            <div class="reveal-ans">✅ <strong>D</strong>。1957年2月《关于正确处理人民内部矛盾的问题》系统论述了社会主义社会矛盾理论。陷阱：《论十大关系》是探索开端，但系统论述矛盾理论是这部著作。</div>
           </details>
         </div>
 
+        <!-- 单选3 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】中国工业化道路的基本方针是（  ）</div>
+          <div class="q-stem">【单选题】社会主义社会的基本矛盾是（  ）</div>
           <div class="q-options">
-            <li>A. 优先发展重工业</li>
-            <li>B. 农轻重按比例协调发展</li>
-            <li>C. 以农业代替工业</li>
-            <li>D. 重点发展轻工业</li>
+            <li>A. 敌我矛盾和人民内部矛盾</li>
+            <li>B. 生产关系和生产力之间、上层建筑和经济基础之间的矛盾</li>
+            <li>C. 工人阶级和资产阶级的矛盾</li>
+            <li>D. 人民日益增长的物质文化需要和落后的社会生产之间的矛盾</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。中国工业化道路以农业为基础、工业为主导，农轻重按比例协调发展，区别于苏联优先发展重工业的模式。</div>
+            <div class="reveal-ans">✅ <strong>B</strong>。基本矛盾是两对：生产关系vs生产力 + 上层建筑vs经济基础。A是两类矛盾（社会矛盾的表现形式），D是主要矛盾。</div>
           </details>
         </div>
 
+        <!-- 单选4 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】"三主体三补充"的提出者是（  ）</div>
+          <div class="q-stem">【单选题】"三个主体、三个补充"的提出者是（  ）</div>
           <div class="q-options">
             <li>A. 毛泽东</li>
             <li>B. 周恩来</li>
@@ -1206,47 +2042,73 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
             <li>D. 刘少奇</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>C</strong>。"三主体三补充"是陈云提出的经济体制构想，体现了计划与市场的有机结合。</div>
+            <div class="reveal-ans">✅ <strong>C</strong>。陈云提出"三个主体、三个补充"的经济体制构想。这是非常高频的考点，务必记住提出者是陈云而非毛泽东。</div>
           </details>
         </div>
 
+        <!-- 单选5 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】社会主义社会的矛盾性质是（  ）</div>
+          <div class="q-stem">【单选题】标志着党探索中国社会主义建设道路良好开端的是（  ）</div>
           <div class="q-options">
-            <li>A. 对抗性的</li>
-            <li>B. 非对抗性的</li>
-            <li>C. 不可调和的</li>
-            <li>D. 外部矛盾</li>
+            <li>A. 《论十大关系》</li>
+            <li>B. 中共八大</li>
+            <li>C. 《关于正确处理人民内部矛盾的问题》</li>
+            <li>D. 十一届三中全会</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。社会主义社会矛盾是非对抗性的，可以经过社会主义制度本身不断得到解决。</div>
+            <div class="reveal-ans">✅ <strong>A</strong>。《论十大关系》（1956年）标志着党探索中国社会主义建设道路的良好开端。八大是探索的重要成果，十一届三中全会是改革开放的开端。</div>
           </details>
         </div>
 
+        <!-- 单选6 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】《论十大关系》发表的背景是（  ）</div>
+          <div class="q-stem">【单选题】周恩来在1964年提出的"四个现代化"不包括（  ）</div>
           <div class="q-options">
-            <li>A. 新中国成立</li>
-            <li>B. 苏共二十大暴露苏联模式弊端</li>
-            <li>C. 改革开放</li>
-            <li>D. 文化大革命</li>
+            <li>A. 现代农业</li>
+            <li>B. 现代工业</li>
+            <li>C. 现代国防</li>
+            <li>D. 现代服务业</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。1956年苏共二十大后，苏联模式的弊端暴露，中国需要探索自己的社会主义建设道路。</div>
+            <div class="reveal-ans">✅ <strong>D</strong>。"四个现代化"是现代农业、现代工业、现代国防、现代科学技术。没有"现代服务业"。顺序：农→工→国防→科技。</div>
           </details>
         </div>
 
+        <!-- 判断1 -->
         <div class="test-q">
-          <div class="q-stem">【判断题】在社会主义社会，敌我矛盾已经成为国家政治生活的主题。（  ）</div>
+          <div class="q-stem">【判断题】正确处理人民内部矛盾是社会主义国家政治生活的主题。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。正确处理人民内部矛盾才是国家政治生活的主题。敌我矛盾已不是主要矛盾。</div>
+            <div class="reveal-ans">✅ <strong>正确</strong>。这是毛泽东在《关于正确处理人民内部矛盾的问题》中的核心论断。社会主义改造完成后，敌我矛盾已不是主要矛盾，人民内部矛盾上升为国家政治生活的主题。</div>
           </details>
         </div>
 
+        <!-- 判断2 -->
         <div class="test-q">
-          <div class="q-stem">【判断题】中国工业化道路照搬了苏联优先发展重工业的模式。（  ）</div>
+          <div class="q-stem">【判断题】中国工业化道路的核心是照搬苏联优先发展重工业的模式。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。中国工业化道路以苏联为鉴戒，走的是农轻重按比例协调发展的道路，不是照搬苏联模式。</div>
+            <div class="reveal-ans">❌ <strong>错误</strong>。中国工业化道路以苏联为鉴戒，走的是以农业为基础、以工业为主导、<strong>农轻重</strong>按比例协调发展的道路，不是照搬苏联优先发展重工业。</div>
+          </details>
+        </div>
+
+        <!-- 简答1 -->
+        <div class="test-q">
+          <div class="q-stem">【简答题】简述毛泽东关于社会主义社会两类不同性质矛盾理论的主要内容。</div>
+          <details class="test-reveal"><summary>💡 查看答案</summary>
+            <div class="reveal-ans" style="line-height:1.8;">
+              <strong>（一）两类矛盾及其性质：</strong><br>
+              ① <span class="kw">敌我矛盾</span>——对抗性矛盾，是根本利益对立基础上的矛盾。<br>
+              ② <span class="kw">人民内部矛盾</span>——非对抗性矛盾，是在人民利益根本一致基础上的矛盾。<br><br>
+              <strong>（二）解决方法：</strong><br>
+              ① 敌我矛盾 → 用<span class="kw-red">专政</span>方法解决。<br>
+              ② 人民内部矛盾 → 用<span class="kw-red">民主</span>方法解决，即"团结—批评—团结"的公式。<br><br>
+              <strong>（三）处理人民内部矛盾的方针：</strong><br>
+              ① 政治思想领域：团结—批评—团结，说服教育、讨论的方法。<br>
+              ② 物质利益分配：统筹兼顾、适当安排。<br>
+              ③ 科学文化领域：百花齐放、百家争鸣。<br>
+              ④ 共产党和民主党派：长期共存、互相监督。<br><br>
+              <strong>（四）核心论断：</strong><br>
+              正确处理人民内部矛盾是<strong>国家政治生活的主题</strong>。
+            </div>
           </details>
         </div>
 
@@ -1255,144 +2117,260 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
   </div>
 </section>
-
-<!-- ============================================================ -->
-<!-- 第六章 -->
-<!-- ============================================================ -->
-<section id="ch6" class="chapter fade-in">
-  <div class="chapter-banner ch-bg6">
-    <h2>第六章 · 邓小平理论 <span class="badge badge-red" style="font-size:11px;vertical-align:middle;">⭐重点章</span></h2>
-    <div class="ch-sub">本质 · 初级阶段 · 改革开放 · 市场经济 · 一国两制</div>
+<section id="ch5" class="chapter">
+  <div class="chapter-banner ch-bg5">
+    <h2>第五章 · 邓小平理论 <span style="font-size:11px;vertical-align:middle;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;">⭐重点章</span></h2>
+    <div class="ch-sub">形成条件 · 社会主义本质 · 初级阶段 · 改革开放 · 市场经济 · 一国两制</div>
   </div>
   <div class="chapter-body">
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 形成条件</h3>
+    <!-- ===== 知识卡片：形成条件 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 形成条件（三大条件）</h3>
       <ul>
-        <li><span class="kw">时代背景</span>：和平与发展成为时代主题</li>
-        <li><span class="kw">历史根据</span>：社会主义建设正反两方面历史经验</li>
-        <li><span class="kw">现实依据</span>：改革开放和现代化建设的实践</li>
+        <li><span class="kw">时代背景</span>：<span class="kw-red">和平与发展成为时代主题</span>（1987年十三大确认）</li>
+        <li><span class="kw">历史依据</span>：社会主义建设正反两方面经验教训</li>
+        <li><span class="kw">实践基础</span>：改革开放和社会主义现代化建设实践</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 基本问题</h3>
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">邓小平理论形成的时代背景是（<strong>B</strong>）<br>A. 战争与革命成为时代主题　<strong>B. 和平与发展成为时代主题</strong>　C. 世界大战一触即发　D. 冷战格局已经终结</div>
+    </div>
+
+    <!-- ===== 知识卡片：首要基本问题+社会主义本质 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 首要基本理论问题</h3>
       <ul>
-        <li class="key-point"><strong>"什么是社会主义、怎样建设社会主义"</strong> —— 邓小平理论的首要基本问题</li>
+        <li class="key-point"><strong>"什么是社会主义、怎样建设社会主义"</strong> —— 邓小平理论的首要基本理论问题</li>
+        <li>这是邓小平反复思考的<strong>核心问题</strong>，贯穿整个理论体系</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 社会主义本质</h3>
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 社会主义本质（1992年南方谈话 · 论述/简答常考）</h3>
       <ul>
         <li class="key-point"><strong>解放生产力，发展生产力，消灭剥削，消除两极分化，最终达到共同富裕</strong></li>
-        <li><span class="kw-red">五个方面</span>：解放生产力、发展生产力（根本任务）；消灭剥削、消除两极分化（根本要求）；共同富裕（根本目的）</li>
       </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 思想路线</h3>
+      <table class="comp-table">
+        <tr><th>层次</th><th>内容</th><th>定位</th></tr>
+        <tr><td>第一层</td><td>解放生产力，发展生产力</td><td><strong>根本任务</strong>（生产力维度）</td></tr>
+        <tr><td>第二层</td><td>消灭剥削，消除两极分化</td><td><strong>根本要求</strong>（生产关系维度）</td></tr>
+        <tr><td>第三层</td><td>最终达到共同富裕</td><td><strong>根本目的</strong>（价值目标）</td></tr>
+      </table>
       <ul>
-        <li><span class="kw">解放思想、实事求是</span></li>
-        <li>是邓小平理论的<span class="kw-red">精髓</span></li>
+        <li><span class="kw">两项根本原则</span>：①以社会主义公有制为主体 ②共同富裕</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 社会主义初级阶段理论</h3>
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">1992年初邓小平在（<strong>C</strong>）中对社会主义本质作了总结性理论概括<br>A. 十一届三中全会　B. 党的十三大　<strong>C. 南方谈话</strong>　D. 党的十四大</div>
+    </div>
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">邓小平概括的社会主义本质：<strong>解放生产力，发展生产力，消灭剥削，消除两极分化，最终达到共同富裕</strong></div>
+    </div>
+
+    <!-- ===== 知识卡片：思想路线 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 解放思想、实事求是的思想路线（精髓/活的灵魂）</h3>
       <ul>
-        <li>我国正处于并将长期处于<span class="kw">社会主义初级阶段</span></li>
-        <li>这是我国最大的<span class="kw-red">实际</span>和<span class="kw-red">基本国情</span></li>
-        <li>含义：①我国已经是社会主义社会 ②我国的社会主义还处在初级阶段</li>
+        <li><strong>地位</strong>：<span class="kw-red">邓小平理论的精髓和活的灵魂</span></li>
+        <li><span class="kw">十一届三中全会</span>批评"两个凡是"，<span class="kw-red">重新确立实事求是思想路线</span></li>
+        <li><span class="kw">《解放思想，实事求是，团结一致向前看》</span>——十一届三中全会主题报告，<span class="kw-red">开辟新时代的宣言书</span></li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 基本路线</h3>
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">（<strong>A</strong>）是邓小平理论的活的灵魂和精髓<br><strong>A. 解放思想、实事求是的思想路线</strong>　B. 改革开放　C. 四项基本原则　D. 以经济建设为中心</div>
+    </div>
+
+    <!-- ===== 知识卡片：社会主义初级阶段理论 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 社会主义初级阶段理论（党的十三大系统阐述）</h3>
       <ul>
-        <li class="key-point"><strong>"一个中心、两个基本点"</strong></li>
-        <li><span class="kw">一个中心</span>：以经济建设为中心</li>
-        <li><span class="kw">两个基本点</span>：坚持四项基本原则（立国之本）、坚持改革开放（强国之路）</li>
+        <li><span class="kw">两层含义</span>：
+          <ul>
+            <li>① 我国已经是<strong>社会主义社会</strong>（社会性质——必须坚持而不能离开社会主义）</li>
+            <li>② 我国社会主义还处在<strong>初级阶段</strong>（发展程度——必须正视而不能超越这个阶段）</li>
+          </ul>
+        </li>
+        <li><span class="kw">基本特征（十三大概括）</span>：逐步摆脱贫穷落后、由农业国变为工业国、由自然经济半自然经济变为商品经济高度发达等</li>
+        <li><span class="kw">最大实际</span>：<span class="kw-red">现在处于并将长期处于社会主义初级阶段</span>（十五大进一步强调）</li>
+        <li><span class="kw">长期性</span>：从1956年社会主义改造基本完成到21世纪中叶基本实现现代化，至少一百年</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">关于社会主义初级阶段理论表述<strong>不准确</strong>的是（<strong>A</strong>）<br><strong>A. 我国已经进入社会主义社会，是相对比较发达的阶段</strong>　B. 我国已经是社会主义社会　C. 我国社会主义还处在初级阶段　D. 我国正处于并将长期处于社会主义初级阶段</div>
+    </div>
+
+    <!-- ===== 知识卡片：基本路线 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 基本路线："一个中心、两个基本点"</h3>
+      <table class="comp-table">
+        <tr><th>要素</th><th>内容</th><th>地位</th></tr>
+        <tr><td><strong>一个中心</strong></td><td>以经济建设为中心</td><td>兴国之要，党和国家工作的重点</td></tr>
+        <tr><td><strong>基本点一</strong></td><td>坚持四项基本原则</td><td><strong>立国之本</strong>（政治保证）</td></tr>
+        <tr><td><strong>基本点二</strong></td><td>坚持改革开放</td><td><strong>强国之路</strong>（发展动力）</td></tr>
+      </table>
+      <ul>
+        <li>十九大拓展：为把我国建设成为<span class="kw">富强民主文明和谐美丽</span>的社会主义现代化强国而奋斗</li>
+      </ul>
+    </div>
+
+    <!-- ===== 知识卡片：根本任务 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
       <h3>📌 根本任务</h3>
       <ul>
         <li>社会主义的根本任务是<span class="kw-red">发展生产力</span></li>
-        <li>判断一切工作的标准：<span class="kw">"三个有利于"</span>（是否有利于发展社会主义社会生产力、增强综合国力、提高人民生活水平）</li>
+        <li>党和国家的工作重点是<span class="kw">经济建设</span></li>
+        <li><span class="kw">"三个有利于"标准</span>（判断一切工作是非得失的根本标准）：
+          <ul>
+            <li>① 是否有利于发展社会主义社会的<span class="kw-red">生产力</span></li>
+            <li>② 是否有利于增强社会主义国家的<span class="kw-red">综合国力</span></li>
+            <li>③ 是否有利于提高人民的<span class="kw-red">生活水平</span></li>
+          </ul>
+        </li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 三步走战略</h3>
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">社会主义的根本任务是（<strong>D</strong>）<br>A. 消灭剥削　B. 共同富裕　C. 解放生产力　<strong>D. 发展生产力</strong></div>
+    </div>
+
+    <!-- ===== 知识卡片：三步走战略 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 "三步走"发展战略</h3>
+      <table class="comp-table">
+        <tr><th>步骤</th><th>时间节点</th><th>目标</th></tr>
+        <tr><td><strong>第一步</strong></td><td>到1990年</td><td>实现国民生产总值比1980年<strong>翻一番</strong>，解决人民温饱问题</td></tr>
+        <tr><td><strong>第二步</strong></td><td>到20世纪末</td><td>国民生产总值再增长一倍，人民生活达到<strong>小康水平</strong></td></tr>
+        <tr><td><strong>第三步</strong></td><td>到21世纪中叶</td><td>人均GDP达到<strong>中等发达国家水平</strong>，基本实现现代化</td></tr>
+      </table>
+    </div>
+
+    <!-- ===== 知识卡片：改革开放理论 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 改革开放理论（论述常考！）</h3>
       <ul>
-        <li><span class="kw">第一步</span>：1990年，解决温饱</li>
-        <li><span class="kw">第二步</span>：2000年，人民生活达到小康水平</li>
-        <li><span class="kw">第三步</span>：21世纪中叶，基本实现现代化</li>
+        <li><span class="kw">改革是社会主义发展的直接动力</span>（基本矛盾推动）</li>
+        <li><span class="kw">性质</span>：<span class="kw-red">社会主义制度的自我完善和发展</span>，不是否定社会主义基本制度，而是对<strong>体制的根本性变革</strong></li>
+        <li><span class="kw">"三个有利于"标准</span>：是否有利于发展社会主义生产力、是否有利于增强综合国力、是否有利于提高人民生活水平</li>
+        <li><span class="kw">对外开放</span>：对世界所有国家开放，不仅是经济领域，还包括科技、教育、文化</li>
+        <li><span class="kw">对外开放原因</span>：①对历史教训的总结（闭关自守导致落后）②对当代世界科技发展和国际形势的敏锐观察</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 改革开放理论</h3>
+    <!-- ===== 知识卡片：社会主义市场经济理论 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 社会主义市场经济理论（p171 · 重大突破）</h3>
+      <table class="comp-table">
+        <tr><th>时间</th><th>会议/事件</th><th>理论突破</th></tr>
+        <tr><td>1981</td><td>十一届六中全会</td><td>计划经济为主、市场调节为辅</td></tr>
+        <tr><td>1984</td><td>十二届三中全会</td><td>公有制基础上的<strong>有计划的商品经济</strong></td></tr>
+        <tr><td>1987</td><td>十三大</td><td>计划与市场<strong>内在统一</strong></td></tr>
+        <tr><td><strong>1992</strong></td><td><strong>南方谈话</strong></td><td>计划和市场都是<strong>经济手段</strong> → <span class="kw-red">标志着社会主义市场经济理论形成</span></td></tr>
+        <tr><td>1992</td><td>十四大</td><td><strong>正式确立</strong>社会主义市场经济体制目标</td></tr>
+        <tr><td>1997</td><td>十五大</td><td>确立邓小平理论为指导思想并<strong>写入党章</strong></td></tr>
+      </table>
       <ul>
-        <li><span class="kw">性质</span>：社会主义制度的自我完善和发展</li>
-        <li><span class="kw">判断标准</span>："三个有利于"</li>
-        <li><span class="kw">改革重点</span>：从农村到城市，从经济体制到各方面体制</li>
+        <li><span class="kw">核心内涵（三层）</span>：
+          <ul>
+            <li>① 计划经济和市场经济<strong>不是划分社会制度的标志</strong></li>
+            <li>② 计划和市场都是<strong>经济手段</strong></li>
+            <li>③ 市场经济本身<strong>不具有制度属性</strong></li>
+          </ul>
+        </li>
+        <li class="key-point">邓小平原话："计划经济不等于社会主义，资本主义也有计划；市场经济不等于资本主义，社会主义也有市场。"</li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 社会主义市场经济理论</h3>
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">（<strong>A</strong>）正式把建立社会主义市场经济体制确立为我国经济体制改革的目标<br><strong>A. 党的十四大</strong>　B. 党的十三大　C. 南方谈话　D. 党的十五大</div>
+    </div>
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">下列选项对于邓小平社会主义市场经济理论认识<strong>不准确</strong>的是（<strong>C</strong>）<br>A. 计划和市场都是经济手段　B. 市场经济本身不具有制度属性　<strong>C. 计划经济是社会主义的基本特征，市场经济是资本主义特有的东西</strong>　D. 计划经济和市场经济不是划分社会制度的标志</div>
+    </div>
+
+    <!-- ===== 知识卡片：一国两制 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 "一国两制"伟大构想</h3>
       <ul>
-        <li>计划与市场都是<span class="kw-red">经济手段</span>，不是社会主义与资本主义的本质区别</li>
-        <li>社会主义可以和市场经济相结合</li>
-        <li>使市场在资源配置中起<span class="kw">基础性作用</span></li>
+        <li><span class="kw">时间线</span>：
+          <ul>
+            <li><strong>1979年</strong>——《告台湾同胞书》发表</li>
+            <li><strong>1981年</strong>——叶剑英提出九条方针</li>
+            <li><strong>1982年</strong>——"一国两制"构想内容明晰化</li>
+          </ul>
+        </li>
+        <li><span class="kw">核心</span>：<span class="kw-red">坚持一个中国</span>（前提和基础，不可动摇）</li>
+        <li><span class="kw">基本内容</span>：国家主体实行社会主义制度，台湾、香港、澳门保持原有社会制度和生活方式长期不变，实行<strong>高度自治</strong></li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 "一国两制"</h3>
+    <!-- ===== 知识卡片：历史地位 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 历史地位（p188 · 三条）</h3>
+      <ol>
+        <li><span class="kw-red">马克思列宁主义、毛泽东思想的继承和发展</span></li>
+        <li><span class="kw-red">中国特色社会主义理论体系的开篇之作</span></li>
+        <li><span class="kw-red">改革开放和社会主义现代化建设的科学指南</span></li>
+      </ol>
+    </div>
+
+    <!-- 原题嵌入 -->
+    <div class="orig-q">
+      <div class="orig-label">📋 原题再现</div>
+      <div class="orig-text">（<strong>C</strong>）郑重地把邓小平理论同马克思列宁主义、毛泽东思想一起确立为党的指导思想并写入党章<br>A. 党的十三大　B. 党的十四大　<strong>C. 党的十五大</strong>　D. 党的十六大</div>
+    </div>
+
+    <!-- ===== 知识卡片：外交三阶段划分 ===== -->
+    <div class="kp-card" style="border-left-color:#6b3fa0;">
+      <h3>📌 新中国外交三阶段划分</h3>
+      <table class="comp-table">
+        <tr><th>阶段</th><th>时期</th><th>外交战略</th><th>核心内容</th></tr>
+        <tr><td><strong>第一阶段</strong></td><td>新中国成立初期</td><td><strong>"一边倒"</strong></td><td>倒向社会主义阵营，联苏抗美</td></tr>
+        <tr><td><strong>第二阶段</strong></td><td>20世纪70年代</td><td><strong>"三个世界划分"<br>+ 联美遏苏</strong></td><td>"一条线、一大片"战略，联合美国对抗苏联霸权</td></tr>
+        <tr><td><strong>第三阶段</strong></td><td>改革开放后</td><td><strong>独立自主的和平外交政策</strong></td><td>不结盟、不称霸、不当头，全方位外交</td></tr>
+      </table>
       <ul>
-        <li>在统一的国家内，国家主体实行社会主义制度，某些特定地区实行资本主义制度</li>
-        <li>核心：<span class="kw">一个中国</span>（前提和基础）</li>
-        <li>首先用于解决<span class="kw">香港问题</span></li>
+        <li><span class="kw">1987年十三大</span>确认：<span class="kw-red">和平与发展是当今世界两大主题</span></li>
       </ul>
     </div>
 
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 历史地位</h3>
-      <ul>
-        <li>① 中国特色社会主义理论体系的<span class="kw-red">开篇之作</span></li>
-        <li>② 改革开放和现代化建设的科学指南</li>
-        <li>③ 马克思主义中国化的第二次历史性飞跃的重要组成部分</li>
-      </ul>
-    </div>
-
-    <div class="kp-card" style="border-left-color:#c7700f;">
-      <h3>📌 外交三阶段划分</h3>
-      <ul>
-        <li>毛泽东时期："<span class="kw">一边倒</span>"（联苏抗美）</li>
-        <li>20世纪70年代："<span class="kw">一条线、一大片</span>"（联美抗苏）</li>
-        <li>邓小平时期："<span class="kw">不结盟、不称霸、不当头</span>"（真正的不结盟）</li>
-        <li>新时期：<span class="kw">独立自主的和平外交政策</span></li>
-      </ul>
-    </div>
-
+    <!-- ===== 易错陷阱 ===== -->
     <div class="trap-box">
-      <div class="trap-title">⚠️ 易错陷阱</div>
-      ① 邓小平理论首要基本问题是"<span class="kw-red">什么是社会主义、怎样建设社会主义</span>"，不是"什么是初级阶段"。<br>
-      ② 社会主义本质5个方面：解放生产力、发展生产力、消灭剥削、消除两极分化、最终达到共同富裕。<br>
-      ③ "一个中心"是经济建设，"两个基本点"是四项基本原则和改革开放。<span class="kw-red">四项基本原则是立国之本，改革开放是强国之路</span>——不能混淆。<br>
-      ④ 计划与市场都是经济手段，不是社会制度的本质区别。这是邓小平理论的重大突破。<br>
-      ⑤ 外交三阶段：一边倒(毛)→一条线(毛晚期)→不结盟(邓)。注意每个阶段的对应关系。
+      <div class="trap-title">⚠️ 易错陷阱 · 邓小平理论（第五章）</div>
+      ① 邓小平理论首要基本问题是"<span class="kw-red">什么是社会主义、怎样建设社会主义</span>"——不是"什么是初级阶段"或"建设什么样的党"。<br>
+      ② 社会主义本质五句话=五个方面：解放生产力、发展生产力、消灭剥削、消除两极分化、最终达到共同富裕。<strong>全部写出来才算完整</strong>！<br>
+      ③ "一个中心"是经济建设，"两个基本点"是<span class="kw-red">四项基本原则（立国之本）</span>和<span class="kw-red">改革开放（强国之路）</span>——二者地位不能混淆！<br>
+      ④ 计划和市场都是<span class="kw-red">经济手段</span>，不是社会制度的本质区别——这是邓小平最重大的理论突破。<br>
+      ⑤ 社会主义市场经济体制目标正式确立是<span class="kw-red">1992年十四大</span>（不是南方谈话），南方谈话是"标志着理论形成"。<br>
+      ⑥ 邓小平理论写入党章是<span class="kw-red">1997年十五大</span>（不是十四大）。<br>
+      ⑦ 初级阶段两层含义：①<strong>已经是社会主义</strong>（定性）②<strong>还处在初级阶段</strong>（定量）。选项"比较发达的阶段"是错误表述！<br>
+      ⑧ 外交三阶段：一边倒(毛初期)→三个世界+联美遏苏(毛晚期70年代)→独立自主和平外交(邓改革开放后)。注意每个阶段的对应关系。
     </div>
 
-    <!-- 自测 -->
+    <!-- ===== 自测练习 ===== -->
     <details class="self-test">
-      <summary>🎯 自测练习 · 第六章（6单选 + 3判断）</summary>
+      <summary>🎯 自测练习 · 第五章/邓小平理论（5单选 + 2判断）</summary>
       <div class="test-content">
 
+        <!-- 单选1 -->
         <div class="test-q">
           <div class="q-stem">【单选题】邓小平理论的首要基本问题是（  ）</div>
           <div class="q-options">
@@ -1402,10 +2380,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
             <li>D. 新时代坚持和发展什么样的中国特色社会主义</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>A</strong>。"什么是社会主义、怎样建设社会主义"是邓小平理论的首要基本问题。B是党建问题，C是科学发展观，D是新时代课题。</div>
+            <div class="reveal-ans">✅ <strong>A</strong>。"什么是社会主义、怎样建设社会主义"是邓小平理论的首要基本问题。B是"三个代表"的课题，C是科学发展观的课题，D是新时代的课题。</div>
           </details>
         </div>
 
+        <!-- 单选2 -->
         <div class="test-q">
           <div class="q-stem">【单选题】社会主义的根本任务是（  ）</div>
           <div class="q-options">
@@ -1415,80 +2394,65 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
             <li>D. 阶级斗争</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。社会主义的根本任务是发展生产力。共同富裕是根本目的，消灭剥削是根本要求。</div>
+            <div class="reveal-ans">✅ <strong>B</strong>。社会主义的根本任务是发展生产力。共同富裕是根本目的（最终目标），消灭剥削是根本要求。这几个概念定位不能混淆。</div>
           </details>
         </div>
 
+        <!-- 单选3 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】"一个中心、两个基本点"中的"两个基本点"是（  ）</div>
+          <div class="q-stem">【单选题】正式把建立社会主义市场经济体制确立为我国经济体制改革目标的是（  ）</div>
           <div class="q-options">
-            <li>A. 坚持改革开放和自力更生</li>
-            <li>B. 坚持四项基本原则和改革开放</li>
-            <li>C. 坚持社会主义和党的领导</li>
-            <li>D. 坚持人民民主专政和社会主义道路</li>
+            <li>A. 党的十四大</li>
+            <li>B. 党的十三大</li>
+            <li>C. 南方谈话</li>
+            <li>D. 党的十五大</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。两个基本点是坚持四项基本原则（立国之本）和坚持改革开放（强国之路）。</div>
+            <div class="reveal-ans">✅ <strong>A</strong>。1992年党的十四大正式确立社会主义市场经济体制目标。南方谈话标志着理论形成，十五大确立邓小平理论为指导思想并写入党章。</div>
           </details>
         </div>
 
+        <!-- 单选4 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】"一国两制"构想首先用于解决（  ）</div>
+          <div class="q-stem">【单选题】邓小平理论的精髓是（  ）</div>
           <div class="q-options">
-            <li>A. 台湾问题</li>
-            <li>B. 香港问题</li>
-            <li>C. 澳门问题</li>
-            <li>D. 西藏问题</li>
+            <li>A. 解放思想、实事求是</li>
+            <li>B. 改革开放</li>
+            <li>C. 四项基本原则</li>
+            <li>D. 以经济建设为中心</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。"一国两制"首先用于解决香港问题（1997年回归）。台湾问题是其完整构想的最初来源。</div>
+            <div class="reveal-ans">✅ <strong>A</strong>。解放思想、实事求是是邓小平理论的精髓（活的灵魂），贯穿邓小平理论形成和发展的全过程。</div>
           </details>
         </div>
 
+        <!-- 单选5 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】邓小平理论的历史地位是中国特色社会主义理论体系的（  ）</div>
+          <div class="q-stem">【单选题】"一国两制"构想的<strong>核心</strong>是（  ）</div>
           <div class="q-options">
-            <li>A. 完整体系</li>
-            <li>B. 开篇之作</li>
-            <li>C. 最新成果</li>
-            <li>D. 唯一内容</li>
+            <li>A. 高度自治</li>
+            <li>B. 坚持一个中国</li>
+            <li>C. 两种制度并存</li>
+            <li>D. 和平统一</li>
           </div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。邓小平理论是中国特色社会主义理论体系的开篇之作。</div>
+            <div class="reveal-ans">✅ <strong>B</strong>。坚持一个中国是"一国两制"的核心和前提。高度自治是具体安排，两种制度并存是基本内容，和平统一是方式。</div>
           </details>
         </div>
 
+        <!-- 判断1 -->
         <div class="test-q">
-          <div class="q-stem">【单选题】邓小平指出，计划和市场都是（  ）</div>
-          <div class="q-options">
-            <li>A. 社会制度的本质</li>
-            <li>B. 经济手段</li>
-            <li>C. 社会主义的特征</li>
-            <li>D. 资本主义的特征</li>
-          </div>
+          <div class="q-stem">【判断题】四项基本原则是强国之路，改革开放是立国之本。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>B</strong>。计划和市场都是经济手段，不是社会主义与资本主义的本质区别——这是邓小平理论的重大突破。</div>
+            <div class="reveal-ans">❌ <strong>错误</strong>。说反了！<strong>四项基本原则是立国之本</strong>（政治保证），<strong>改革开放是强国之路</strong>（发展动力）。这是超高频判断陷阱，务必记准。</div>
           </details>
         </div>
 
+        <!-- 判断2 -->
         <div class="test-q">
-          <div class="q-stem">【判断题】社会主义本质包括解放生产力、发展生产力、消灭剥削、消除两极分化、最终达到共同富裕五个方面。（  ）</div>
+          <div class="q-stem">【判断题】社会主义初级阶段是指任何国家进入社会主义都会经历的起始阶段。（  ）</div>
           <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>正确</strong>。这是邓小平对社会主义本质的完整概括，五个方面缺一不可。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】坚持四项基本原则是强国之路，改革开放是立国之本。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">❌ <strong>错误</strong>。说反了！四项基本原则是立国之本，改革开放是强国之路。这是高频易错点。</div>
-          </details>
-        </div>
-
-        <div class="test-q">
-          <div class="q-stem">【判断题】"三步走"发展战略中，第一步是到1990年解决人民的温饱问题。（  ）</div>
-          <details class="test-reveal"><summary>💡 查看答案</summary>
-            <div class="reveal-ans">✅ <strong>正确</strong>。第一步(1990)解决温饱，第二步(2000)达到小康，第三步(21世纪中叶)基本实现现代化。</div>
+            <div class="reveal-ans">❌ <strong>错误</strong>。社会主义初级阶段不是泛指任何国家进入社会主义都会经历的起始阶段，而是<strong>特指我国生产力落后、商品经济不发达条件下建设社会主义必然要经历的特定阶段</strong>。这是中国的特殊国情。</div>
           </details>
         </div>
 
@@ -1498,552 +2462,286 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- 论述题 标答 -->
-<!-- ============================================================ -->
-<section id="essays" class="fade-in">
-  <h2 style="font-size:20px;color:#b22222;margin:40px 0 16px;border-bottom:2px solid #f0e8e0;padding-bottom:8px;">📝 论述题标答范文</h2>
 
-  <div style="background:#fefcf3;border:1px solid #f0e4c8;border-radius:10px;padding:16px 20px;margin:16px 0;font-size:14px;">
-    <strong>📌 老师提示 · 论述题策略：</strong><br>
-    第一小题考的是<span class="kw">书上的理论</span>（把标答背熟即可拿分）。<br>
-    第二小题是<span class="kw-red">开放性题</span>，必须<span class="key-point">结合第一小题的理论来作答</span>——先写理论依据，再结合实际展开分析。<br>
-    ⚠️ 不可以脱离理论瞎发挥，必须紧扣第一小题用的理论框架。
+<!-- 速记汇总 -->
+<div class="summary-section" id="summary" style="max-width:960px;margin:32px auto 0;padding:0 16px;">
+  <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.06)">
+  <h2 style="font-size:1.3em;font-weight:700;margin-bottom:16px;color:#960002">📝 考前速记清单</h2>
+  
+  <h3 style="font-size:1.05em;margin:16px 0 10px;color:#960002">🔑 核心名词必背</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px">
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>马克思主义中国化</b>：1938六届六中全会提出，把马克思主义基本原理同中国具体实际相结合</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>毛泽东思想活的灵魂</b>：实事求是、群众路线、独立自主</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>三大法宝</b>：统一战线、武装斗争、党的建设（1939《共产党人发刊词》）</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>新民主主义革命总路线</b>：无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>一化三改</b>：社会主义工业化 + 对农业、手工业、资本主义工商业的社会主义改造</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>和平赎买</b>：对资本主义工商业进行社会主义改造的方式</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>《论十大关系》</b>：1956年，标志党探索社会主义建设道路良好开端</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>两类矛盾</b>：敌我矛盾（对抗性，用专政）+ 人民内部矛盾（非对抗性，用民主）</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>社会主义本质</b>：解放生产力，发展生产力，消灭剥削，消除两极分化，最终达到共同富裕</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>初级阶段两层含义</b>：①已是社会主义 ②还处在不发达阶段</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>一个中心两个基本点</b>：以经济建设为中心，坚持四项基本原则，坚持改革开放</div>
+    <div style="padding:8px 14px;background:#fafafa;border-radius:8px;font-size:13.5px;border-left:3px solid #960002"><b>三个有利于</b>：生产力、综合国力、人民生活水平</div>
   </div>
 
-  <!-- 论述题1 -->
-  <div class="essay-card">
-    <h3>论述一：试述中国社会主义改造的历史必然性、主要经验与重大意义</h3>
-
-    <div class="essay-step">
-      <span class="step-label">第一步 · 定义核心概念</span><br>
-      <span class="kw">社会主义改造</span>是指新中国成立后，中国共产党领导的对农业、手工业和资本主义工商业的社会主义改造（即"三改"），与社会主义工业化（"一化"）共同构成过渡时期总路线（<span class="kw-red">一体两翼</span>）。其目的是实现从<span class="kw">新民主主义社会</span>向<span class="kw">社会主义社会</span>的过渡。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第二步 · 历史必然性（四个方面）</span><br>
-      ① <span class="kw">理论必然</span>：新民主主义社会是过渡性社会，其发展方向只能是社会主义而非资本主义。② <span class="kw">现实需要</span>：工业化需要集中资源，而个体农业和私人资本主义经济不能满足国家工业化对资金、原料和市场的需求。③ <span class="kw">阶级矛盾</span>：土地改革完成后，工人阶级与资产阶级的矛盾、社会主义与资本主义的矛盾上升为主要矛盾。④ <span class="kw">国际环境</span>：西方国家对华封锁，苏联社会主义建设的成功经验提供了外部示范。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第三步 · 主要经验</span><br>
-      ① <span class="kw">同时并举</span>：坚持社会主义工业化与社会主义改造同时并举，工业化是主体、改造是两翼，相互促进。② <span class="kw">逐步过渡</span>：采取从低级到高级逐步过渡的方式（农业：互助组→初级社→高级社；工商业：加工订货→个别合营→全行业合营），避免了社会剧烈震荡。③ <span class="kw">和平方法</span>：对资本主义工商业采取<span class="kw-red">和平赎买</span>政策，不是暴力剥夺，实现了阶级关系的和平转变。④ <span class="kw">自愿互利</span>：农业改造坚持自愿互利、典型示范、国家帮助的原则。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第四步 · 重大意义</span><br>
-      ① <span class="kw">制度变革</span>：1956年三大改造基本完成，标志着社会主义制度在中国基本确立，是中国历史上最深刻最伟大的社会变革。② <span class="kw">发展基础</span>：为当代中国一切发展进步奠定了制度基础和政治前提。③ <span class="kw">理论贡献</span>：丰富和发展了马克思主义关于社会主义改造的理论，特别是和平赎买政策的成功是国际共产主义运动史上的创举。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第五步 · 个人评价与启示</span><br>
-      社会主义改造的胜利证明了中国走社会主义道路的历史必然性。其经验启示我们：改革和制度变迁必须尊重客观规律，坚持渐进式改革方向，处理好改革、发展与稳定的关系。改造后期存在的"要求过急、工作过粗、改变过快"等问题也为后来社会主义建设提供了深刻教训。
-    </div>
+  <h3 style="font-size:1.05em;margin:20px 0 10px;color:#dc2626">⚠️ 最高频易错陷阱</h3>
+  <div style="background:#fff5f5;border:1px solid #fecaca;border-radius:10px;padding:16px;font-size:13.5px;line-height:2">
+    <p>① ❌ "毛泽东思想=中国特色社会主义理论体系的开篇之作" → ✅ 开篇之作是<b>邓小平理论</b></p>
+    <p>② ❌ "农民阶级是革命领导力量" → ✅ 农民是<b>主力军</b>，无产阶级才是<b>领导力量</b></p>
+    <p>③ ❌ "三大法宝=实事求是、群众路线、独立自主" → ✅ 那是<b>活的灵魂</b>，三大法宝是<b>统一战线、武装斗争、党的建设</b></p>
+    <p>④ ❌ "新民主主义革命=社会主义革命" → ✅ 新民主主义革命仍属于<b>资产阶级民主主义革命</b>范畴</p>
+    <p>⑤ ❌ "社会主义社会基本矛盾=敌我+人民内部" → ✅ 那是<b>两类矛盾</b>，基本矛盾是<b>生产力与生产关系、经济基础与上层建筑</b></p>
+    <p>⑥ ❌ "初级阶段=我国已是发达社会主义" → ✅ 我国已是社会主义但<b>还处在不发达阶段</b></p>
   </div>
 
-  <!-- 论述题2 -->
-  <div class="essay-card">
-    <h3>论述二：论邓小平理论对中国特色社会主义的开创性贡献</h3>
-
-    <div class="essay-step">
-      <span class="step-label">第一步 · 定义核心概念</span><br>
-      <span class="kw">邓小平理论</span>是马克思主义中国化的第二次历史性飞跃的重要组成部分，是中国特色社会主义理论体系的<span class="kw-red">开篇之作</span>。它是在和平与发展成为时代主题的历史条件下，在总结我国社会主义建设正反两方面经验和借鉴其他社会主义国家兴衰成败历史经验的基础上，逐步形成和发展起来的。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第二步 · 理论贡献（五个方面）</span><br>
-      ① <span class="kw">社会主义本质论</span>：揭示了"解放生产力、发展生产力、消灭剥削、消除两极分化、最终达到共同富裕"的社会主义本质，回答了"什么是社会主义"这一首要基本问题。<br>
-      ② <span class="kw">社会主义初级阶段论</span>：确认我国正处于并将长期处于社会主义初级阶段，这是最大的实际和基本国情，为制定基本路线提供了根本依据。<br>
-      ③ <span class="kw">社会主义市场经济论</span>：突破"计划=社会主义、市场=资本主义"的教条，指出计划和市场都是经济手段，社会主义也可以搞市场经济。<br>
-      ④ <span class="kw">改革开放理论</span>：指出改革是社会主义制度的自我完善和发展，开放是强国之路，以"三个有利于"作为判断一切工作的标准。<br>
-      ⑤ <span class="kw">"一国两制"</span>：为实现国家统一提供了创造性方案，首先运用于解决香港问题。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第三步 · 实践贡献</span><br>
-      ① 开辟了中国特色社会主义道路——坚持"一个中心、两个基本点"的基本路线。② 推动中国经济持续快速发展，实现了从温饱到小康的历史性跨越。③ 推动中国从封闭半封闭走向全方位对外开放。④ 成功应对了20世纪80年代末90年代初的国内外政治风波，捍卫了社会主义制度。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第四步 · 历史地位</span><br>
-      ① 邓小平理论是中国特色社会主义理论体系的<span class="kw-red">奠基之作</span>和<span class="kw-red">开篇之作</span>，为后续"三个代表"重要思想、科学发展观、习近平新时代中国特色社会主义思想提供了理论起点和逻辑框架。② 它是马克思主义中国化第二次历史性飞跃的重要组成部分。③ 它是指引中国改革开放和现代化建设的科学指南。
-    </div>
-
-    <div class="essay-step">
-      <span class="step-label">第五步 · 现实启示</span><br>
-      邓小平理论的核心精神——<span class="kw">解放思想、实事求是</span>——至今仍是我们不断推进理论创新和实践创新的思想武器。面对新时代的新挑战，要继续发扬邓小平"不争论、大胆地试、大胆地闯"的务实精神，坚持走自己的路，不断把中国特色社会主义推向前进。
-    </div>
-  </div>
-
-</section>
-
-<!-- ========== 简答题速览 ========== -->
-<section class="fade-in" style="margin-top:32px;">
-  <h2 style="font-size:18px;color:#b22222;margin-bottom:16px;border-bottom:2px solid #f0e8e0;padding-bottom:8px;">📝 简答题速览（每题4分）</h2>
-
-  <details class="self-test" style="border-color:#e0a8a8;">
-    <summary>📄 简答1：简述马克思主义中国化的科学内涵</summary>
-    <div class="test-content">
-      <div class="reveal-ans">马克思主义中国化具有三层科学内涵：① <span class="kw">同中国具体实际相结合</span>——把马克思主义基本原理运用于中国革命、建设和改革的实践；② <span class="kw">同中国历史文化相结合</span>——使马克思主义具有中国作风和中国气派（民族化）；③ <span class="kw">随着实践发展而发展</span>——不断回答时代课题，推进理论创新（时代化）。三者缺一不可。</div>
-    </div>
-  </details>
-
-  <details class="self-test" style="border-color:#e0a8a8;">
-    <summary>📄 简答2：简述新民主主义革命总路线</summary>
-    <div class="test-content">
-      <div class="reveal-ans"><span class="key-point">无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命。</span><br>——<span class="kw">领导力量</span>：无产阶级（通过共产党领导）<br>——<span class="kw">革命动力</span>：人民大众（工人、农民、小资产阶级、民族资产阶级）<br>——<span class="kw">革命对象</span>：帝国主义、封建主义、官僚资本主义<br>——<span class="kw">革命性质</span>：资产阶级民主革命（新式的、特殊的）</div>
-    </div>
-  </details>
-
-  <details class="self-test" style="border-color:#e0a8a8;">
-    <summary>📄 简答3：简述社会主义改造中农业改造的原则和三个阶段</summary>
-    <div class="test-content">
-      <div class="reveal-ans"><span class="kw">四项原则</span>：①积极领导、稳步前进的方针 ②自愿互利的原则 ③典型示范的方法 ④国家帮助<br><span class="kw">三个阶段</span>：<br>① <span class="kw">互助组</span>——社会主义萌芽性质<br>② <span class="kw">初级农业生产合作社</span>——半社会主义性质<br>③ <span class="kw">高级农业生产合作社</span>——完全社会主义性质<br>从低级到高级逐步过渡，避免社会剧烈震荡。</div>
-    </div>
-  </details>
-
-  <details class="self-test" style="border-color:#e0a8a8;">
-    <summary>📄 简答4：简述社会主义社会两类矛盾及其解决方法</summary>
-    <div class="test-content">
-      <div class="reveal-ans">社会主义社会存在两类不同性质的矛盾：<br>① <span class="kw-red">敌我矛盾</span>——用<span class="kw">专政</span>方法解决。这是对抗性矛盾。<br>② <span class="kw">人民内部矛盾</span>——用<span class="kw">民主</span>方法解决，即<span class="kw">"团结—批评—团结"</span>的公式。这是非对抗性矛盾。<br><span class="key-point">正确处理人民内部矛盾是国家政治生活的主题。</span></div>
-    </div>
-  </details>
-
-  <details class="self-test" style="border-color:#e0a8a8;">
-    <summary>📄 简答5：简述邓小平关于社会主义本质的概括</summary>
-    <div class="test-content">
-      <div class="reveal-ans"><span class="key-point">"解放生产力，发展生产力，消灭剥削，消除两极分化，最终达到共同富裕。"</span><br>五个方面分为三个层次：<br>① <span class="kw">根本任务</span>：解放生产力、发展生产力（突出生产力地位）<br>② <span class="kw">根本要求</span>：消灭剥削、消除两极分化（体现社会主义与资本主义的本质区别）<br>③ <span class="kw">根本目的</span>：最终达到共同富裕（社会主义的最终目标）<br>这一概括把生产力与生产关系、手段与目的统一起来，是对马克思主义的重大发展。</div>
-    </div>
-  </details>
-</section>
-
-<!-- ========== 速记清单 ========== -->
-<section id="quickref" class="quick-ref fade-in">
-  <h2>⚡ 考前速记清单</h2>
-
-  <h3 style="font-size:14px;color:#555;margin:12px 0 6px;">📌 高频单选关键词</h3>
-  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
-    <span class="badge badge-blue">1917(十月革命)</span>
-    <span class="badge badge-blue">1938(六届六中全会)</span>
-    <span class="badge badge-blue">1953(总路线)</span>
-    <span class="badge badge-blue">1956(改造完成)</span>
-    <span class="badge badge-blue">1945(七大·写入党章)</span>
-    <span class="badge badge-blue">1949(新中国成立)</span>
-    <span class="badge badge-red">半殖民地半封建</span>
-    <span class="badge badge-blue">工人阶级领导</span>
-    <span class="badge badge-blue">农民主力军</span>
-    <span class="badge badge-blue">资产阶级民主革命</span>
-    <span class="badge badge-red">和平赎买</span>
-    <span class="badge badge-blue">一化三改</span>
-    <span class="badge badge-red">农轻重</span>
-    <span class="badge badge-blue">三个有利于</span>
-    <span class="badge badge-blue">共同富裕</span>
-    <span class="badge badge-red">经济手段</span>
-    <span class="badge badge-blue">解放思想实事求是</span>
-  </div>
-
-  <h3 style="font-size:14px;color:#555;margin:12px 0 6px;">📌 判断陷阱TOP10</h3>
-  <table class="comp-table">
-    <tr><th style="width:50%;">易错表述（常判✗）</th><th>正确答案</th></tr>
-    <tr><td>马克思主义传入中国是1919年五四运动</td><td>✗ 1917年十月革命</td></tr>
-    <tr><td>毛泽东思想活的灵魂是三大法宝</td><td>✗ 实事求是、群众路线、独立自主</td></tr>
-    <tr><td>民族资产阶级是革命的领导力量</td><td>✗ 工人阶级是领导，民族资产阶级有革命性和妥协性</td></tr>
-    <tr><td>新民主主义社会是独立的社会形态</td><td>✗ 过渡性社会</td></tr>
-    <tr><td>社会主义制度确立的标志是新中国成立</td><td>✗ 1956年三大改造完成</td></tr>
-    <tr><td>新民主主义革命是社会主义革命</td><td>✗ 资产阶级民主革命</td></tr>
-    <tr><td>四项基本原则是强国之路</td><td>✗ 立国之本（改革开放是强国之路）</td></tr>
-    <tr><td>社会主义社会矛盾是对抗性的</td><td>✗ 非对抗性，可通过制度自身解决</td></tr>
-    <tr><td>"三主体三补充"是毛泽东提出的</td><td>✗ 陈云提出的</td></tr>
-    <tr><td>计划是社会主义的本质特征</td><td>✗ 计划和市场都是经济手段</td></tr>
+  <h3 style="font-size:1.05em;margin:20px 0 10px;color:#7c3aed">📊 各章分值分布预估</h3>
+  <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px">
+    <tr style="background:#960002;color:#fff"><th style="padding:8px 12px;text-align:left">章节</th><th style="padding:8px 12px">单选</th><th style="padding:8px 12px">判断</th><th style="padding:8px 12px">简答</th><th style="padding:8px 12px">论述</th></tr>
+    <tr><td style="padding:8px 12px;border-bottom:1px solid #eee">导论·马克思主义中国化</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">6</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">3</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">—</td></tr>
+    <tr><td style="padding:8px 12px;border-bottom:1px solid #eee">第一章·毛泽东思想</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">6</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">3</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td></tr>
+    <tr><td style="padding:8px 12px;border-bottom:1px solid #eee">第二章·新民主主义革命</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">6</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">2</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">—</td></tr>
+    <tr><td style="padding:8px 12px;border-bottom:1px solid #eee">第三章·社会主义改造</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">6</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">2</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">—</td></tr>
+    <tr><td style="padding:8px 12px;border-bottom:1px solid #eee">第四章·初步探索</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">6</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">2</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">—</td></tr>
+    <tr><td style="padding:8px 12px;border-bottom:1px solid #eee">第五章·邓小平理论</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">5</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">3</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">—</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:center">1</td></tr>
+    <tr style="font-weight:700;background:#fef2f2"><td style="padding:8px 12px">合计</td><td style="padding:8px 12px;text-align:center">35</td><td style="padding:8px 12px;text-align:center">15</td><td style="padding:8px 12px;text-align:center">5</td><td style="padding:8px 12px;text-align:center">2</td></tr>
   </table>
-
-  <h3 style="font-size:14px;color:#555;margin:16px 0 6px;">📌 时间轴速记</h3>
-  <div style="overflow-x:auto;">
-    <table class="comp-table">
-      <tr><th>时间</th><th>事件</th></tr>
-      <tr><td>1917</td><td>俄国十月革命 → 马克思主义传入中国</td></tr>
-      <tr><td>1938</td><td>六届六中全会 → 毛泽东首提"马克思主义中国化"</td></tr>
-      <tr><td>1945</td><td>中共七大 → 毛泽东思想写入党章</td></tr>
-      <tr><td>1949</td><td>新中国成立 → 进入新民主主义社会</td></tr>
-      <tr><td>1953</td><td>提出过渡时期总路线（一化三改）</td></tr>
-      <tr><td>1956</td><td>三大改造基本完成 → 社会主义制度确立；《论十大关系》</td></tr>
-      <tr><td>1957</td><td>《关于正确处理人民内部矛盾的问题》</td></tr>
-      <tr><td>1978</td><td>十一届三中全会 → 改革开放</td></tr>
-      <tr><td>1992</td><td>南方谈话 → 社会主义本质、市场经济理论</td></tr>
-    </table>
   </div>
+</div>
 
-  <h3 style="font-size:14px;color:#555;margin:16px 0 6px;">📌 常考著作与提出者</h3>
-  <table class="comp-table">
-    <tr><th>著作/概念</th><th>提出者</th></tr>
-    <tr><td>《论十大关系》</td><td>毛泽东（1956）</td></tr>
-    <tr><td>三大法宝</td><td>毛泽东《共产党人发刊词》</td></tr>
-    <tr><td>马克思主义中国化</td><td>毛泽东（六届六中全会1938）</td></tr>
-    <tr><td>三主体三补充</td><td>陈云</td></tr>
-    <tr><td>社会主义本质</td><td>邓小平（南方谈话1992）</td></tr>
-    <tr><td>三个有利于</td><td>邓小平（1992）</td></tr>
-    <tr><td>"一个中心、两个基本点"</td><td>中共十三大（1987）</td></tr>
-    <tr><td>"一国两制"</td><td>邓小平</td></tr>
-  </table>
-</section>
+<!-- 页脚 -->
+<div style="max-width:960px;margin:32px auto 0;padding:24px 16px;text-align:center;font-size:12px;color:#999;border-top:1px solid #eee">
+  <p style="font-weight:700;color:#960002;font-size:14px">Built by Hermes × 高兴</p>
+  <p>四川农业大学 · 毛泽东思想和中国特色社会主义理论体系概论 · 2024年期末复习</p>
+  <p>资料整理自2024毛概讲义 + 2022-2023试题C卷 + 2023原题 | 仅供学习参考</p>
+</div>
 
-<!-- ========== 页脚 ========== -->
-<footer class="footer">
-  <p>📖 毛泽东思想和中国特色社会主义理论体系概论 · 期末复习手册</p>
-  <p>四川农业大学 · 经济学院 · 2025-2026学年第2学期</p>
-  <p style="margin-top:4px;">Built by <strong>Hermes × 高兴</strong></p>
-  <p style="margin-top:8px;font-size:11px;">祝考试顺利，每一分都值得 💪</p>
-</footer>
+<!-- AI助教浮动按钮 -->
+<button class="ai-float" onclick="toggleAIPanel()" title="AI助教">🤖</button>
 
-</div><!-- /container -->
+<!-- AI助教面板 -->
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-header">
+    <span>🤖 AI学习助教</span>
+    <span style="cursor:pointer;font-size:18px" onclick="toggleAIPanel()">✕</span>
+  </div>
+  <div class="ai-messages" id="aiMessages">
+    <div class="msg assistant">👋 你好！我是毛概AI助教。选中页面上的文字可以直接问我，也可以在下方输入问题。试试问"新民主主义革命总路线是什么？"</div>
+  </div>
+  <div class="ai-quick" id="aiQuick">
+    <button onclick="quickAsk('马克思主义中国化的科学内涵是什么？')">内涵三层</button>
+    <button onclick="quickAsk('毛泽东思想活的灵魂是什么？')">活的灵魂</button>
+    <button onclick="quickAsk('三大法宝是什么？')">三大法宝</button>
+    <button onclick="quickAsk('社会主义本质是什么？')">社会主义本质</button>
+    <button onclick="quickAsk('过渡时期总路线是什么？')">总路线</button>
+    <button onclick="quickAsk('两类矛盾怎么处理？')">两类矛盾</button>
+  </div>
+  <div class="ai-input-area">
+    <input type="text" id="aiInput" placeholder="输入你的问题..." onkeydown="if(event.key==='Enter')askAI()">
+    <button onclick="askAI()">发送</button>
+  </div>
+</div>
 
 <script>
 // ===== 导航高亮 =====
-const navLinks = document.querySelectorAll('.top-nav a');
-const sections = document.querySelectorAll('.chapter, #overview, #essays, #quickref');
-
-function updateNav(){
-  let current = 'overview';
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if(top < 200) current = sec.id;
-  });
-  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+current));
-}
-window.addEventListener('scroll', updateNav);
-
-// ===== 滚动入场动画 =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, {threshold: 0.1});
-
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
-<!-- ========== AI助教 ========== -->
-<button class="ai-fab" id="aiFab" title="问AI助教">🤖</button>
-<div class="ai-sel-tip" id="aiSelTip">🤖 问AI助教</div>
-
-<div class="ai-panel" id="aiPanel">
-  <div class="ai-phd">
-    <span>🤖 毛概AI助教</span>
-    <button id="aiClose">✕</button>
-  </div>
-  <div class="ai-pmsgs" id="aiMsgs">
-    <div class="empty">选中知识点或输入问题<br>AI助教帮你理解</div>
-  </div>
-  <div class="ai-pinp">
-    <textarea id="aiInput" rows="1" placeholder="输入问题…"></textarea>
-    <button id="aiSend">发送</button>
-  </div>
-</div>
-
-<div class="ai-key-dialog" id="aiKeyDialog">
-  <div class="ai-key-box">
-    <h3>🔑 设置 DeepSeek API Key</h3>
-    <p>输入你的 DeepSeek API Key（首次使用需设置，仅存于本地浏览器）<br>没有？去 <a href="https://platform.deepseek.com/api_keys" target="_blank" style="color:#1a6bb0;">platform.deepseek.com</a> 注册获取</p>
-    <input type="password" id="aiKeyInput" placeholder="sk-...">
-    <div class="btn-row">
-      <button class="btn-cancel" id="aiKeyCancel">跳过</button>
-      <button class="btn-primary" id="aiKeySave">保存</button>
-    </div>
-  </div>
-</div>
-
-<script>
-// ===== AI助教 =====
 (function(){
-  var DEBUG = false;
-  var FAB = document.getElementById('aiFab');
-  var PANEL = document.getElementById('aiPanel');
-  var MSGS = document.getElementById('aiMsgs');
-  var INPUT = document.getElementById('aiInput');
-  var SEND = document.getElementById('aiSend');
-  var CLOSE = document.getElementById('aiClose');
-  var SELTIP = document.getElementById('aiSelTip');
-  var KEY_DLG = document.getElementById('aiKeyDialog');
-  var KEY_INP = document.getElementById('aiKeyInput');
-  var KEY_SAVE = document.getElementById('aiKeySave');
-  var KEY_CANCEL = document.getElementById('aiKeyCancel');
-
-  var API_KEY = localStorage.getItem('ds_key_maogai') || '';
-  var chatHistory = [];
-  var isStreaming = false;
-  var STORAGE_KEY = 'ds_key_maogai';
-
-  // 系统提示词（注入课程知识）
-  function buildSystemPrompt(){
-    return "【角色定位】你是四川农业大学经济学院「毛泽东思想和中国特色社会主义理论体系概论」课程的专业AI助教，由2025-2026学年第2学期毛概课创建。你精通本课程全部6章考点及教材内容，熟悉任课教师的出题风格。\n\n"
-    +"【回答规则】\n"
-    +"① 必须先理解再回答——假设提问者是零基础经济学本科生，用通俗语言+举例+对比解释\n"
-    +"② 控制在200字以内，长篇回答每段不超过4行\n"
-    +"③ 主动提示这个点常考什么题型（单选/判断/简答/论述）\n"
-    +"④ 标注易错陷阱（例如：注意这里是'和平赎买'不是'没收'）\n"
-    +"⑤ 所有回答必须与以下知识体系一致，不得编造\n"
-    +"⑥ 不确定的知识点明确说'这个知识点不在复习范围内'，不要猜测\n"
-    +"⑦ 引用教材中的具体表述时，优先使用教材原话\n\n"
-    +"【考试信息】\n"
-    +"题型：单选题35道/35分 + 判断题15道/15分 + 简答题5道/20分 + 论述题2道/30分\n"
-    +"满分100分，简答每题4分，论述每题15分（需写300-500字小论文）\n\n"
-    +"【基础知识】\n"
-    +"马克思主义=关于无产阶级和人类解放的科学，由马克思主义哲学/政治经济学/科学社会主义三部分组成\n"
-    +"毛泽东思想=马克思主义中国化第一次飞跃的理论成果\n"
-    +"中国特色社会主义理论体系=包括邓小平理论/'三个代表'/科学发展观/习近平新时代中国特色社会主义思想\n"
-    +"社会主义=解放生产力发展生产力消灭剥削消除两极分化最终共同富裕的社会制度\n"
-    +"中国共产党=中国工人阶级的先锋队/中国人民和中华民族的先锋队/中国特色社会主义事业的领导核心\n\n"
-    +"【第一章·马克思主义中国化】\n"
-    +"传入=1917十月革命(李大钊先驱)。主题=实现中华民族伟大复兴。1938六届六中全会(论新阶段)首提'马克思主义中国化'。\n"
-    +"三层科学内涵：①同中国具体实际相结合 ②同中国历史文化结合(中国作风中国气派) ③随实践发展(不断回答时代课题)。\n"
-    +"两次飞跃：毛泽东思想(第一次)、中国特色社会主义理论体系(第二次)。\n"
-    +"四个庄严宣告：站起来(建国)→富起来(改革)→赶上时代(新时代)→伟大复兴不可逆转。\n"
-    +"实践基础=革命建设改革实践。时代背景=战争革命→和平发展。两大理论成果=一脉相承又与时俱进。\n"
-    +"【陷阱】传入是1917非1919；中国化提出是1938六中全会非遵义会议\n\n"
-    +"【第二章·毛泽东思想】\n"
-    +"形成条件：战争革命时代+党领导革命实践+马列传播+工人阶级壮大。写入党章=1945七大。\n"
-    +"初步形成标志=农村包围城市道路理论。6大内容：新民主主义革命/社义革命建设/军队军事/政策策略/思想政治文化/党建。\n"
-    +"活的灵魂三方面：实事求是(精髓核心)、群众路线(一切为了群众从群众中来)、独立自主(走自己的路)。\n"
-    +"历史地位=第一次飞跃/革命建设科学指南/宝贵精神财富。科学评价=功大于过。\n"
-    +"4动力=工人阶级(领导)+农民(主力军)+城市小资产阶级+民族资产阶级。\n"
-    +"著作：星星之火可以燎原/实践论/矛盾论/新民主主义论/论持久战/论联合政府/共产党人发刊词。\n"
-    +"【陷阱】活的灵魂≠三大法宝(统一战线武装斗争党建)；写入党章是七大非遵义会议\n\n"
-    +"【第三章·新民主主义革命】\n"
-    +"国情=半殖民地半封建社会(最基本国情)。主要矛盾=帝国主义与中华民族(最主要)+封建主义与人民大众。\n"
-    +"革命性质=资产阶级民主革命(新式的特殊的，属于世界无产阶级革命一部分)。\n"
-    +"总路线=无产阶级领导的人民大众的反帝反封建反官僚资本主义的革命。\n"
-    +"民族资产阶级两面性=受压迫有革命性+软弱妥协不能领导。\n"
-    +"三大纲领：政治(联合专政民主共和国)、经济(两没收一保护=没收地主土地+没收官僚资本+保护民族工商业)、文化(民族的科学的大众的)。\n"
-    +"道路=农村包围城市武装夺取政权。三大法宝=统一战线+武装斗争+党的建设(共产党人发刊词)[武装和统战是武器党建是战士]。\n"
-    +"【陷阱】革命是资产阶级民主革命非社会主义革命；半殖民地半封建顺序不能反\n\n"
-    +"【第四章·社会主义改造】\n"
-    +"新民主主义社会性质=过渡性(非独立社会形态)。5种经济成分=国营(领导)+合作社(半社)+个体+私人资本主义+国家资本主义。\n"
-    +"主要矛盾=工人阶级vs资产阶级/社义vs资本主义。过渡时期总路线1953=一化三改(一化主体三改两翼)。\n"
-    +"农业改造4方针：积极领导稳步前进+自愿互利+典型示范+国家帮助。3阶段：互助组(萌芽)→初级社(半社)→高级社(完全社)。\n"
-    +"手工业改造=合作化道路。资本主义工商业改造=和平赎买(方法)+初级国家资本主义(加工订货)→高级国家资本主义(公私合营)。\n"
-    +"制度确立=1956三大改造完成→社义初级阶段。改造经验=工业化与改造并举+逐步过渡+和平赎买。\n"
-    +"社义基本制度=人民民主专政+人大制度+公有制按劳分配+多党合作+民族区域自治。\n"
-    +"【陷阱】新民主主义是过渡非独立；和平赎买不是没收；1956非1949\n\n"
-    +"【第五章·社会主义建设道路初步探索】\n"
-    +"论十大关系(1956背景=苏共二十大暴露苏联弊端)=以苏联为鉴戒调动一切积极因素。\n"
-    +"社义矛盾=非对抗性(可经制度自解)。两类矛盾：敌我(专政)+人民内部(民主/团结—批评—团结)[国家政治生活主题]。\n"
-    +"工业化道路=以农业为基础工业为主导/农轻重协调发展(区别苏联优先重工业)。\n"
-    +"三主体三补充(陈云)=国营主体个体补充+计划主体自由补充+国家市场主体自由市场补充。\n"
-    +"初步探索3理论成果=论十大关系+正确处理人民内部矛盾+中国工业化道路。\n"
-    +"经验教训：必须结合国情/正确认识主要矛盾/尊重客观规律不能急于求成。\n"
-    +"【陷阱】三主体三补充是陈云非毛泽东；论十大关系核心是调动积极因素非农业为基础\n\n"
-    +"【第六章·邓小平理论】\n"
-    +"时代背景=和平与发展。历史根据=正反两方面经验。现实依据=改革开放现代化建设实践。\n"
-    +"首要基本问题=什么是社会主义怎样建设社会主义。\n"
-    +"社义本质=解放生产力发展生产力消灭剥削消除两极分化最终共同富裕(根本任务+根本要求+根本目的)。\n"
-    +"精髓=解放思想实事求是。初级阶段=最大实际和基本国情(已经是社义+还处在初级阶段)。\n"
-    +"基本路线=一个中心两个基本点(经济建设为中心+四项基本原则立国之本+改革开放强国之路)。\n"
-    +"根本任务=发展生产力。判断标准=三个有利于(生产力+综合国力+生活水平)。三步走=温饱1990→小康2000→现代化2050。\n"
-    +"市场经济=计划与市场都是经济手段(不是社义资义本质区别)。一国两制=一个中国前提首先用于香港。\n"
-    +"历史地位=中国特色社会主义理论体系开篇之作。外交三阶段=一边倒(毛)→一条线(毛晚期)→不结盟(邓)。\n"
-    +"【陷阱】四项基本原则是立国之本(非强国之路)；计划和市场是手段非本质区别；三步走第一步是温饱非小康\n\n"
-    +"【答题框架·论述题】四步法：①定义核心概念(2行)②理论观点梳理(4-5行)③个人理解评价(3行)④结合现实案例(3-4行)。\n"
-    +"【考试策略·老师提示】重点章=第二章毛泽东思想+第六章邓小平理论(出题最多)。次重点=三个代表/科学发展观(考得少)。第一章马克思主义中国化可能考论述题。简答题考书上理论。论述题第一题考理论第二题开放性须结合第一题理论作答。\n"
-    +"切勿编造，不确定就说'这个知识点不在复习范围内'。";
-  }
-
-  // ===== 选中文字 =====
-  document.addEventListener('mouseup', function(e){
-    setTimeout(function(){
-      var sel = window.getSelection();
-      var text = sel.toString().trim();
-      if(text.length > 5 && text.length < 200){
-        var range = sel.getRangeAt(0);
-        var rect = range.getBoundingClientRect();
-        SELTIP.style.display = 'block';
-        SELTIP.style.left = (rect.left + rect.width/2 - 50) + 'px';
-        SELTIP.style.top = (rect.top - 40) + 'px';
-        SELTIP.dataset.text = text;
-      } else {
-        SELTIP.style.display = 'none';
-      }
-    }, 10);
-  });
-
-  document.addEventListener('click', function(e){
-    if(!e.target.closest('.ai-sel-tip') && !e.target.closest('.ai-panel') && !e.target.closest('.ai-key-dialog')){
-      SELTIP.style.display = 'none';
-    }
-  });
-
-  SELTIP.addEventListener('click', function(){
-    var text = SELTIP.dataset.text;
-    SELTIP.style.display = 'none';
-    openPanel();
-    askAI(text);
-  });
-
-  // ===== 打开面板 =====
-  function openPanel(){
-    PANEL.classList.add('open');
-    if(!API_KEY){
-      KEY_DLG.classList.add('open');
-    }
-  }
-
-  // ===== FAB =====
-  FAB.addEventListener('click', function(){
-    if(PANEL.classList.contains('open')){
-      PANEL.classList.remove('open');
-    } else {
-      openPanel();
-    }
-  });
-
-  CLOSE.addEventListener('click', function(){
-    PANEL.classList.remove('open');
-  });
-
-  // ===== API Key =====
-  if(API_KEY){
-    KEY_INP.value = API_KEY;
-  }
-  KEY_SAVE.addEventListener('click', function(){
-    var k = KEY_INP.value.trim();
-    if(k && k.startsWith('sk-')){
-      API_KEY = k;
-      localStorage.setItem(STORAGE_KEY, k);
-      KEY_DLG.classList.remove('open');
-      addMsg('ai', '✅ API Key 已保存！现在可以问我问题了。');
-    } else {
-      alert('Key格式不对，应以 sk- 开头');
-    }
-  });
-  KEY_CANCEL.addEventListener('click', function(){
-    KEY_DLG.classList.remove('open');
-    if(!API_KEY){
-      addMsg('ai', '⚠️ 未设置API Key，AI助教无法工作。点击🤖按钮可重新设置。');
-    }
-  });
-
-  // ===== 发送消息 =====
-  SEND.addEventListener('click', sendMsg);
-  INPUT.addEventListener('keydown', function(e){
-    if(e.key === 'Enter' && !e.shiftKey){
-      e.preventDefault();
-      sendMsg();
-    }
-  });
-
-  function sendMsg(){
-    var text = INPUT.value.trim();
-    if(!text) return;
-    if(!API_KEY){
-      KEY_DLG.classList.add('open');
-      return;
-    }
-    INPUT.value = '';
-    askAI(text);
-  }
-
-  // ===== 调用API =====
-  function askAI(text){
-    if(isStreaming) return;
-    isStreaming = true;
-    SEND.disabled = true;
-
-    addMsg('user', text);
-    chatHistory.push({role:'user', content:text});
-
-    var bubble = document.createElement('div');
-    bubble.className = 'msg ai';
-    MSGS.appendChild(bubble);
-    MSGS.querySelector('.empty') && MSGS.querySelector('.empty').remove();
-
-    // typing...
-    var typing = document.createElement('div');
-    typing.className = 'typing';
-    typing.innerHTML = '<span></span><span></span><span></span>';
-    bubble.appendChild(typing);
-
-    var fullResp = '';
-    var messages = [{role:'system', content:buildSystemPrompt()}].concat(chatHistory.slice(-10));
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://api.deepseek.com/chat/completions', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization', 'Bearer '+API_KEY);
-    xhr.responseType = 'text';
-
-    var lastProcessed = 0;
-
-    xhr.onprogress = function(){
-      var resp = xhr.responseText;
-      var newChunk = resp.slice(lastProcessed);
-      lastProcessed = resp.length;
-
-      var lines = newChunk.split('\n');
-      for(var i=0;i<lines.length;i++){
-        var line = lines[i].trim();
-        if(line.startsWith('data: ')){
-          var data = line.slice(6);
-          if(data === '[DONE]') continue;
-          try{
-            var parsed = JSON.parse(data);
-            var delta = parsed.choices && parsed.choices[0] && parsed.choices[0].delta;
-            if(delta && delta.content){
-              fullResp += delta.content;
-            }
-          }catch(e){}
+  const navLinks = document.querySelectorAll('.top-nav a');
+  const sections = document.querySelectorAll('.chapter,.summary-section');
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        navLinks.forEach(function(a){a.classList.remove('active')});
+        var el = e.target;
+        var id = el.id;
+        if(!id && el.closest('.summary-section')) id = 'summary';
+        if(id){
+          var link = document.querySelector('.top-nav a[href="#' + id + '"]');
+          if(link) link.classList.add('active');
         }
       }
-      // update bubble
-      if(typing.parentNode) typing.remove();
-      bubble.textContent = fullResp;
-    };
-
-    xhr.onload = function(){
-      isStreaming = false;
-      SEND.disabled = false;
-      if(typing.parentNode) typing.remove();
-      if(fullResp){
-        bubble.textContent = fullResp;
-        chatHistory.push({role:'assistant', content:fullResp});
-      } else {
-        try{
-          var j = JSON.parse(xhr.responseText);
-          bubble.textContent = j.error ? '❌ '+j.error.message : '❌ 无回复';
-        }catch(e){
-          bubble.textContent = '❌ 请求失败，检查Key或网络';
-        }
-      }
-      MSGS.scrollTop = MSGS.scrollHeight;
-    };
-
-    xhr.onerror = function(){
-      isStreaming = false;
-      SEND.disabled = false;
-      if(typing.parentNode) typing.remove();
-      bubble.textContent = '❌ 网络错误，请重试';
-    };
-
-    xhr.send(JSON.stringify({
-      model: 'deepseek-chat',
-      messages: messages,
-      stream: true,
-      max_tokens: 1024
-    }));
-
-    MSGS.scrollTop = MSGS.scrollHeight;
-  }
-
-  function addMsg(role, text){
-    MSGS.querySelector('.empty') && MSGS.querySelector('.empty').remove();
-    var d = document.createElement('div');
-    d.className = 'msg ' + role;
-    d.textContent = text;
-    MSGS.appendChild(d);
-    MSGS.scrollTop = MSGS.scrollHeight;
-  }
+    });
+  },{threshold:0.3});
+  sections.forEach(function(s){observer.observe(s)});
 })();
+
+// ===== 自测折叠 =====
+document.addEventListener('click', function(e){
+  if(e.target.matches('.test-reveal summary') || e.target.matches('.reveal-ans')){
+    // Details/summary handles itself
+    return;
+  }
+  if(e.target.closest('.test-q') && !e.target.closest('details')){
+    var details = e.target.closest('.test-q').querySelector('details');
+    if(details) details.open = !details.open;
+  }
+});
+
+// ===== AI助教知识库 =====
+var KNOWLEDGE = {
+  '马克思主义中国化':'1938年毛泽东在六届六中全会上作《论新阶段》报告，标志着"马克思主义中国化"命题正式提出。
+
+三层科学内涵（p4）：
+①运用马克思主义立场观点方法解决中国实际问题
+②总结实践经验上升为理论，丰富马克思主义宝库
+③用民族语言阐述，植根中华优秀传统文化，具有中国特色、中国风格、中国气派。
+
+两大理论成果：毛泽东思想（第一次飞跃）+ 中国特色社会主义理论体系。',
+  '毛泽东思想活的灵魂':'1981年十一届六中全会决议概括——
+①实事求是：一切从实际出发，理论联系实际，在实践中检验真理和发展真理
+②群众路线：一切为了群众，一切依靠群众，从群众中来，到群众中去
+③独立自主：坚持独立思考，走自己的路，坚定不移维护民族独立和国家主权',
+  '三大法宝':'毛泽东1939年在《〈共产党人〉发刊词》中提出：
+①统一战线：两个联盟（工农联盟+与非劳动人民联盟），策略方针（发展进步势力、争取中间势力、孤立顽固势力）
+②武装斗争：党对军队绝对领导是根本原则
+③党的建设：思想建设放首位，三大优良作风（理论联系实际、密切联系群众、批评与自我批评）
+
+三者关系：统一战线和武装斗争是战胜敌人的两个基本武器，党的组织是掌握这两个武器的英勇战士。',
+  '新民主主义革命总路线':'1948年毛泽东《在晋绥干部会议上的讲话》完整表述：
+无产阶级领导的，人民大众的，反对帝国主义、封建主义和官僚资本主义的革命。
+
+革命对象：帝国主义（首要对象）、封建主义、官僚资本主义
+革命动力：无产阶级（领导）、农民（主力军）、城市小资产阶级、民族资产阶级
+革命性质：资产阶级民主主义革命
+革命前途：社会主义',
+  '社会主义本质':'1992年邓小平南方谈话：
+解放生产力，发展生产力，消灭剥削，消除两极分化，最终达到共同富裕。
+
+两条根本原则：以社会主义公有制为主体，一是共同富裕。',
+  '过渡时期总路线':'1953年中央政治局会议提出：
+从中华人民共和国成立到社会主义改造基本完成。一化三改——
+①"一化"：逐步实现国家社会主义工业化
+②"三改"：逐步实现国家对农业、手工业和资本主义工商业的社会主义改造
+
+1956年底三大改造基本完成，社会主义制度确立。',
+  '两类矛盾':'1957年毛泽东《关于正确处理人民内部矛盾的问题》系统论述：
+①敌我矛盾：对抗性，用专政方法解决
+②人民内部矛盾：非对抗性，用民主方法解决
+
+处理方针：
+- 政治思想：团结—批评—团结
+- 物质利益：统筹兼顾、适当安排
+- 科学文化：百花齐放、百家争鸣
+- 党派关系：长期共存、互相监督
+
+正确处理人民内部矛盾是国家政治生活的主题。',
+  '初级阶段':'1987年十三大系统论述。两层含义：
+①我国已经进入社会主义社会——必须坚持而不能离开社会主义（社会性质）
+②我国的社会主义还处在不发达阶段——必须正视而不能超越初级阶段（发展程度）
+
+最大实际：现在处于并长期处于社会主义初级阶段（十五大）。',
+  '三个有利于':'邓小平提出的检验一切工作是非得失的根本标准：
+①是否有利于发展社会主义社会的生产力
+②是否有利于增强社会主义国家的综合国力
+③是否有利于提高人民的生活水平',
+  '社会主义市场经济':'1992年邓小平南方谈话标志形成：
+"计划多一点还是市场多一点，不是社会主义与资本主义的本质区别。计划经济不等于社会主义，资本主义也有计划；市场经济不等于资本主义，社会主义也有市场。计划和市场都是经济手段。"
+
+1992年十四大正式确立为我国经济体制改革目标。
+
+内涵：①计划和市场不是划分社会制度标志 ②都是经济手段 ③市场经济本身不具有制度属性',
+  '邓小平理论':'形成条件：时代背景（和平与发展）、历史依据（建设经验教训）、实践基础（改革开放实践）
+
+核心内容：
+- 首要问题：什么是社会主义、怎样建设社会主义
+- 精髓/活的灵魂：解放思想、实事求是
+- 社会主义本质（南方谈话）
+- 初级阶段理论（十三大）
+- 基本路线：一个中心两个基本点
+- 根本任务：发展生产力
+- 三步走战略
+- 改革开放+市场经济
+- 一国两制
+
+历史地位：①马列的继承发展 ②中特理论体系开篇之作 ③改革开放和现代化建设科学指南'
+};
+
+function findAnswer(q){
+  q = q.toLowerCase();
+  var best = null, bestScore = 0;
+  for(var kw in KNOWLEDGE){
+    var score = 0;
+    for(var i = 0; i < kw.length; i++){
+      if(q.indexOf(kw[i]) >= 0) score++;
+    }
+    score = score / kw.length;
+    if(score > bestScore){bestScore = score; best = KNOWLEDGE[kw];}
+  }
+  return bestScore > 0.25 ? best : null;
+}
+
+function toggleAIPanel(){
+  document.getElementById('aiPanel').classList.toggle('open');
+}
+
+function addMsg(text, isUser){
+  var div = document.createElement('div');
+  div.className = 'msg ' + (isUser ? 'user' : 'assistant');
+  div.textContent = text;
+  var msgs = document.getElementById('aiMessages');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function quickAsk(q){
+  document.getElementById('aiPanel').classList.add('open');
+  document.getElementById('aiInput').value = q;
+  askAI();
+}
+
+function askAI(){
+  var input = document.getElementById('aiInput');
+  var q = input.value.trim();
+  if(!q) return;
+  addMsg(q, true);
+  input.value = '';
+  var ans = findAnswer(q);
+  setTimeout(function(){
+    if(ans) addMsg(ans, false);
+    else addMsg('📖 我目前的知识库主要覆盖毛概核心考点。请试试问"三大法宝""社会主义本质""两类矛盾"等问题，或选中页面文字来提问~', false);
+  }, 500);
+}
+
+// ===== 选中文字弹出提问 =====
+document.addEventListener('mouseup', function(e){
+  setTimeout(function(){
+    var sel = window.getSelection().toString().trim();
+    var tip = document.getElementById('aiSelTip');
+    if(sel.length > 2 && sel.length < 300){
+      var range = window.getSelection().getRangeAt(0);
+      var rect = range.getBoundingClientRect();
+      if(!tip){
+        tip = document.createElement('div');
+        tip.id = 'aiSelTip';
+        tip.style.cssText = 'position:fixed;z-index:9999;background:#7c3aed;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.35);display:none;white-space:nowrap';
+        tip.textContent = '🤖 问AI助教';
+        tip.onclick = function(){
+          document.getElementById('aiPanel').classList.add('open');
+          document.getElementById('aiInput').value = sel;
+          askAI();
+          tip.style.display = 'none';
+        };
+        document.body.appendChild(tip);
+      }
+      tip.style.display = 'block';
+      tip.style.left = Math.min(rect.left + rect.width/2 - 50, window.innerWidth - 130) + 'px';
+      tip.style.top = (rect.top - 38) + 'px';
+    } else if(tip){
+      tip.style.display = 'none';
+    }
+  }, 10);
+});
+
+document.addEventListener('click', function(e){
+  var tip = document.getElementById('aiSelTip');
+  if(tip && !e.target.closest('#aiSelTip')) tip.style.display = 'none';
+});
+
+// 页面加载入场动画
+document.addEventListener('DOMContentLoaded', function(){
+  var cards = document.querySelectorAll('.knowledge-card,.kp-card');
+  cards.forEach(function(card, i){
+    card.style.animationDelay = (i * 0.03) + 's';
+  });
+});
 </script>
 
 </body>
